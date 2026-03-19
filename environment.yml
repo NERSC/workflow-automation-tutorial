@@ -1,0 +1,44 @@
+name: wf-seminar
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python version (Perlmutter 2026 standard)
+  - python=3.10
+
+  # Core workflow tools
+  - signac=2.3.0
+  - maestrowf=1.1.11
+
+  # Merlin and dependencies
+  - redis-py>=6.0
+  - celery>=5.0
+
+  # AiiDA and dependencies
+  - postgresql>=12.0  # For local development; SPIN deployment uses external
+  - rabbitmq-c  # RabbitMQ C library
+
+  # Common scientific libraries
+  - numpy>=1.21.0
+  - pyyaml>=5.4
+  - click>=8.0
+
+  # Development and testing utilities
+  - pip
+  - git
+
+  # Install remaining packages via pip (not available in conda)
+  - pip:
+      - merlin==1.13.0
+      - aiida-core==2.8.0
+      - aiida-workgraph==0.3.16
+      - signac-flow==0.28.0
+      - psycopg2-binary>=2.8.6
+
+# Notes:
+# 1. This environment assumes Python module is loaded on Perlmutter: module load python
+# 2. Redis, RabbitMQ, PostgreSQL services for Merlin/AiiDA should be deployed separately
+#    (NERSC SPIN recommended) rather than installed in this environment
+# 3. Some packages are installed via pip because they're not available in conda-forge
+#    or conda-forge versions lag behind PyPI
