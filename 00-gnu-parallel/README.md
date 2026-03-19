@@ -113,8 +113,8 @@ Demonstrates proper Slurm batch integration for production workflows. Shows:
 
 GNU Parallel is the foundation, but you'll outgrow it when you need:
 
-| Capability | When to Graduate | Tool |
-|------------|------------------|------|
+| Capability | Tool | When to Graduate |
+|------------|------|------------------|
 | Parameter organization across runs | signac | Filesystem-based state tracking |
 | Multi-step dependencies | Maestro | DAG workflow specification |
 | Distributed coordination | Merlin | Persistent task queues |

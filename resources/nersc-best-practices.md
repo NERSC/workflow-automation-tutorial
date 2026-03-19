@@ -23,7 +23,7 @@ This guide documents best practices, anti-patterns, and configuration tips speci
 - High-performance I/O during runs
 
 ❌ **Do NOT use $SCRATCH for:**
-- Long-term storage (8-week retention policy - files auto-deleted after 12 weeks unused)
+- Long-term storage (12-week retention policy - files auto-deleted after 12 weeks unused)
 - Final results you need to keep
 - Input data that can't be regenerated
 

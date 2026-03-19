@@ -2,15 +2,15 @@
 # Placeholder computational task
 # In real workflow, this processes input data and produces output
 
-TASK_COMMAND=$1
+INPUT_FILE=$1
 
-echo "Processing: $TASK_COMMAND (simulates 5-second computation)"
+echo "Processing: $INPUT_FILE (simulates 5-second computation)"
 
 # Simulate computational work
 sleep 5
 
 # In real workflow:
-# Run the actual analysis command passed as argument
-# $TASK_COMMAND might be: "./analyze.py input_042.dat > output_042.txt"
+# Run the actual analysis command with the input file
+# ./analyze.py input_042.dat > output_042.txt
 
-echo "  -> Complete: $TASK_COMMAND"
+echo "  -> Complete: $INPUT_FILE"

@@ -36,7 +36,7 @@ echo ""
 # - 0.2 second delay between spawns (reduces Slurm controller load)
 parallel \
   -j $SLURM_CPUS_ON_NODE \
-  --joblog parallel_job_${SLURM_JOB_ID}.log \
+  --joblog parallel_job.log \
   --resume-failed \
   --delay 0.2 \
   < task_list.txt
@@ -44,11 +44,11 @@ parallel \
 echo ""
 echo "============================================"
 echo "All tasks complete!"
-echo "Job log: parallel_job_${SLURM_JOB_ID}.log"
+echo "Job log: parallel_job.log"
 echo "============================================"
 echo ""
 echo "To check for failures:"
-echo "  grep -v '^Seq' parallel_job_${SLURM_JOB_ID}.log | awk '\$7 != 0'"
+echo "  grep -v '^Seq' parallel_job.log | awk '\$7 != 0'"
 echo ""
 echo "To retry failed tasks:"
 echo "  sbatch submit_parallel_job.sh"

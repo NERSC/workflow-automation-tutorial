@@ -2,9 +2,10 @@
 # Example 1: Simple Parameter Sweep with GNU Parallel
 # Demonstrates basic parallelization on a single node
 
-# Load GNU Parallel (on Perlmutter)
-# Uncomment if running on compute node:
+# IMPORTANT: Load GNU Parallel module if running on compute node
+# On Perlmutter compute nodes, you MUST uncomment this line:
 # module load parallel
+# (Not needed on login nodes where parallel may already be available)
 
 # Make process_task.sh executable
 chmod +x process_task.sh

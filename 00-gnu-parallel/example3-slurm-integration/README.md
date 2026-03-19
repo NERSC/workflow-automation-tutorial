@@ -134,6 +134,7 @@ parallel \
   -j $SLURM_CPUS_ON_NODE \
   --joblog parallel_job.log \
   --resume-failed \
+  --delay 0.2 \
   < task_list.txt
 ```
 
@@ -143,6 +144,7 @@ parallel \
 - `-j $SLURM_CPUS_ON_NODE` uses all allocated cores (128)
 - `--joblog parallel_job.log` tracks task completion
 - `--resume-failed` skips completed tasks on resubmission
+- `--delay 0.2` reduces Slurm controller load (200ms between task spawns)
 - `< task_list.txt` reads tasks from file
 
 ## Task List Format
