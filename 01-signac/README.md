@@ -23,12 +23,13 @@ signac provides parameter space organization and filesystem-based state manageme
 
 ## Examples
 
-This directory will contain three examples:
-1. Parameter space definition and organization
-2. Slurm job submission with signac-flow
-3. Result aggregation across state points
+This directory contains three examples demonstrating signac's progression:
 
-(Examples will be added in Phase 3)
+1. **example1-parameter-space**: 2D parameter space (temperature × pressure) with automatic directory organization. Shows how signac creates unique hash-based directories for each parameter combination without manual tracking.
+
+2. **example2-job-submission**: signac-flow integration for Slurm job submission. Demonstrates how signac-flow generates submission scripts automatically, one per state point.
+
+3. **example3-aggregation**: Query and aggregate results across the parameter space. Shows how to filter jobs by parameters and combine results for analysis.
 
 ## Further Reading
 
