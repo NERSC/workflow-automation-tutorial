@@ -1,0 +1,33 @@
+description:
+  name: param-sweep
+  description: Parameter sweep with workflow dependencies and result aggregation
+
+env:
+  variables:
+    OUTPUT_DIR: $(WORKSPACE)
+
+global.parameters:
+  SIZE:
+    values: [10, 20, 30]
+    label: SIZE.%%
+
+study:
+  - name: run_simulation
+    description: Run simulation for each SIZE value
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/run_simulation.py \
+          --size $(SIZE) \
+          --output $(OUTPUT_PATH)/output.txt
+        echo "Completed simulation for SIZE=$(SIZE)"
+
+  - name: aggregate_results
+    description: Aggregate results from all SIZE values
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/aggregate_results.py \
+          --workspace $(SPECROOT)/../../$(WORKSPACE) \
+          --pattern "run_simulation_SIZE.*/output.txt" \
+          --output $(OUTPUT_PATH)/summary.txt
+        echo "Aggregation complete, summary at $(OUTPUT_PATH)/summary.txt"
+      depends: [run_simulation_*]
