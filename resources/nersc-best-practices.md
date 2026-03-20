@@ -75,9 +75,9 @@ cp -r $SCRATCH/workflow_project/results /global/cfs/cdirs/yourproject/
 
 ## GNU Parallel Anti-Patterns
 
-### ❌ Anti-Pattern 1: Bash Loop with `srun -n1 --exclusive`
+### ❌ Anti-Pattern 1: Bash Loop with `srun -n1 --exclusive` (srun loop)
 
-**Don't do this:**
+**Don't do this (srun loop anti-pattern):**
 ```bash
 for i in {1..100}; do
   srun -n1 --exclusive ./task.sh $i &
@@ -85,14 +85,14 @@ done
 wait
 ```
 
-**Problem:** Jobs execute in batches based on available resources. CPUs sit idle while waiting for the longest job in each batch to complete.
+**Problem:** Jobs execute in batches based on available resources. CPUs sit idle while waiting for the longest job in each batch to complete. This srun loop pattern is inefficient.
 
 **Do this instead:**
 ```bash
 seq 1 100 | parallel -j $SLURM_CPUS_ON_NODE './task.sh {}'
 ```
 
-**Why:** GNU Parallel maintains a task queue and starts new tasks immediately as resources become available.
+**Why:** GNU Parallel maintains a task queue and starts new tasks immediately as resources become available. Avoid the srun loop pattern entirely.
 
 ### ❌ Anti-Pattern 2: Overusing Job Arrays
 
@@ -294,6 +294,218 @@ iris client info
 ```
 
 Request SPIN access through NERSC account management if needed.
+
+---
+
+## Tool-Specific Slurm Configuration
+
+### signac-flow on Perlmutter
+
+**Submission template** (`submit.sh`):
+```bash
+#!/bin/bash
+#SBATCH --job-name=signac-study
+#SBATCH --account=<your_account>
+#SBATCH --partition=cpu
+#SBATCH --constraint=cpu
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=128
+#SBATCH --time=04:00:00
+#SBATCH --qos=regular
+#SBATCH -o $SCRATCH/%j.log
+
+module load python
+cd $SCRATCH/signac_project
+
+# signac-flow submits tasks to Slurm automatically
+signac run
+```
+
+**Key settings:**
+- **CPUs:** Use `$SLURM_CPUS_ON_NODE` or explicit core count
+- **$SCRATCH:** All workflow files stored here (auto-deleted after 12 weeks)
+- **Account:** Must match allocation account
+- **QOS:** `regular` for production, `debug` for quick testing
+
+**Typical workflow:**
+```bash
+# Initialize signac project in $SCRATCH
+cd $SCRATCH
+signac init YourProject
+cd YourProject
+
+# Define jobs in src/jobs.py
+signac run
+
+# Workflow persists across submissions (state stored in workspace)
+```
+
+**Filesystem pattern:**
+- Input parameters: stored in `workspace/` ($SCRATCH)
+- Results: stored in `workspace/*/result_file.txt` ($SCRATCH)
+- Archive results: copy to CFS after completion
+
+---
+
+### Maestro on Perlmutter
+
+**Batch block configuration** (`spec.yaml`):
+```yaml
+batch:
+  type: slurm
+  partition: cpu
+  constraint: cpu
+  account: "<your_account>"
+  queue: regular
+  # Alternative: queue: debug for testing (max 30 min)
+  time: 240  # minutes (4 hours)
+  nodes: 4
+
+# Job-level overrides in study:
+study:
+  - name: task_group
+    description: "Parameter sweep"
+    launch:
+      cmd: srun -n 1 ./task.sh {PARAM}
+      nodes: 1
+      procs: 1
+```
+
+**QOS selection:**
+- `regular`: Standard production jobs (default)
+- `debug`: Quick testing (max 30 min, max 4 nodes)
+- `shared`: Multi-user node (<= 128 cores), if applicable
+
+**$SCRATCH usage:**
+```bash
+# Run from SCRATCH
+cd $SCRATCH
+maestro run spec.yaml
+
+# Maestro output structure:
+$SCRATCH/maestro-logs/study_<timestamp>/
+  ├── workflows.log
+  ├── YML/
+  └── <study_name>/
+```
+
+**Best practice:** Monitor with `maestro monitor <study_dir>`, copy final results to CFS
+
+---
+
+### Merlin on Perlmutter
+
+**Worker deployment** (`merlin_workers.sh`):
+```bash
+#!/bin/bash
+#SBATCH --job-name=merlin-workers
+#SBATCH --account=<your_account>
+#SBATCH --partition=cpu
+#SBATCH --constraint=cpu
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=128
+#SBATCH --time=04:00:00
+#SBATCH --qos=workflow  # <-- Lightweight coordinator access needed
+#SBATCH -o $SCRATCH/merlin_workers.log
+
+module load python
+cd $SCRATCH/merlin_project
+
+# Start workers on 2 nodes (256 cores total)
+merlin run-workers merlin_spec.yaml
+```
+
+**Workflow spec considerations:**
+```yaml
+merlin:
+  resources:
+    node_packing_count: 1  # 1 task per node
+    # OR for GPU work:
+    node_packing_count: 4  # 4 tasks per GPU node
+
+task:
+  launch:
+    cmd: srun -n1 --cpus-per-task=32 python simulate.py
+```
+
+**Redis deployment** (on SPIN):
+```bash
+# Prerequisites: SPIN access + redis-py installed locally
+# Connect Perlmutter workers to SPIN Redis:
+
+export MERLIN_REDIS_HOST=redis-service.spin-k8s
+export MERLIN_REDIS_PORT=6379
+
+merlin run-workers merlin_spec.yaml
+```
+
+**Filesystem pattern:**
+- Workflow spec: `$SCRATCH/merlin_project/merlin_spec.yaml`
+- Task inputs/outputs: `$SCRATCH/studies/<study_name>/`
+- Logs: `$SCRATCH/studies/<study_name>/logs/`
+- Archive: Copy completed study to CFS after job completes
+
+---
+
+### AiiDA on Perlmutter
+
+**Computer configuration** (after initial setup):
+```bash
+verdi computer configure ssh perlmutter  # or edit ~/.ssh/config
+```
+
+**Slurm template** (`aiida-default.pbs`, auto-generated):
+```bash
+#!/bin/bash
+#SBATCH --job-name={aiida_job_name}
+#SBATCH --account=<your_account>
+#SBATCH --partition=cpu
+#SBATCH --constraint=cpu
+#SBATCH --nodes={num_cores_physical}
+#SBATCH --ntasks={num_cores_physical}
+#SBATCH --time={max_wallclock_seconds}
+#SBATCH --qos=regular
+#SBATCH -o {slurm_log_dir}/aiida-{job_id}.log
+
+{aiida_scheduler_command}
+```
+
+**Daemon mode** (persistent workflow orchestrator with workflow QOS):
+```bash
+#!/bin/bash
+#SBATCH --job-name=aiida-daemon
+#SBATCH --account=<your_account>
+#SBATCH --partition=cpu
+#SBATCH --constraint=cpu
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=8GB
+#SBATCH --time=24:00:00
+#SBATCH --qos=workflow  # <-- Lightweight daemon
+#SBATCH -o $SCRATCH/aiida_daemon.log
+
+module load python
+verdi daemon start
+sleep infinity
+```
+
+**Database configuration** (PostgreSQL on SPIN):
+```bash
+verdi profile configure core.postgresql_dos
+# When prompted:
+# Host: postgres-service.spin-k8s
+# Port: 5432
+# Username: aiida
+# Password: <from SPIN secret>
+# Database: aiida_prod
+```
+
+**Filesystem pattern:**
+- AiiDA repo: `~/.aiida/` (home directory, backed up)
+- Calculations I/O: `/global/cfs/cdirs/yourproject/aiida_runs/` (provenance storage)
+- Temporary files: `$SCRATCH/aiida_work/` (ephemeral)
 
 ---
 
