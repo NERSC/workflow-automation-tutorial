@@ -9,7 +9,7 @@ env:
 batch:
   type: slurm
   host: perlmutter
-  bank: m4408
+  bank: m4408  # Change to your account
   queue: debug
 
 merlin:
@@ -22,7 +22,7 @@ study:
     description: Task that fails randomly, retries automatically
     run:
       cmd: |
-        bash $(SPECROOT)/scripts/flaky_task.sh $(OUTPUT_PATH)/attempt.log
+        bash $(SPECROOT)/scripts/flaky_task.sh $(OUTPUT_PATH)/attempt.log $(MERLIN_RETRY)
       retry_delay: 5
       max_retries: 3
       task_queue: flaky_queue
@@ -52,4 +52,16 @@ study:
         touch $(OUTPUT_PATH)/recovered
       restart: |
         echo "Restarting from checkpoint..."
+        if [ -f $(OUTPUT_PATH)/checkpoint.txt ]; then
+          start=$(cat $(OUTPUT_PATH)/checkpoint.txt)
+        else
+          start=1
+        fi
+        for i in $(seq $start 5); do
+          echo "Processing step $i (restart)"
+          echo $i > $(OUTPUT_PATH)/checkpoint.txt
+          sleep 1
+        done
+        echo "Completed all steps on restart"
+        touch $(OUTPUT_PATH)/recovered
       depends: [flaky_task]

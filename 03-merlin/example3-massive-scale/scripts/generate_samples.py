@@ -14,8 +14,8 @@ def main():
     epochs = np.random.randint(10, 100, n_samples)
 
     # Save as structured array
-    samples = np.core.records.fromarrays([lr, batch_size, epochs],
-                                         names='lr,batch_size,epochs')
+    samples = np.rec.fromarrays([lr, batch_size, epochs],
+                                names='lr,batch_size,epochs')
     np.save(output_file, samples)
 
     print(f"Generated {n_samples} hyperparameter combinations")

@@ -51,6 +51,11 @@ study:
     run:
       cmd: |
         echo "Aggregating results from all PARAM values" > $(OUTPUT_PATH)/summary.txt
+        # Note: This find pattern assumes all process_PARAM.* directories exist in sibling
+        # example1_distributed_* directories at same level as spec.yaml. This limits the
+        # workflow to a single run per parent directory. For repeated runs, either use
+        # different parent directories or implement a results database (see Merlin's
+        # results backend for persistent tracking across multiple workflow runs).
         for p in 1 2 3 4 5; do
           result_file=$(find $(SPECROOT)/../example1_distributed_*/process_PARAM.$p -name result.txt 2>/dev/null | head -1)
           if [ -f "$result_file" ]; then

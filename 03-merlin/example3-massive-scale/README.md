@@ -10,7 +10,7 @@
 
 ## Workflow
 
-Hyperparameter search with 1000 combinations (10 learning_rates × 10 batch_sizes × 10 epochs).
+Hyperparameter search with 1000 randomly sampled combinations (learning_rates, batch_sizes, epochs).
 
 ## Running
 

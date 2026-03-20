@@ -2,6 +2,7 @@
 # Simulates flaky task that fails 50% of the time
 
 ATTEMPT_LOG="$1"
+MERLIN_RETRY_CODE="$2"
 ATTEMPT=1
 
 if [ -f "$ATTEMPT_LOG" ]; then
@@ -17,7 +18,7 @@ echo "Attempt $ATTEMPT"
 if [ $ATTEMPT -lt 4 ]; then
   if [ $((RANDOM % 2)) -eq 0 ]; then
     echo "Task failed (transient error)"
-    exit $(merlin config | grep MERLIN_RETRY | cut -d'=' -f2)
+    exit $MERLIN_RETRY_CODE
   fi
 fi
 
