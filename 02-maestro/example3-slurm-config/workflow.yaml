@@ -1,0 +1,51 @@
+description:
+  name: slurm-config
+  description: Perlmutter-specific Slurm configuration demonstrating batch submission
+
+env:
+  variables:
+    N_SAMPLES: 1000000
+
+batch:
+  type: slurm
+  host: perlmutter
+  bank: m4408              # CHANGE THIS to your NERSC account (e.g., m1234)
+  queue: regular           # Use 'debug' for faster testing (2h limit)
+
+study:
+  - name: setup
+    description: Prepare input data (runs on login node)
+    run:
+      cmd: |
+        echo "Preparing input for computation with N_SAMPLES=$(N_SAMPLES)"
+        echo "$(N_SAMPLES)" > $(OUTPUT_PATH)/input.txt
+        echo "Setup complete at $(OUTPUT_PATH)/input.txt"
+
+  - name: compute
+    description: Run parallel computation (submits to Slurm)
+    run:
+      cmd: |
+        echo "Starting computation with $(N_SAMPLES) samples"
+        echo "Running on $(hostname) with $(nproc) cores"
+        $(LAUNCHER) python $(SPECROOT)/scripts/compute.py \
+          --input $(setup.workspace)/input.txt \
+          --output $(OUTPUT_PATH)/result.txt \
+          --procs $(PROCS)
+        echo "Computation complete, results at $(OUTPUT_PATH)/result.txt"
+      depends: [setup]
+      nodes: 1
+      procs: 64              # Request 64 cores (half of a Perlmutter CPU node)
+      walltime: "00:10:00"   # 10 minutes (adjust based on workload)
+
+  - name: postprocess
+    description: Analyze results (runs on login node)
+    run:
+      cmd: |
+        echo "Analyzing results from computation"
+        RESULT_VALUE=$(cat $(compute.workspace)/result.txt | grep "Result:" | awk '{print $2}')
+        echo "Computation result: $RESULT_VALUE"
+        echo "Analysis complete" > $(OUTPUT_PATH)/summary.txt
+        echo "  Input: $(N_SAMPLES) samples" >> $(OUTPUT_PATH)/summary.txt
+        echo "  Result: $RESULT_VALUE" >> $(OUTPUT_PATH)/summary.txt
+        echo "Summary written to $(OUTPUT_PATH)/summary.txt"
+      depends: [compute]
