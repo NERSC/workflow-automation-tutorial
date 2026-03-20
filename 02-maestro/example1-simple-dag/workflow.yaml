@@ -1,0 +1,46 @@
+description:
+  name: simple-dag
+  description: Four-step sequential workflow demonstrating DAG dependencies
+
+env:
+  variables:
+    SLEEP_TIME: 3
+
+study:
+  - name: prepare
+    description: Generate input data for simulation
+    run:
+      cmd: |
+        bash $(SPECROOT)/scripts/prepare.sh $(OUTPUT_PATH)/input.dat
+        echo "Prepared input data at $(OUTPUT_PATH)/input.dat"
+
+  - name: simulate
+    description: Run simulation using prepared data
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/simulate.py \
+          $(prepare.workspace)/input.dat \
+          $(OUTPUT_PATH)/results.txt \
+          $(SLEEP_TIME)
+        echo "Simulation complete, results at $(OUTPUT_PATH)/results.txt"
+      depends: [prepare]
+
+  - name: analyze
+    description: Analyze simulation results
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/analyze.py \
+          $(simulate.workspace)/results.txt \
+          $(OUTPUT_PATH)/summary.txt
+        echo "Analysis complete, summary at $(OUTPUT_PATH)/summary.txt"
+      depends: [simulate]
+
+  - name: visualize
+    description: Create plots from analysis
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/visualize.py \
+          $(analyze.workspace)/summary.txt \
+          $(OUTPUT_PATH)/plot.txt
+        echo "Visualization complete, plot at $(OUTPUT_PATH)/plot.txt"
+      depends: [analyze]
