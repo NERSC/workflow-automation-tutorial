@@ -1,6 +1,4 @@
 # Slurm outputs
-*.out
-*.err
 slurm-*.log
 slurm-*.out
 slurm-*.err

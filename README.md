@@ -155,8 +155,8 @@ GNU Parallel is repeated as a universal foundation (too fundamental to skip).
 
 ## License
 
-[Specify license - typically MIT or BSD for educational materials]
+MIT License. See LICENSE file for details.
 
 ## Contact
 
-[Specify contact information for seminar questions and repository issues]
+For questions about this seminar, contact the NERSC User Services team or submit an issue in this repository.
