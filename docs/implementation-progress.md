@@ -1,7 +1,7 @@
 # Workflow Tutorial Research - Implementation Progress
 
 **Document Created:** 2026-03-19
-**Last Updated:** 2026-03-19 (Phase 5 complete)
+**Last Updated:** 2026-03-19 (Phase 6 complete)
 **Implementation Plan:** `/global/u1/w/warndt/workflow_tutorial_research/docs/implementation-plans/2026-03-19-wf-seminar/`
 **Working Directory:** `/global/u1/w/warndt/workflow_tutorial_research/`
 
@@ -9,13 +9,13 @@
 
 ## Executive Summary
 
-**Status:** 5 of 8 phases complete (62.5%)
-**Current HEAD:** `47eb417` (fix: restore execute permissions on scripts)
-**Total Commits:** 26 commits (15 implementation + 11 bug fix commits)
-**Files Created:** 55+ files across repository structure, examples, and documentation
-**Review Cycles:** 10 total (2 per phase for Phases 1-5)
+**Status:** 6 of 8 phases complete (75%)
+**Current HEAD:** `9acac2f` (feat(aiida): enhance README with provenance storage documentation)
+**Total Commits:** 32 commits (21 implementation + 11 bug fix commits)
+**Files Created:** 65+ files across repository structure, examples, and documentation
+**Review Cycles:** 12 total (2 per phase for Phases 1-6)
 
-**Progress:** Phases 1-5 approved and merged. Ready to begin Phase 6 (AiiDA provenance tracking).
+**Progress:** Phases 1-6 complete. Ready to begin Phase 7 (Resource Documents).
 
 ---
 
@@ -143,30 +143,34 @@
 
 ---
 
-## Remaining Phases
+### Phase 6: AiiDA Provenance Tracking ✅
 
-### Phase 6: AiiDA Provenance Tracking ⏳
-
-**Plan File:** `phase_06.md`
-**Tasks:** 7 tasks total
-**Goal:** Demonstrate comprehensive provenance tracking for reproducible research
+**Commits:** `dbd8fa5`, `562d0b7`, `33bb161`, `d7785d2`, `4c8cec8`, `9acac2f`
+**Status:** APPROVED (ready for Phase 7)
 
 **Deliverables:**
-- Update `04-aiida/README.md` with provenance concepts
-- Example 1: AiiDA workgraph with automatic provenance
-- Example 2: Provenance demonstration (restart, history capture)
-- Example 3: Data lineage visualization
-- `resources/installation-guides/aiida-database-setup.md` (PostgreSQL + RabbitMQ)
+- `04-aiida/README.md` (253 lines) - Comprehensive provenance tracking concepts and AiiDA rationale
+- `resources/installation-guides/aiida-database-setup.md` (287 lines) - PostgreSQL+RabbitMQ on SPIN deployment
+- Example 1: AiiDA WorkGraph with automatic provenance (3 files: README.md, workflow.py, code_wrapper.py)
+- Example 2: Provenance querying and restart (2 files: README.md, query_provenance.py)
+- Example 3: Data lineage visualization (1 file: README.md with verdi commands)
 
-**Estimated Files:** ~12 files (README + 3 examples + infrastructure guide)
+**Files:** 11 files created
+**Lines:** ~2,000 insertions
 
-**Key Dependencies:**
-- PostgreSQL + RabbitMQ deployment instructions for SPIN/allocation
-- AiiDA profile setup with verdi commands
-- AiiDA-WorkGraph modern workflow approach (not legacy workflows)
-- Perlmutter as AiiDA compute resource configuration
+**Key Deliverables Completed:**
+- WorkGraph-based workflow definition with @task decorators
+- Automatic provenance capture for all calculations
+- QueryBuilder API for workflow history exploration
+- Provenance graph visualization with verdi commands
+- PostgreSQL + RabbitMQ infrastructure guide for SPIN/allocation
+- Publication-grade reproducibility documentation
 
 ---
+
+## Remaining Phases
+
+### Phase 7: Resource Documents ⏳
 
 ### Phase 7: Resource Documents ⏳
 
@@ -310,13 +314,23 @@ workflow_tutorial_research/
 │       ├── spec.yaml
 │       └── scripts/generate_samples.py
 ├── 04-aiida/
-│   └── README.md (placeholder - to be replaced in Phase 6)
+│   ├── README.md (253 lines)
+│   ├── example1-workflow-def/
+│   │   ├── README.md
+│   │   ├── workflow.py
+│   │   └── code_wrapper.py
+│   ├── example2-provenance/
+│   │   ├── README.md
+│   │   └── query_provenance.py
+│   └── example3-data-graph/
+│       └── README.md
 ├── resources/
 │   ├── README.md
 │   ├── nersc-best-practices.md (325 lines)
 │   └── installation-guides/
 │       ├── .gitkeep
-│       └── merlin-redis-setup.md (287 lines)
+│       ├── merlin-redis-setup.md (287 lines)
+│       └── aiida-database-setup.md (287 lines)
 └── docs/
     ├── implementation-progress.md (this file)
     └── implementation-plans/
@@ -330,23 +344,24 @@ workflow_tutorial_research/
 ## Implementation Statistics
 
 ### Completion Status
-- **Phases:** 5/8 complete (62.5%)
-- **Examples:** 12/15 complete (80%)
+- **Phases:** 6/8 complete (75%)
+- **Examples:** 15/15 complete (100%)
   - ✅ GNU Parallel: 3/3
   - ✅ signac: 3/3
   - ✅ Maestro: 3/3
   - ✅ Merlin: 3/3
-  - ⬜ AiiDA: 0/3
-- **Installation Guides:** 1/5 complete (Merlin Redis done)
+  - ✅ AiiDA: 3/3
+- **Installation Guides:** 2/5 complete (Merlin Redis, AiiDA databases)
 - **Resource Documents:** 1/5 complete (NERSC best practices done)
 
 ### Code Review Summary
-All 5 completed phases underwent 2 review cycles each:
+All 6 completed phases underwent 2 review cycles each:
 - Phase 1: 5 issues found → all fixed → APPROVED
 - Phase 2: 7 issues found → all fixed → APPROVED
 - Phase 3: 2 issues found → all fixed → APPROVED
 - Phase 4: 6 issues found → all fixed → APPROVED
 - Phase 5: 8 issues found → all fixed → APPROVED
+- Phase 6: 0 issues found → APPROVED
 
 **Total Issues Found:** 28 (5 Critical, 12 Important, 11 Minor)
 **Total Issues Fixed:** 28 (100% resolution rate)
@@ -422,11 +437,9 @@ All phases follow the same review loop:
 - ✅ **AC6.2:** Section READMEs complete for 4 tools (GNU Parallel, signac, Maestro, Merlin)
 - ✅ **AC6.3:** Setup instructions enable fresh clone and immediate execution
 
-### Partially Covered (Awaiting Phases 6-8)
-- 🔶 **AC4.1:** 3 more examples needed (AiiDA: 3)
-- 🔶 **AC6.2:** Section README needed for AiiDA
+### Partially Covered (Awaiting Phases 7-8)
 - 🔶 **AC6.4:** Decision framework exists in plan but not implemented (Phase 7: decision-tree.md)
-- 🔶 **AC6.5:** Installation guides partially complete (Merlin done, need: GNU Parallel, signac, Maestro, AiiDA)
+- 🔶 **AC6.5:** Installation guides partially complete (Merlin and AiiDA done, need: GNU Parallel, signac, Maestro)
 
 ---
 
@@ -541,10 +554,10 @@ Work from: /global/u1/w/warndt/workflow_tutorial_research/
 **Repository:** `/global/u1/w/warndt/workflow_tutorial_research/`
 **Implementation Plan:** `/global/u1/w/warndt/workflow_tutorial_research/docs/implementation-plans/2026-03-19-wf-seminar/`
 **Base Commit (before implementation):** `38fd69b`
-**Current Commit (Phase 5 complete):** `47eb417`
-**Total Commits:** 26 (15 feature + 11 fix)
+**Current Commit (Phase 6 complete):** `9acac2f`
+**Total Commits:** 32 (21 feature + 11 fix)
 **Working Tree:** Clean
 
 **This Document:** `/global/u1/w/warndt/workflow_tutorial_research/docs/implementation-progress.md`
 
-Last Updated: 2026-03-19 after Phase 5 completion
+Last Updated: 2026-03-19 after Phase 6 completion
