@@ -26,7 +26,7 @@ study:
     run:
       cmd: |
         echo "Starting computation with $(N_SAMPLES) samples"
-        echo "Running on $(hostname) with $(nproc) cores"
+        echo "Running on `hostname` with `nproc` cores"
         $(LAUNCHER) python $(SPECROOT)/scripts/compute.py \
           --input $(setup.workspace)/input.txt \
           --output $(OUTPUT_PATH)/result.txt \
@@ -42,7 +42,7 @@ study:
     run:
       cmd: |
         echo "Analyzing results from computation"
-        RESULT_VALUE=$(cat $(compute.workspace)/result.txt | grep "Result:" | awk '{print $2}')
+        RESULT_VALUE=`cat $(compute.workspace)/result.txt | grep "Result:" | awk '{print $2}'`
         echo "Computation result: $RESULT_VALUE"
         echo "Analysis complete" > $(OUTPUT_PATH)/summary.txt
         echo "  Input: $(N_SAMPLES) samples" >> $(OUTPUT_PATH)/summary.txt

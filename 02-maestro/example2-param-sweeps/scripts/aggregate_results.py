@@ -5,6 +5,7 @@ import argparse
 import glob
 import os
 import re
+import sys
 
 def parse_output_file(filepath):
     """Extract statistics from simulation output file."""
@@ -40,7 +41,7 @@ def main():
 
     if not output_files:
         print(f"ERROR: No files matching pattern {search_pattern}")
-        return 1
+        sys.exit(1)
 
     # Parse all results
     all_results = []

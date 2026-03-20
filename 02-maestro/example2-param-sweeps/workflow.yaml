@@ -31,3 +31,6 @@ study:
           --output $(OUTPUT_PATH)/summary.txt
         echo "Aggregation complete, summary at $(OUTPUT_PATH)/summary.txt"
       depends: [run_simulation_*]
+      # NOTE: The workspace path "$(SPECROOT)/../../$(WORKSPACE)" is fragile and depends on the
+      # specific directory structure. This navigates up from the workflow spec directory to access
+      # the workspace. In production, consider using absolute paths or environment variables.

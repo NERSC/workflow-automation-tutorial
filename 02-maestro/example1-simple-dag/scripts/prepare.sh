@@ -7,7 +7,11 @@ echo "Generating input data..."
 
 # Create simple input file with 10 data points
 for i in {1..10}; do
-  echo "$i $((i * i))" >> "$OUTPUT_FILE"
+  if [ $i -eq 1 ]; then
+    echo "$i $((i * i))" > "$OUTPUT_FILE"
+  else
+    echo "$i $((i * i))" >> "$OUTPUT_FILE"
+  fi
 done
 
 echo "Generated 10 data points in $OUTPUT_FILE"
