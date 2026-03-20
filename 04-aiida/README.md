@@ -139,6 +139,10 @@ verdi process list
 verdi node graph generate <PK>
 ```
 
+## Provenance Storage and Querying
+
+AiiDA's provenance storage in PostgreSQL enables powerful retrospective analysis of computational workflows. Once a workflow completes, the complete provenance graph remains queryable indefinitely, enabling long-term reproducibility and audit trails.
+
 ---
 
 **Next:** See examples for hands-on provenance tracking on Perlmutter.
