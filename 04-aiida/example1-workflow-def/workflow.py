@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Simple WorkGraph workflow demonstrating provenance capture."""
 
-from aiida import orm, engine
+from aiida import orm
 from aiida_workgraph import task, WorkGraph
 
 @task.calcfunction

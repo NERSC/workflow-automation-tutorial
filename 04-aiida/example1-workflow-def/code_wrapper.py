@@ -4,7 +4,7 @@ This module provides patterns for integrating external computational codes
 with AiiDA's provenance system.
 """
 
-from aiida.orm import List, Str, Int, Float, Dict
+from aiida.orm import Dict
 from aiida.engine import calcfunction
 
 
