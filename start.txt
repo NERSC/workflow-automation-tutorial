@@ -1,0 +1,4 @@
+A half day seminar on the practical use of workflow management tools in an HPC environment. The unifying theme will be automation. Organization will be around the different types of tasks that can be automated: preparing computational work, submitting work to systems, responding to outcomes, and organizing data.
+half day seminar on zoom, maybe reserve a room and some people can come in person if they feel like it
+I would be the main presenter, though i'll likely invite other nersc staff members to contribute if their tool specializations line up
+NERSC usersbase
