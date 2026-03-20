@@ -23,7 +23,7 @@ This guide documents best practices, anti-patterns, and configuration tips speci
 - High-performance I/O during runs
 
 ❌ **Do NOT use $SCRATCH for:**
-- Long-term storage (12-week retention policy - files auto-deleted after 12 weeks unused)
+- Long-term storage (8-week retention policy - files auto-deleted after 8 weeks unused)
 - Final results you need to keep
 - Input data that can't be regenerated
 
@@ -324,7 +324,7 @@ signac run
 
 **Key settings:**
 - **CPUs:** Use `$SLURM_CPUS_ON_NODE` or explicit core count
-- **$SCRATCH:** All workflow files stored here (auto-deleted after 12 weeks)
+- **$SCRATCH:** All workflow files stored here (auto-deleted after 8 weeks)
 - **Account:** Must match allocation account
 - **QOS:** `regular` for production, `debug` for quick testing
 
