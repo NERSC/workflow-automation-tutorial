@@ -1,0 +1,41 @@
+description:
+  name: massive-scale
+  description: 1000-task hyperparameter sweep
+
+env:
+  variables:
+    N_SAMPLES: 1000
+
+batch:
+  type: slurm
+  host: perlmutter
+  bank: m4408
+  queue: debug
+
+merlin:
+  resources:
+    - name: hparam_search
+      args: --concurrency 32 -O fair
+  samples:
+    generate:
+      cmd: python $(SPECROOT)/scripts/generate_samples.py $(MERLIN_INFO)/samples.npy $(N_SAMPLES)
+    file: $(MERLIN_INFO)/samples.npy
+    column_labels: [lr, batch_size, epochs]
+
+study:
+  - name: train
+    description: Training task for each hyperparameter combination
+    run:
+      cmd: |
+        echo "Training with lr=$(lr), batch_size=$(batch_size), epochs=$(epochs)"
+        # Simulate training
+        python -c "import time, random; time.sleep(random.uniform(0.1, 0.5)); print('Loss:', random.random())" > $(OUTPUT_PATH)/metrics.txt
+      task_queue: hparam_search
+
+  - name: aggregate
+    description: Aggregate results across all combinations
+    run:
+      cmd: |
+        echo "Processed $(N_SAMPLES) hyperparameter combinations" > $(OUTPUT_PATH)/summary.txt
+        find $(WORKSPACE)/../ -name "metrics.txt" | wc -l >> $(OUTPUT_PATH)/summary.txt
+      depends: [train_*]
