@@ -1,0 +1,61 @@
+description:
+  name: example1-distributed
+  description: Basic distributed workflow with Redis queues
+
+env:
+  variables:
+    OUTPUT_PATH: ./output
+
+batch:
+  type: slurm
+  host: perlmutter
+  bank: m4408
+  queue: debug
+
+global.parameters:
+  PARAM:
+    values: [1, 2, 3, 4, 5]
+    label: PARAM.%%
+
+merlin:
+  resources:
+    - name: simulations
+      args: --concurrency 4 --prefetch-multiplier 1 -O fair
+
+study:
+  - name: generate
+    description: Generate input data
+    run:
+      cmd: |
+        mkdir -p $(OUTPUT_PATH)
+        echo "Generated at $(date)" > $(OUTPUT_PATH)/output.txt
+        for i in {1..5}; do
+          echo "Input data for PARAM $i" >> $(OUTPUT_PATH)/output.txt
+        done
+        echo "Generation complete"
+
+  - name: process
+    description: Process each parameter value (distributed to workers)
+    run:
+      cmd: |
+        python $(SPECROOT)/scripts/process_task.py \
+          --param $(PARAM) \
+          --input $(generate.workspace)/output.txt \
+          --output $(OUTPUT_PATH)/result.txt
+        echo "Processed PARAM=$(PARAM)"
+      depends: [generate]
+      task_queue: simulations
+
+  - name: aggregate
+    description: Aggregate results from all parameter values
+    run:
+      cmd: |
+        echo "Aggregating results from all PARAM values" > $(OUTPUT_PATH)/summary.txt
+        for p in 1 2 3 4 5; do
+          result_file=$(find $(SPECROOT)/../example1_distributed_*/process_PARAM.$p -name result.txt 2>/dev/null | head -1)
+          if [ -f "$result_file" ]; then
+            cat "$result_file" >> $(OUTPUT_PATH)/summary.txt
+          fi
+        done
+        echo "Aggregation complete"
+      depends: [process_*]
