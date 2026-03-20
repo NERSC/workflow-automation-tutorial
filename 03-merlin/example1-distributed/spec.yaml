@@ -9,7 +9,7 @@ env:
 batch:
   type: slurm
   host: perlmutter
-  bank: m4408
+  bank: m4408  # Change to your account
   queue: debug
 
 global.parameters:
