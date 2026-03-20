@@ -6,7 +6,6 @@ This example demonstrates how signac-flow generates Slurm submission scripts
 automatically, one per state point.
 """
 from flow import FlowProject
-import signac
 
 
 class SimulationProject(FlowProject):
@@ -35,4 +34,19 @@ def run_simulation(job):
 
 
 if __name__ == '__main__':
+    import os
+    import sys
+
+    # Check if workspace exists (from example1)
+    workspace_dir = os.path.join(os.getcwd(), 'workspace')
+    parent_workspace = os.path.join(os.path.dirname(os.getcwd()), 'example1-parameter-space', 'workspace')
+
+    if not os.path.exists(workspace_dir) and not os.path.exists(parent_workspace):
+        print("ERROR: No workspace found!")
+        print("\nTo use this example, you must first initialize jobs in example1:")
+        print("  cd ../example1-parameter-space")
+        print("  python init_project.py")
+        print("\nThen return to example2-job-submission and run this script again.")
+        sys.exit(1)
+
     SimulationProject().main()
