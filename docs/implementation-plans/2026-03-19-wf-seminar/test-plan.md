@@ -924,6 +924,85 @@ echo "✓ $REF_COUNT example references (should be 45+)"
 
 ---
 
+## Comprehensive Example Reference Index
+
+This section provides a consolidated reference to all 15 examples and their corresponding test procedures for easy lookup and validation tracking.
+
+### GNU Parallel Examples (3 total)
+1. **00-gnu-parallel/example1-parameter-sweep** - Simple Parameter Sweep (25s estimate)
+2. **00-gnu-parallel/example2-multi-param** - Multi-Parameter Combinations (30s estimate)
+3. **00-gnu-parallel/example3-slurm-integration** - Slurm Integration with Parallel (30s + 2min Slurm)
+
+### signac Examples (3 total)
+4. **01-signac/example1-parameter-space** - Parameter Space Definition (40s estimate)
+5. **01-signac/example2-job-submission** - Job Submission Workflow (2min estimate)
+6. **01-signac/example3-aggregation** - Data Aggregation and Analysis (1.5min estimate)
+
+### Maestro Examples (3 total)
+7. **02-maestro/example1-simple-dag** - Simple DAG Workflow (45s estimate)
+8. **02-maestro/example2-param-sweeps** - Parameter Sweeps with DAG (1.5min estimate)
+9. **02-maestro/example3-slurm-config** - Slurm Configuration Example (1min estimate)
+
+### Merlin Examples (3 total)
+10. **03-merlin/example1-distributed** - Distributed Task Coordination (2min estimate)
+11. **03-merlin/example2-fault-tolerance** - Fault Tolerance with Retries (2.5min estimate)
+12. **03-merlin/example3-massive-scale** - Massive-Scale Parameter Sweep (3min estimate)
+
+### AiiDA Examples (3 total)
+13. **04-aiida/example1-workflow-def** - Workflow Definition with WorkGraph (1.5min estimate)
+14. **04-aiida/example2-provenance** - Provenance Tracking and Querying (2min estimate)
+15. **04-aiida/example3-data-graph** - Data Graph Visualization (2min estimate)
+
+### Test Validation Checkpoints
+
+Each example has the following validation checkpoints that must be verified:
+
+**Pre-Execution Checks:**
+- Example directory structure exists
+- README documentation present and complete
+- Required scripts/configuration files present
+- Dependencies documented in requirements
+
+**Execution Validation:**
+- Example runs without modification (using provided setup)
+- Output matches expected format and structure
+- Exit code returns 0 on successful completion
+- Resource usage within estimated allocations
+
+**Post-Execution Verification:**
+- Output files created in expected locations
+- Data integrity verified (file checksums where applicable)
+- Performance metrics within tolerance (±20% of estimate)
+- Cleanup procedures documented for disk space
+
+### Example Execution Sequence Recommendations
+
+**Sequential Execution (Recommended for Learning):**
+1. Execute examples in order (1-15) to build understanding
+2. Complete each tool section before moving to next
+3. Allow time between examples for output review
+
+**Parallel Execution (For Validation Testing):**
+1. GNU Parallel examples (1-3) can run independently
+2. signac examples (4-6) can run in parallel if resources permit
+3. Maestro examples (7-9) can run in parallel after conda environment setup
+4. Merlin examples (10-12) require Redis broker - must run sequentially after broker deployment
+5. AiiDA examples (13-15) require PostgreSQL/RabbitMQ - must run sequentially after infrastructure setup
+
+### Example Documentation Coverage
+
+Each of the 15 examples includes comprehensive documentation in its README.md:
+- **Conceptual Overview**: What the example demonstrates
+- **Learning Objectives**: What users will understand after completion
+- **Prerequisites**: Required software, knowledge, and resources
+- **Detailed Instructions**: Step-by-step execution guide
+- **Expected Results**: What correct execution produces
+- **Troubleshooting**: Common issues and solutions
+- **Extension Points**: How to modify for different use cases
+- **Further Reading**: Links to official tool documentation
+
+---
+
 ## Implementation Status
 
 **Date:** 2026-03-19
