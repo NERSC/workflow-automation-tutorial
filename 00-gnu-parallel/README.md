@@ -52,8 +52,8 @@ Hello world 4!
 
 Control parallelism with `-j`:
 ```bash
-# Use all cores
-parallel -j +0 command ::: inputs
+# Without `-j` all cores used by default
+parallel command ::: inputs
 
 # Use specific number of cores
 parallel -j 16 command ::: inputs
@@ -68,7 +68,11 @@ Combine parameters with `:::`:
 ```bash
 # Cartesian product: all combinations
 parallel echo {1} {2} ::: A B ::: 1 2
-# Output: A 1, A 2, B 1, B 2
+# Output: 
+A 1
+A 2
+B 1
+B 2
 ```
 
 ### Fault Tolerance
