@@ -6,7 +6,7 @@
 
 ## Overview
 
-GNU Parallel establishes the baseline for workflow automation, demonstrating how to run the same command with different parameters in parallel without dependency management. It's the entry point before graduating to full workflow systems.
+GNU Parallel represents the easiest entry point for workflow automation, demonstrating how to run the same command with different parameters in parallel and without dependency management. It is the first step before graduating to more powerful workflow systems.
 
 **Key capability:** Parallelization without dependencies
 
@@ -14,7 +14,7 @@ GNU Parallel establishes the baseline for workflow automation, demonstrating how
 
 GNU Parallel is superior to job arrays on HPC systems because:
 - **Scheduler efficiency:** One job requesting many cores is prioritized over many jobs requesting few cores
-- **Reduced queue time:** Single submission instead of array of submissions
+- **Reduced queue time:** Single trip through queue instead of many trips, one for each step
 - **Less scheduler load:** Fewer jobs to manage
 - **Built-in recovery:** `--joblog` and `--resume-failed` enable fault tolerance
 
@@ -25,13 +25,13 @@ GNU Parallel is superior to job arrays on HPC systems because:
 - Embarrassingly parallel workloads (no dependencies between tasks)
 - Quick parallelization of shell scripts without framework overhead
 - Tasks that fit on a single node (128 cores on Perlmutter CPU nodes)
-- Simple workflows where results don't feed into subsequent steps
+- Shallow workflows where results don't feed into subsequent steps
 
 ❌ **Not suitable for:**
-- Multi-step workflows with dependencies → use Maestro or Merlin
-- Tracking parameter spaces across multiple runs → use signac
-- Distributed coordination across allocations → use Merlin
-- Comprehensive provenance tracking → use AiiDA
+- Multi-step workflows with dependencies
+- Tracking parameter spaces across multiple runs
+- Distributed coordination across many jobs
+- Provenance recording and preservation
 - Tasks requiring more than single-node resources
 
 ## Core Concepts
@@ -41,7 +41,11 @@ GNU Parallel is superior to job arrays on HPC systems because:
 `{}` is replaced with each input item:
 ```bash
 seq 1 4 | parallel echo "Hello world {}!"
-# Output: Hello world 1! ... Hello world 4!
+# Output: 
+Hello world 1!
+Hello world 2!
+Hello world 3!
+Hello world 4!
 ```
 
 ### Job Control
@@ -109,9 +113,9 @@ Demonstrates proper Slurm batch integration for production workflows. Shows:
 
 **Learning outcome:** Understand how to run GNU Parallel in batch mode on Perlmutter with fault tolerance
 
-## Progression to Workflow Tools
+## Progression to more advanced Workflow Tools
 
-GNU Parallel is the foundation, but you'll outgrow it when you need:
+GNU Parallel is the entry point for parallelism, but you'll outgrow it when you need:
 
 | Capability | Tool | When to Graduate |
 |------------|------|------------------|
@@ -120,7 +124,7 @@ GNU Parallel is the foundation, but you'll outgrow it when you need:
 | Distributed coordination | Merlin | Persistent task queues |
 | Provenance tracking | AiiDA | Full execution history |
 
-**Graduation signal:** If you're writing bash scripts to track "which parameter combinations ran successfully" or "what depends on what," you need a workflow tool.
+**Graduation signal:** If you're writing bash scripts to track "which parameter combinations ran successfully" or with multiple gnu parallel launches that must run in sequence to produce a correct outcome, it's time to consider using a more powerful workflow tool.
 
 ## Anti-Patterns (Common Mistakes)
 
@@ -142,7 +146,6 @@ See `../resources/nersc-best-practices.md` for detailed anti-patterns including:
 #SBATCH --constraint=cpu
 #SBATCH --qos=regular
 
-module load parallel
 seq 1 1000 | parallel -j $SLURM_CPUS_ON_NODE './process_task.sh {}'
 ```
 
