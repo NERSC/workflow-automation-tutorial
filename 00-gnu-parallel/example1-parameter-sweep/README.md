@@ -37,34 +37,45 @@ cd example1-parameter-sweep
 bash run_simple.sh
 ```
 
-This runs with 2 parallel jobs (safe for login node). For full parallelism, submit as batch job (see Example 3).
+This automatically runs with 2 parallel jobs on login nodes (safe) or uses all available cores when run in a Slurm batch job (see Example 3).
 
 **Expected Output:**
 
 ```
 Running 20 tasks with 2 parallel jobs...
+(Automatically detects Slurm allocation or defaults to 2 for login nodes)
+
+Processing tasks in parallel (output order may vary)...
 Processing input 1... (simulates 2-second task)
+Task 1 complete
 Processing input 2... (simulates 2-second task)
+Task 2 complete
 ...
-Processing input 20... (simulates 2-second task)
+
 All tasks complete!
-Sequential time: ~40 seconds
-Parallel time (2 jobs): ~20 seconds
-Parallel time (128 jobs on Perlmutter): <1 second
+Elapsed time: 20 seconds
+
+Analysis:
+- Sequential execution: ~40 seconds (20 tasks × 2 seconds)
+- Parallel execution (2 jobs): ~20 seconds (ceiling(20/2) batches × 2 seconds)
+- Parallel execution (128 jobs on Perlmutter): ~2 seconds
+  (all 20 tasks run simultaneously, limited by single-task duration)
+  Note: 108 of 128 cores would sit idle - this example is too small for a full node!
 ```
 
 ## Key Concepts
 
 1. **Parameter substitution:** `{}` is replaced with each input value (1, 2, 3, ... 20)
-2. **Job control:** `-j 2` limits to 2 parallel jobs (set conservatively for login node)
-3. **Scalability:** On compute node with `$SLURM_CPUS_ON_NODE=128`, this would use all 128 cores
+2. **Job control:** `-j $NJOBS` controls parallelism (defaults to 2 on login nodes, uses `$SLURM_CPUS_ON_NODE` in batch jobs)
+3. **Scalability:** On compute node with `$SLURM_CPUS_ON_NODE=128`, this automatically uses all 128 cores
 
 ## What Happens
 
 1. `seq 1 20` generates numbers 1 through 20
-2. `parallel -j 2` takes each number and runs `./process_task.sh` with it
-3. Two tasks run at a time; when one finishes, the next starts
-4. All 20 tasks complete in ~20 seconds instead of ~40 seconds
+2. Script detects available cores: `${SLURM_CPUS_ON_NODE:-2}` (2 on login node, 128 on compute node)
+3. `parallel -j $NJOBS` runs multiple tasks simultaneously
+4. When a task finishes, the next one starts immediately
+5. All 20 tasks complete in ~20 seconds (with 2 jobs) instead of ~40 seconds
 
 ## Progression
 
