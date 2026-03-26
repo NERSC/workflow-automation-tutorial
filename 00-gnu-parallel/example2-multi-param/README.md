@@ -45,15 +45,25 @@ cd example2-multi-param
 bash run_combinations.sh
 ```
 
+This automatically runs with 2 parallel jobs on login nodes (safe) or uses all available cores when run in a Slurm batch job.
+
 **Expected Output:**
 
 ```
-Running 18 parameter combinations (3 algorithms × 3 sizes × 2 opts)...
+Running 18 parameter combinations (3 algorithms × 3 sizes × 2 opts) with 2 parallel jobs...
+(Automatically detects Slurm allocation or defaults to 2 for login nodes)
+
+Processing tasks in parallel (output order may vary)...
 Processing: algorithm=A, size=small, opt=O2
+  -> Complete: A/small/O2
 Processing: algorithm=A, size=small, opt=O3
+  -> Complete: A/small/O3
 Processing: algorithm=A, size=medium, opt=O2
+  -> Complete: A/medium/O2
 ...
 Processing: algorithm=C, size=large, opt=O3
+  -> Complete: C/large/O3
+
 All combinations complete!
 ```
 
@@ -62,7 +72,7 @@ All combinations complete!
 1. **Multiple sources:** Each `:::` introduces a new parameter dimension
 2. **Cartesian product:** All possible combinations are generated
 3. **Positional parameters:** `{1}` = first source, `{2}` = second source, `{3}` = third source
-4. **Scalability:** 3×3×2=18 combinations run in parallel (limited by `-j` flag)
+4. **Scalability:** 3×3×2=18 combinations run in parallel (controlled by `-j $NJOBS`, defaults to 2 on login nodes or uses `$SLURM_CPUS_ON_NODE` in batch jobs)
 
 ## Parameter Combinations Explained
 
@@ -89,13 +99,19 @@ Total: 2 × 2 × 2 = 8 combinations
 **Unlinked (Cartesian product) - use `:::`:**
 ```bash
 parallel echo {1} {2} ::: A B ::: 1 2
-# A 1, A 2, B 1, B 2 (4 combinations)
+# Output: A 1
+#         A 2
+#         B 1
+#         B 2
+# (4 combinations)
 ```
 
 **Linked (pairwise) - use `:::+`:**
 ```bash
 parallel echo {1} {2} ::: A B :::+ 1 2
-# A 1, B 2 (2 combinations, maintains alignment)
+# Output: A 1
+#         B 2
+# (2 combinations, maintains pairwise alignment)
 ```
 
 This example uses unlinked parameters (full Cartesian product).

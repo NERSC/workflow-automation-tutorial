@@ -2,16 +2,16 @@
 # Example 2: Multiple Parameter Combinations with GNU Parallel
 # Demonstrates Cartesian product parameter exploration
 
-# IMPORTANT: Load GNU Parallel module if running on compute node
-# On Perlmutter compute nodes, you MUST uncomment this line:
-# module load parallel
-# (Not needed on login nodes where parallel may already be available)
+# GNU Parallel is available by default on Perlmutter (no module load needed)
 
 # Make process_combination.sh executable
 chmod +x process_combination.sh
 
-echo "Running 18 parameter combinations (3 algorithms × 3 sizes × 2 opts)..."
-echo "(Using -j 2 for login node safety)"
+# Use all available cores in Slurm job, or default to 2 for login node safety
+NJOBS=${SLURM_CPUS_ON_NODE:-2}
+
+echo "Running 18 parameter combinations (3 algorithms × 3 sizes × 2 opts) with $NJOBS parallel jobs..."
+echo "(Automatically detects Slurm allocation or defaults to 2 for login nodes)"
 echo ""
 
 # Parameter dimensions:
@@ -22,7 +22,7 @@ echo ""
 
 # Run all combinations in parallel
 # {1} = algorithm, {2} = size, {3} = optimization
-parallel -j 2 './process_combination.sh {1} {2} {3}' \
+parallel -j $NJOBS './process_combination.sh {1} {2} {3}' \
   ::: A B C \
   ::: small medium large \
   ::: O2 O3
@@ -34,5 +34,7 @@ echo "Analysis:"
 echo "- Total combinations: 18"
 echo "- If each task takes 2 seconds:"
 echo "  - Sequential: 36 seconds"
-echo "  - Parallel (2 jobs): ~18 seconds"
-echo "  - Parallel (128 jobs on Perlmutter): <1 second"
+echo "  - Parallel ($NJOBS jobs): ~$((18 * 2 / NJOBS)) seconds (ceiling(18/$NJOBS) batches × 2 seconds)"
+echo "  - Parallel (128 jobs on Perlmutter): ~2 seconds"
+echo "    (all 18 tasks run simultaneously, limited by single-task duration)"
+echo "    Note: 110 of 128 cores would sit idle - this example is too small for a full node!"
