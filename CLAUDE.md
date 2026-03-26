@@ -1,6 +1,6 @@
 # HPC Workflow Management Tools Seminar
 
-Last verified: 2026-03-20
+Last verified: 2026-03-26
 
 ## Tech Stack
 - Language: Python 3.10, Bash
