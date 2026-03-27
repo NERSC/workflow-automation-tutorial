@@ -13,6 +13,12 @@
 
 # Check if NERSC_TRAINING_RESERVATION is set and non-empty
 if [ -n "${NERSC_TRAINING_RESERVATION}" ]; then
+    # Validate reservation name: only alphanumeric, underscores, and hyphens allowed
+    if [[ "${NERSC_TRAINING_RESERVATION}" =~ [^a-zA-Z0-9_-] ]]; then
+        echo "ERROR: Invalid reservation name. Only letters, digits, underscores, and hyphens are allowed."
+        exit 1
+    fi
+
     # Training event mode: add reservation and training account
     echo "=================================================="
     echo "Training event mode detected"
