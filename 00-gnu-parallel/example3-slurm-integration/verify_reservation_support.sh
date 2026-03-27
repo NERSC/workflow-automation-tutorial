@@ -242,6 +242,38 @@ fi
 echo ""
 
 # ==========================================
+# AC4.4: Direct sbatch unaffected by NERSC_TRAINING_RESERVATION
+# ==========================================
+echo "[AC4.4] Verifying direct sbatch is unaffected by NERSC_TRAINING_RESERVATION..."
+
+# Set NERSC_TRAINING_RESERVATION variable and check that submit_parallel_job.sh
+# script does NOT reference it (sbatch only reads official SLURM env vars)
+export NERSC_TRAINING_RESERVATION=test_reservation_2026
+
+# Parse the sbatch script content to ensure it does not directly reference
+# the NERSC_TRAINING_RESERVATION variable. This verifies that direct sbatch
+# users are not affected by the variable being set.
+if bash -n submit_parallel_job.sh; then
+    echo "  OK: AC4.4 - submit_parallel_job.sh syntax valid (sbatch unaffected)"
+else
+    echo "  FAIL: AC4.4 - submit_parallel_job.sh has syntax errors"
+    exit 1
+fi
+
+# Verify the script does not contain a reference to NERSC_TRAINING_RESERVATION
+if ! grep -q "NERSC_TRAINING_RESERVATION" submit_parallel_job.sh; then
+    echo "  OK: AC4.4 - submit_parallel_job.sh contains no env var reference"
+    echo "       (sbatch does not read custom variables; direct use is unaffected)"
+else
+    echo "  FAIL: AC4.4 - submit_parallel_job.sh should not reference env var"
+    exit 1
+fi
+
+# Clean up
+unset NERSC_TRAINING_RESERVATION
+echo ""
+
+# ==========================================
 # AC5: Documentation completeness
 # ==========================================
 echo "[AC5] Verifying documentation completeness..."
@@ -321,6 +353,6 @@ echo "  ✓ AC2.1-AC2.5: Transparent operation"
 echo "  ✓ AC3.1: Error handling - invalid reservations (manual test in Task 3)"
 echo "  ✓ AC3.2: Error handling - expired reservations (documentation-verified only)"
 echo "  ✓ AC3.3: Exit code propagation"
-echo "  ✓ AC4.1-AC4.3: Backward compatibility"
+echo "  ✓ AC4.1-AC4.4: Backward compatibility"
 echo "  ✓ AC5.1-AC5.5: Documentation completeness"
 echo ""
