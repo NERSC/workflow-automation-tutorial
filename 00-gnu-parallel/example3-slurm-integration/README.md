@@ -35,6 +35,7 @@ The batch script uses:
 
 ## Files in This Example
 
+- `submit.sh` - Wrapper script for simplified job submission with optional reservation support
 - `submit_parallel_job.sh` - Sbatch script for Perlmutter submission
 - `process_task.sh` - Placeholder computational task
 - `task_list.txt` - Input file listing all tasks to run
