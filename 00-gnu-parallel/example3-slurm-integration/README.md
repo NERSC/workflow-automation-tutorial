@@ -40,6 +40,19 @@ The batch script uses:
 - `process_task.sh` - Placeholder computational task
 - `task_list.txt` - Input file listing all tasks to run
 
+## Training Event Setup
+
+**For NERSC training events** (workshops, tutorials, classes), instructors will provide a reservation name. Set it once at the beginning of the session:
+
+```bash
+export NERSC_TRAINING_RESERVATION=<reservation_name>
+# Example: export NERSC_TRAINING_RESERVATION=wf_seminar_2026
+```
+
+This reserves nodes specifically for the training event and automatically uses the `ntrain4` training account. The reservation remains active for your entire shell session.
+
+**For regular usage** (your own research), skip this step and use your standard NERSC account as configured in `submit_parallel_job.sh`.
+
 ## How to Run
 
 **On Perlmutter:**
