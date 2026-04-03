@@ -1,0 +1,25 @@
+Automating HPC Research Workflows on Perlmutter, May 2026
+
+Date: May 28, 2026
+Time: 8 a.m. – 12 p.m. PDT
+Location: Remote
+
+This half-day seminar introduces five workflow management tools for automating computational research on Perlmutter: GNU Parallel, signac, Maestro, Merlin, and AiiDA. Participants will run hands-on examples on Perlmutter that demonstrate how each tool addresses a distinct challenge in managing large-scale scientific computations. By the end of the seminar, participants will be able to identify which tool fits their workflow requirements and apply it to their own research.
+
+Topics:
+- GNU Parallel: execute independent tasks in parallel across cores or nodes without writing job scripts
+- signac: organize parameter spaces and track simulation inputs and outputs with a lightweight Python framework
+- Maestro: define multi-step workflows as directed acyclic graphs with explicit task dependencies
+- Merlin: coordinate large-scale ensemble simulations across distributed resources using a producer-consumer model
+- AiiDA: automate and track computational workflows with full provenance, enabling reproducible research
+
+Prerequisites:
+- Familiarity with submitting jobs on a Slurm-based HPC system
+- Comfort with shell scripting (bash)
+- Basic Python (reading and running scripts)
+
+Training accounts for Perlmutter will be provided to registered participants.
+
+Register at [REGISTRATION_URL]
+
+Slides and example code: [REPOSITORY_URL]
