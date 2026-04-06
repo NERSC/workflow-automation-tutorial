@@ -51,7 +51,7 @@ A plain-text document ready to paste into the NERSC web CMS that announces the "
 
 Single plain-text file delivered at `docs/training-announcement.txt` (or `.md`). No HTML, no templating system — raw copy ready for paste into the NERSC web CMS.
 
-The document has seven sections in a fixed order:
+The document has eight sections in a fixed order:
 
 1. **Title line** — event name including year and month
 2. **Header block** — date, time with timezone, location (two lines)
@@ -88,7 +88,7 @@ This design diverges from one pattern: "Who should attend" is omitted. Only one 
 
 **Dependencies:** None (first phase)
 
-**Done when:** File exists at `docs/training-announcement.txt`, all seven sections are present in order, all known details are filled in (title, date, time, timezone, location, overview, five tool one-liners, three prerequisites, training resources sentence), and both placeholder labels (`[REGISTRATION_URL]`, `[REPOSITORY_URL]`) appear exactly once each.
+**Done when:** File exists at `docs/training-announcement.txt`, all eight sections are present in order, all known details are filled in (title, date, time, timezone, location, overview, five tool one-liners, three prerequisites, training resources sentence), and both placeholder labels (`[REGISTRATION_URL]`, `[REPOSITORY_URL]`) appear exactly once each.
 <!-- END_PHASE_1 -->
 
 <!-- START_PHASE_2 -->
