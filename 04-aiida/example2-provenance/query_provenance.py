@@ -8,7 +8,14 @@ def query_recent_workflows():
     """Find recent workflows."""
     qb = QueryBuilder()
     qb.append(WorkflowNode, filters={'ctime': {'>': '-7d'}})
-    print(f"Found {qb.count()} workflows in last 7 days")
+    count = qb.count()
+    print(f"Found {count} workflows in last 7 days")
+
+    if count == 0:
+        print("\n  No workflows found. Did you run example 1 first?")
+        print("    cd ../example1-workflow-def")
+        print("    python workflow.py --param 42")
+        return
 
     for node, in qb.iterall():
         print(f"  {node.pk}: {node.label}")
@@ -19,7 +26,13 @@ def query_by_input_value(target_value):
     qb.append(Int, filters={'value': target_value}, tag='input')
     qb.append(CalcFunctionNode, with_incoming='input')
 
-    print(f"Calculations with input {target_value}:")
+    count = qb.count()
+    print(f"\nCalculations with input {target_value}:")
+    if count == 0:
+        print(f"  No calculations found with input value {target_value}.")
+        print(f"  Try running: python ../example1-workflow-def/workflow.py --param {target_value}")
+        return
+
     for node, in qb.iterall():
         print(f"  PK {node.pk}: {node.process_label}")
 
@@ -37,6 +50,10 @@ def trace_provenance(pk):
         print(f"  Output: {link.node.pk} ({link.link_label})")
 
 if __name__ == '__main__':
+    from aiida import load_profile
+    load_profile()
+
     query_recent_workflows()
     query_by_input_value(42)
-    # trace_provenance(12345)  # Replace with actual PK
+    # Uncomment with an actual PK from example 1:
+    # trace_provenance(<PK>)
