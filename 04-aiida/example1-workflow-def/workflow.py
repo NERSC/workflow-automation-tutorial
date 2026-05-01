@@ -44,11 +44,26 @@ def simple_workflow(param):
     return wg
 
 if __name__ == '__main__':
+    from aiida import load_profile
+    load_profile()
+
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--param', type=int, default=5)
+    parser = argparse.ArgumentParser(
+        description='Run simple AiiDA workflow with automatic provenance'
+    )
+    parser.add_argument('--param', type=int, default=5,
+                        help='Input parameter value')
     args = parser.parse_args()
 
-    # Submit workflow
-    result = simple_workflow(orm.Int(args.param))
-    print(f"Workflow submitted. Check with: verdi process list")
+    from aiida.engine import run_get_node
+
+    print(f"Running workflow with param={args.param}...")
+
+    # Run workflow synchronously — no daemon or RabbitMQ needed
+    result, node = run_get_node(simple_workflow, param=orm.Int(args.param))
+
+    print(f"\nWorkflow completed! PK: {node.pk}")
+    print(f"\nExplore the provenance:")
+    print(f"  verdi process list -a                  # List all workflows")
+    print(f"  verdi process show {node.pk}           # Inspect this workflow")
+    print(f"  verdi node graph generate {node.pk}    # Visualize provenance graph")
