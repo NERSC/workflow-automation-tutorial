@@ -14,7 +14,7 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 - **Uses**: aiida-core 2.8.0, aiida-workgraph 0.3.16, SQLite (training default via `verdi presto`)
 - **Production uses**: PostgreSQL, RabbitMQ (documented in resources/aiida-production-deployment.md)
 - **Used by**: Root README references this as Section 4; resources/ comparison matrix includes AiiDA
-- **Boundary**: Does not import from other sections. Conceptually builds on Merlin (Section 3) but has no code dependency.
+- **Boundary**: Does not import from other sections. Logically builds on Merlin (Section 3) but has no code dependency.
 
 ## Key Decisions
 - WorkGraph over WorkChain: WorkGraph is the modern, Pythonic API; WorkChain is legacy
