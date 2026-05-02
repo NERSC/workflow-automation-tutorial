@@ -34,14 +34,14 @@ A comprehensive comparison of five workflow management tools across five critica
 | **signac** | None (local only) | Standard job submission | Python 3.6+ | Low - pip install sufficient |
 | **Maestro** | None (local only) | Standard job submission | Python 3.6+, optional HPC plugins | Low - pip install, optional features |
 | **Merlin** | Redis server (optional), PostgreSQL (optional for production) | Requires persistent worker processes | Python 3.8+, celery, Redis/RabbitMQ for distributed mode | Medium - separate server infrastructure needed |
-| **AiiDA** | PostgreSQL (required), RabbitMQ (for distributed), optional storage backend | Persistent daemon required | Python 3.8+, multi-node capable | High - complex database and messaging setup |
+| **AiiDA** | SQLite (training via `verdi presto`) or PostgreSQL + RabbitMQ (production) | Training: none. Production: persistent daemon required | Python 3.8+, multi-node capable | Low (training) / High (production) |
 
 **SPIN Compatibility Notes:**
 - **GNU Parallel:** Runs within allocation, no special SPIN setup needed
 - **signac:** Runs within allocation boundaries, uses standard SLURM scheduling
 - **Maestro:** Can run single-allocation or multi-step; respects allocation boundaries
 - **Merlin:** Requires persistent workers beyond allocation - needs special handling for SPIN (separate worker submission or custom integration)
-- **AiiDA:** Requires running daemon outside allocations - requires custom NERSC integration or persistent computing resource
+- **AiiDA:** Training mode (`verdi presto` with SQLite) runs on login and compute nodes with no SPIN setup. Production mode requires persistent daemon — SPIN containers for PostgreSQL + RabbitMQ, or workflow QOS for the daemon process.
 
 ---
 
@@ -134,9 +134,9 @@ When a tool becomes insufficient, migration paths include:
 | **signac** | Runs within allocation | N/A | None | Yes - parameter studies |
 | **Maestro** | Can span allocations via multi-step submission | Optional | Standard multi-step | Yes - flexible |
 | **Merlin** | Requires persistent workers | Yes - required | Custom integration | Possible - needs worker pool setup |
-| **AiiDA** | Requires persistent daemon | Yes - required | Significant custom work | Limited - daemon requirements problematic |
+| **AiiDA** | Training: runs within allocation (SQLite). Production: requires persistent daemon | Training: no. Production: yes | Training: none. Production: SPIN containers for PostgreSQL + RabbitMQ | Yes (training) / Possible (production - needs SPIN setup) |
 
-**Key Insight:** GNU Parallel, signac, and Maestro fit naturally within SPIN constraints. Merlin requires custom worker management. AiiDA requires persistent daemon infrastructure not easily accommodated by SPIN.
+**Key Insight:** GNU Parallel, signac, and Maestro fit naturally within SPIN constraints. Merlin requires custom worker management. AiiDA's training mode (`verdi presto` with SQLite) runs anywhere on Perlmutter; production mode requires persistent daemon infrastructure via SPIN.
 
 ---
 
@@ -212,11 +212,11 @@ When a tool becomes insufficient, migration paths include:
 - Complex setup but enables true distributed computing
 
 **AiiDA Infrastructure:**
-- PostgreSQL (required for storing provenance)
-- RabbitMQ (required for multi-node communication)
+- **Training:** SQLite via `verdi presto` (zero setup, runs on login/compute nodes, no daemon needed)
+- **Production:** PostgreSQL (provenance storage at scale), RabbitMQ (daemon coordination), persistent daemon process
 - Local file storage for input/output data
-- Daemon process manages scheduling and communication
-- Complex orchestration of database, messaging, daemon
+- Training mode uses synchronous `run()` execution; production mode uses asynchronous `submit()` with daemon
+- Training-to-production upgrade path documented in `resources/aiida-production-deployment.md`
 
 ### Dependencies Deep Dive
 
