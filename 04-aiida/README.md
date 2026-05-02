@@ -110,7 +110,7 @@ See [Production Deployment Guide](../resources/aiida-production-deployment.md) f
 ## Examples in This Section
 
 1. **example1-workflow-def** - WorkGraph workflow with automatic provenance
-2. **example2-provenance** - Query and restart from workflow history
+2. **example2-provenance** - Query provenance and trace data lineage
 3. **example3-data-graph** - Visualize data lineage, answer origin questions
 
 ## When to Use AiiDA
@@ -138,24 +138,24 @@ See [Production Deployment Guide](../resources/aiida-production-deployment.md) f
 ## Quick Start
 
 ```bash
-# Setup (after database deployment)
-verdi presto --use-postgres
+# One-time setup (~30 seconds)
+verdi presto
 
-# Register Perlmutter computer
-verdi computer setup
-
-# Run workflow
-verdi run workflow.py
+# Run your first workflow
+cd example1-workflow-def
+python workflow.py --param 42
 
 # Query provenance
-verdi process list
+python ../example2-provenance/query_provenance.py
+
+# Visualize the graph
 verdi node graph generate <PK>
 ```
 
 ## Provenance Storage and Querying
 
-AiiDA's provenance storage in PostgreSQL enables powerful retrospective analysis of computational workflows. Once a workflow completes, the complete provenance graph remains queryable indefinitely, enabling long-term reproducibility and audit trails.
+AiiDA's provenance storage enables powerful retrospective analysis of computational workflows. Whether backed by SQLite (training) or PostgreSQL (production), the complete provenance graph remains queryable after workflows complete. Use QueryBuilder in Python scripts or `verdi` CLI commands to trace data lineage and export reproducible archives.
 
 ---
 
-**Next:** See examples for hands-on provenance tracking on Perlmutter.
+**Next:** Start with Example 1 to run your first provenance-tracked workflow.
