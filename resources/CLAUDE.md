@@ -1,6 +1,6 @@
 # Resources Section
 
-Last verified: 2026-03-20
+Last verified: 2026-05-01
 
 ## Purpose
 Provides cross-cutting reference materials that help attendees choose the right tool after the seminar ends. These are take-home decision frameworks, not teaching materials.
@@ -21,6 +21,7 @@ Provides cross-cutting reference materials that help attendees choose the right 
 - `troubleshooting.md` - Common issues and solutions per tool
 - `nersc-best-practices.md` - Perlmutter-specific configuration patterns and anti-patterns
 - `further-learning.md` - Curated links to docs, tutorials, community
+- `aiida-production-deployment.md` - When/how to upgrade from SQLite training setup to PostgreSQL+RabbitMQ production
 - `installation-guides/` - Per-tool setup on Perlmutter (includes SPIN deployment for Merlin/AiiDA)
 
 ## Invariants
