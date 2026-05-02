@@ -64,9 +64,13 @@ def my_workflow(param1, param2):
 
 ### Database Backend
 
-**PostgreSQL:** Stores provenance graph, queryable via high-level Python API
-**RabbitMQ:** Coordinates daemon workers for parallel execution
-**Profile:** Configuration linking database, file repository, computer resources
+AiiDA supports two storage backends:
+
+**SQLite (training default):** File-based database created automatically by `verdi presto`. No server process needed. Supports all QueryBuilder operations used in this tutorial. Ideal for learning, prototyping, and single-user workflows.
+
+**PostgreSQL (production):** Full client-server database for multi-user deployments, high-throughput computation, and long-running daemon-based workflows. Paired with RabbitMQ for asynchronous job coordination.
+
+**Profile:** Configuration linking a storage backend, file repository, and computer resources. Created by `verdi presto` (SQLite) or `verdi profile setup` (PostgreSQL).
 
 ## Progression from Merlin
 
@@ -83,16 +87,25 @@ def my_workflow(param1, param2):
 
 ## Infrastructure Requirements
 
-**Required:**
-- PostgreSQL database (provenance storage)
-- RabbitMQ message broker (daemon coordination)
-- SSH access to HPC systems (Perlmutter)
+### Training (this seminar)
+
+**One command:** `verdi presto` creates a ready-to-use AiiDA profile with SQLite storage and a localhost computer. No PostgreSQL, RabbitMQ, or daemon needed. Setup takes ~30 seconds.
+
+All three examples run with this configuration.
+
+### Production (beyond the seminar)
+
+For long-running workflows, multi-user deployments, or high-throughput campaigns:
+
+- **PostgreSQL** database (provenance storage at scale)
+- **RabbitMQ** message broker (daemon coordination)
+- **AiiDA daemon** (asynchronous job submission and fault tolerance)
 
 **Deployment options:**
-1. **SPIN (recommended):** Persistent containers for PostgreSQL + RabbitMQ
-2. **Dedicated allocation:** Local databases with workflow QOS
+1. **SPIN containers:** Persistent PostgreSQL + RabbitMQ services
+2. **Workflow QOS:** Long-running Slurm job for the AiiDA daemon
 
-See `resources/installation-guides/aiida-database-setup.md` for deployment guide.
+See [Production Deployment Guide](../resources/aiida-production-deployment.md) for when and how to upgrade.
 
 ## Examples in This Section
 
