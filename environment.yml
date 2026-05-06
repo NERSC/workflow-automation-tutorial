@@ -9,15 +9,6 @@ dependencies:
 
   # Core workflow tools
   - signac=2.3.0
-  - maestrowf=1.1.11
-
-  # Merlin and dependencies
-  - redis>=6.0
-  - celery>=5.0
-
-  # AiiDA and dependencies
-  - postgresql>=12.0  # For local development; SPIN deployment uses external
-  - rabbitmq-c  # RabbitMQ C library
 
   # Common scientific libraries
   - numpy>=1.21.0
@@ -28,12 +19,20 @@ dependencies:
   - pip
   - git
 
-  # Install remaining packages via pip (not available in conda)
+  # Install remaining packages via pip (not available in conda-forge)
   - pip:
+      # Maestro
+      - maestrowf==1.1.11
+      # Merlin and dependencies
       - merlin==1.13.0
+      - redis>=6.0,<7.0
+      - celery>=5.0,<6.0
+      # AiiDA
       - aiida-core==2.8.0
       - aiida-workgraph==0.3.16
+      # signac-flow (complements conda signac package)
       - signac-flow==0.28.0
+      # PostgreSQL adapter (AiiDA production mode only)
       - psycopg2-binary>=2.8.6
 
 # Notes:

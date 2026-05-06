@@ -122,7 +122,7 @@ module load python
 pip install signac==2.3.0 signac-flow==0.28.0
 
 # Verify installation
-python -c "import signac; import signac_flow; print(signac.__version__)"
+python -c "import signac; import flow; print(signac.__version__)"
 ```
 
 ### Problem: "Incompatible file format" when opening project
@@ -170,7 +170,7 @@ Ensure project has correct structure and flow is imported:
 ```python
 #!/usr/bin/env python
 from signac import init_project
-from signac_flow import FlowProject, cmd, flow
+from flow import FlowProject
 
 project = init_project('MyProject')
 
