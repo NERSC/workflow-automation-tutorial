@@ -8,35 +8,6 @@ Each section includes symptom identification, diagnostic commands, and practical
 
 ## GNU Parallel Troubleshooting
 
-### Problem: "parallel: command not found"
-
-**Symptom:** Error when attempting to run parallel commands on Perlmutter
-
-```
-bash: parallel: command not found
-```
-
-**Diagnosis:**
-```bash
-which parallel
-module avail parallel
-```
-
-**Solution:**
-
-GNU Parallel is provided via module on Perlmutter. Load the module:
-
-```bash
-module load parallel
-parallel --version
-```
-
-Verify installation succeeded:
-
-```bash
-echo "test" | parallel echo {}
-```
-
 ### Problem: Output appears in wrong order or seems scrambled
 
 **Symptom:** Results from parallel jobs print in random order, making it hard to understand which output came from which input
