@@ -300,19 +300,23 @@ Fix YAML formatting:
 
 ```yaml
 # Correct: proper indentation
-workflow:
+description:
   name: my_workflow
-  steps:
-    - name: step1
-      command: echo "Hello"
-    - name: step2
-      command: echo "World"
+  description: What this workflow does
+
+study:
+  - name: step1
+    run:
+      cmd: echo "Hello"
+  - name: step2
+    run:
+      cmd: echo "World"
       depends: [step1]
 
 # Incorrect: inconsistent indentation
-workflow:
+description:
   name: my_workflow
-    steps:
+    study:
       - name: step1
 ```
 
@@ -409,15 +413,16 @@ Explicitly specify output paths in workflow:
 
 ```yaml
 study:
-  description: "Ensure outputs are written"
-  steps:
-    - name: compute
-      command: "python compute.py"
-      output:
-        directory: results/
+  - name: compute
+    description: Ensure outputs are written to explicit paths
+    run:
+      cmd: |
+        python compute.py
+        cp -r results/ $(OUTPUT_PATH)/results/
 
-    - name: save
-      command: "cp results/* $SCRATCH/final_results/"
+  - name: save
+    run:
+      cmd: cp -r $(compute.workspace)/results/ $SCRATCH/final_results/
       depends: [compute]
 ```
 
@@ -614,19 +619,19 @@ ls -l $SCRATCH/test_file.txt
 Configure proper NERSC environment in Merlin:
 
 ```yaml
-spec:
-  env:
-    variables:
-      # Use $SCRATCH for temporary workflow data
-      WORKFLOW_DIR: $SCRATCH/my_workflow
-      # Use CFS directory for long-term results (if available)
-      RESULTS_DIR: $PSCRATCH/results
+env:
+  variables:
+    # Use $SCRATCH for temporary workflow data
+    WORKFLOW_DIR: $SCRATCH/my_workflow
+    # Use CFS directory for long-term results (if available)
+    RESULTS_DIR: $PSCRATCH/results
 
-  steps:
-    - name: write
-      command: |
-        mkdir -p $WORKFLOW_DIR
-        python compute.py > $WORKFLOW_DIR/output.txt
+study:
+  - name: write
+    run:
+      cmd: |
+        mkdir -p $(WORKFLOW_DIR)
+        python compute.py > $(WORKFLOW_DIR)/output.txt
 ```
 
 ---

@@ -526,8 +526,8 @@ batch:
 study:
   - name: task_group
     description: "Parameter sweep"
-    launch:
-      cmd: srun -n 1 ./task.sh {PARAM}
+    run:
+      cmd: srun -n 1 ./task.sh $(PARAM)
       nodes: 1
       procs: 1
 ```
@@ -587,9 +587,10 @@ merlin:
     # OR for GPU work:
     node_packing_count: 4  # 4 tasks per GPU node
 
-task:
-  launch:
-    cmd: srun -n1 --cpus-per-task=32 python simulate.py
+study:
+  - name: simulate
+    run:
+      cmd: srun -n1 --cpus-per-task=32 python simulate.py
 ```
 
 **Redis deployment** (on SPIN):
