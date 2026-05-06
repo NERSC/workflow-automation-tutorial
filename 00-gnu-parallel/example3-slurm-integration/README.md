@@ -199,8 +199,6 @@ sbatch submit_parallel_job.sh  # Reruns automatically
 #SBATCH --time=00:30:00
 #SBATCH --output=slurm-%j.out
 
-module load parallel
-
 echo "Job started on $SLURM_JOB_NUM_NODES node with $SLURM_CPUS_ON_NODE cores"
 echo "Running $(wc -l < task_list.txt) tasks with GNU Parallel..."
 
@@ -214,7 +212,6 @@ parallel \
 
 **Key features:**
 - `#SBATCH` directives configure Slurm allocation
-- `module load parallel` loads GNU Parallel
 - `-j $SLURM_CPUS_ON_NODE` uses all allocated cores (128)
 - `--joblog parallel_job.log` tracks task completion
 - `--resume-failed` skips completed tasks on resubmission
