@@ -1,6 +1,6 @@
 # Resources Section
 
-Last verified: 2026-05-01
+Last verified: 2026-05-06
 
 ## Purpose
 Provides cross-cutting reference materials that help attendees choose the right tool after the seminar ends. These are take-home decision frameworks, not teaching materials.
