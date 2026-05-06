@@ -446,7 +446,7 @@ Install Merlin with all dependencies:
 
 ```bash
 module load python
-pip install merlin[redis]==1.11.6
+pip install merlin==1.13.0
 
 # Verify installation
 merlin --version
@@ -481,7 +481,7 @@ Start Redis server (if using local instance):
 redis-server --port 6379 &
 
 # Option 2: Start with NERSC-provided Redis module (if available)
-module load redis
+module load redis  # if available; otherwise install redis-server via conda or a static binary
 redis-server &
 
 # Verify connection
@@ -506,7 +506,7 @@ merlin status
 **Diagnosis:**
 ```bash
 # Check worker processes
-merlin ps
+merlin query-workers
 # Check queue contents
 redis-cli LLEN celery
 # Check worker logs
@@ -519,7 +519,7 @@ Start Merlin workers and submit tasks:
 
 ```bash
 # Terminal 1: Start worker(s)
-merlin workers start spec.yaml --worker-name default --worker-threads 4
+merlin run-workers spec.yaml
 
 # Terminal 2: Submit workflow
 merlin run spec.yaml
@@ -562,24 +562,26 @@ python -c "import yaml; yaml.safe_load(open('spec.yaml'))"
 Ensure specification is valid and studies are defined:
 
 ```yaml
-description: "Valid Merlin specification"
+description:
+  name: my-workflow
+  description: Valid Merlin specification
 
-studies:
-  - name: my_study
-    description: "My first study"
+global.parameters:
+  X:
+    values: [1, 2, 3]
+    label: X.%%
 
-    spec:
-      parameters:
-        x: [1, 2, 3]
-        y: [4, 5, 6]
+study:
+  - name: setup
+    description: Setup step
+    run:
+      cmd: echo 'Setup'
 
-      steps:
-        - name: setup
-          command: "echo 'Setup'"
-
-        - name: run
-          command: "python analyze.py $(X) $(Y)"
-          depends: [setup]
+  - name: run
+    description: Process parameters
+    run:
+      cmd: python analyze.py $(X)
+      depends: [setup]
 ```
 
 Verify:

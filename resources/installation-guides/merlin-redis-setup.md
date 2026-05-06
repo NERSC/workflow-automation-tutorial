@@ -180,7 +180,7 @@ Workflow QOS minimizes allocation hours for lightweight coordination processes.
 #SBATCH --account=m4408  # Change to your account
 #SBATCH --job-name=redis-coordinator
 
-module load redis
+module load redis  # if available; otherwise install redis-server via conda or a static binary
 
 # Start Redis with password
 redis-server --requirepass YOUR_PASSWORD --save 900 1 --save 300 10 --save 60 10000 --dir $SCRATCH/redis-data
