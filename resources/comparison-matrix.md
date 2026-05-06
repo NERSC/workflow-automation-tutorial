@@ -30,7 +30,7 @@ A comprehensive comparison of five workflow management tools across five critica
 
 | Tool | Required Backend | SPIN Deployment | Node Dependencies | Setup Complexity |
 |------|------------------|-----------------|-------------------|-------------------|
-| **GNU Parallel** | None | No special handling | None | Trivial - module load only |
+| **GNU Parallel** | None | No special handling | None | None - pre-installed on Perlmutter |
 | **signac** | None (local only) | Standard job submission | Python 3.6+ | Low - pip install sufficient |
 | **Maestro** | None (local only) | Standard job submission | Python 3.6+, optional HPC plugins | Low - pip install, optional features |
 | **Merlin** | Redis server (optional), PostgreSQL (optional for production) | Requires persistent worker processes | Python 3.8+, celery, Redis/RabbitMQ for distributed mode | Medium - separate server infrastructure needed |
@@ -188,7 +188,7 @@ When a tool becomes insufficient, migration paths include:
 ### Infrastructure Deep Dive
 
 **GNU Parallel Infrastructure:**
-- Zero setup - uses `module load parallel`
+- Zero setup - pre-installed on Perlmutter
 - Tasks run in current shell/node
 - No background services needed
 
