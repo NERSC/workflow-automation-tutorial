@@ -655,14 +655,14 @@ which verdi
 
 **Solution:**
 
-Install AiiDA with database support:
+Install AiiDA into the seminar environment:
 
 ```bash
 module load python
-pip install aiida-core==2.4.0 aiida-core[postgres]
+pip install aiida-core==2.8.0 aiida-workgraph==0.3.16
 
-# Initialize AiiDA
-verdi quicksetup
+# Initialize AiiDA (training: SQLite, no infrastructure needed)
+verdi presto
 
 # Verify installation
 verdi status
@@ -701,8 +701,8 @@ module load postgresql
 # Verify connection
 psql -U postgres -c "SELECT 1"
 
-# Reconfigure AiiDA
-verdi quicksetup
+# Reconfigure AiiDA for PostgreSQL
+verdi presto --use-postgres
 
 # Check status
 verdi status

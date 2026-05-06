@@ -616,7 +616,7 @@ merlin run-workers merlin_spec.yaml
 
 **Computer configuration** (after initial setup):
 ```bash
-verdi computer configure ssh perlmutter  # or edit ~/.ssh/config
+verdi computer configure core.ssh perlmutter  # or edit ~/.ssh/config
 ```
 
 **Slurm template** (`aiida-default.pbs`, auto-generated):
@@ -657,7 +657,7 @@ sleep infinity
 
 **Database configuration** (PostgreSQL on SPIN):
 ```bash
-verdi profile configure core.postgresql_dos
+verdi presto --use-postgres
 # When prompted:
 # Host: postgres-service.spin-k8s
 # Port: 5432
