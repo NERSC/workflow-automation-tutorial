@@ -10,9 +10,6 @@
 # Slurm Integration Example for GNU Parallel on Perlmutter
 # Demonstrates: batch submission, automatic core detection, fault tolerance
 
-# Load GNU Parallel module
-module load parallel
-
 # Make sure process script is executable
 chmod +x process_task.sh
 
