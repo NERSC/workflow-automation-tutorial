@@ -26,5 +26,5 @@ Provides cross-cutting reference materials that help attendees choose the right 
 
 ## Invariants
 - Every cross-cutting document must cover all 5 tools, not a subset
-- Installation guides must include Perlmutter module load commands
+- Installation guides must include Perlmutter setup commands (module load where applicable; GNU Parallel is pre-installed and needs none)
 - Troubleshooting entries follow pattern: symptom, cause, fix
