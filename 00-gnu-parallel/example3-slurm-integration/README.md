@@ -35,92 +35,17 @@ The batch script uses:
 
 ## Files in This Example
 
-- `submit.sh` - Wrapper script for simplified job submission with optional reservation support
 - `submit_parallel_job.sh` - Sbatch script for Perlmutter submission
 - `process_task.sh` - Placeholder computational task
 - `task_list.txt` - Input file listing all tasks to run
-
-## Training Event Setup
-
-**For NERSC training events** (workshops, tutorials, classes), instructors will provide a reservation name. Set it once at the beginning of the session:
-
-```bash
-export NERSC_TRAINING_RESERVATION=<reservation_name>
-# Example: export NERSC_TRAINING_RESERVATION=wf_seminar_2026
-```
-
-This reserves nodes specifically for the training event and automatically uses the `ntrain4` training account. The reservation remains active for your entire shell session.
-
-**For regular usage** (your own research), skip this step and use your standard NERSC account as configured in `submit_parallel_job.sh`.
-
 ## How to Run
 
 **On Perlmutter:**
 
-### Option 1: Using the Submission Wrapper (Recommended)
-
-The `submit.sh` wrapper automatically handles reservation and account settings:
-
 ```bash
 cd example3-slurm-integration
 
-# If in a training event, set the reservation (instructors will provide the name):
-export NERSC_TRAINING_RESERVATION=<reservation_name>
-
-# Submit the job (works for both training and regular usage)
-./submit.sh
-
-# Check status
-squeue -u $USER
-
-# Check output after completion
-cat slurm-*.out
-```
-
-**Expected output from submit.sh (training mode):**
-```
-==================================================
-Training event mode detected
-Reservation: wf_seminar_2026
-Account: ntrain4
-==================================================
-
-Executing: sbatch --reservation=wf_seminar_2026 --account=ntrain4 submit_parallel_job.sh
-
-Submitted batch job 12345678
-```
-
-**Expected output from submit.sh (regular mode - no reservation set):**
-```
-==================================================
-Regular submission mode
-Note: Account must be specified in submit_parallel_job.sh
-==================================================
-
-Executing: sbatch submit_parallel_job.sh
-
-Submitted batch job 12345679
-```
-
-**If you provide an invalid or expired reservation name:**
-- The wrapper prints the sbatch command as usual
-- sbatch immediately fails with a clear error message:
-  - Invalid name: `sbatch: error: Batch job submission failed: Invalid reservation name`
-  - Expired: `sbatch: error: Batch job submission failed: Reservation ... is not usable`
-- This fail-fast behavior prevents jobs from silently submitting to the wrong queue
-
-### Option 2: Direct sbatch Submission
-
-For users who prefer explicit control or want to understand the underlying command:
-
-```bash
-cd example3-slurm-integration
-
-# Edit submit_parallel_job.sh to set your account (line 7):
-# Change: #SBATCH --account=<your_account>
-# To:     #SBATCH --account=m1234  # (your NERSC project account)
-
-# Submit directly
+# Submit the job
 sbatch submit_parallel_job.sh
 
 # Check status
@@ -130,7 +55,9 @@ squeue -u $USER
 cat slurm-*.out
 ```
 
-**Expected output in slurm-*.out (for both options):**
+**Training event?** Pass `-A ntrain4 --reservation=<name>` as CLI flags: `sbatch -A ntrain4 --reservation=<name> submit_parallel_job.sh`
+
+**Expected output in slurm-*.out:**
 
 ```
 Job started on 1 node with 128 cores
