@@ -24,7 +24,7 @@ Last verified: 2026-05-06
 - Examples use placeholder computations (sleep, echo, basic math) not real science
 - All examples must run on Perlmutter without modification after env setup
 - Slurm account `ntrain4` used in job scripts (attendees change to their own)
-- Training event reservation: set `NERSC_TRAINING_RESERVATION` env var; `submit.sh` wrappers inject `--reservation` and `--account=ntrain4` flags automatically
+- Training event reservation: attendees pass `-A ntrain4 --reservation=<name>` directly as CLI flags to `sbatch`
 
 ## Invariants
 - Progressive capability story: each tool adds exactly one major capability over the previous
