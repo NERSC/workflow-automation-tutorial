@@ -38,6 +38,7 @@ The batch script uses:
 - `submit_parallel_job.sh` - Sbatch script for Perlmutter submission
 - `process_task.sh` - Placeholder computational task
 - `task_list.txt` - Input file listing all tasks to run
+
 ## How to Run
 
 **On Perlmutter:**
