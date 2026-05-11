@@ -6,7 +6,7 @@
 
 ## What This Demonstrates
 
-- Multiple parameter sources with `::: A B C ::: 1 2 3`
+- Multiple parameter sources with `::: A B C ::: small medium large ::: O2 O3`
 - Generating all combinations (Cartesian product)
 - Parameter substitution with `{1}`, `{2}`, `{3}` for positional access
 - Systematic parameter space exploration

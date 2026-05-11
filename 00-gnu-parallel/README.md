@@ -41,7 +41,7 @@ GNU Parallel is superior to job arrays on HPC systems because:
 `{}` is replaced with each input item:
 ```bash
 seq 1 4 | parallel echo "Hello world {}!"
-# Output: 
+# Output (order may vary): 
 Hello world 1!
 Hello world 2!
 Hello world 3!
@@ -68,7 +68,7 @@ Combine parameters with `:::`:
 ```bash
 # Cartesian product: all combinations
 parallel echo {1} {2} ::: A B ::: 1 2
-# Output: 
+# Output (order may vary): 
 A 1
 A 2
 B 1
@@ -100,7 +100,7 @@ Demonstrates basic parallel execution with parameter variations. Shows:
 **Directory:** `example2-multi-param/`
 
 Demonstrates combining multiple parameters to create Cartesian products. Shows:
-- Multiple parameter sources with `::: A B C ::: 1 2 3`
+- Multiple parameter sources with `::: A B C ::: small medium large ::: O2 O3`
 - Generating all combinations systematically
 - Organizing results by parameter combination
 

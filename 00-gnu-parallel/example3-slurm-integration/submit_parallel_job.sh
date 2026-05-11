@@ -30,7 +30,7 @@ echo ""
 # - Full core utilization ($SLURM_CPUS_ON_NODE = 128 on Perlmutter CPU nodes)
 # - Job logging (--joblog tracks completion)
 # - Fault tolerance (--resume-failed retries failures on resubmission)
-# - 0.2 second delay between spawns (reduces Slurm controller load)
+# - 0.2 second delay between spawns (staggers startup to reduce I/O contention)
 parallel \
   -j $SLURM_CPUS_ON_NODE \
   --joblog parallel_job.log \

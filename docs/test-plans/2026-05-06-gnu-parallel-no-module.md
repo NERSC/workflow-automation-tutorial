@@ -50,7 +50,7 @@
 | Step | Action | Expected |
 |------|--------|----------|
 | 4.1 | Open `00-gnu-parallel/example3-slurm-integration/README.md` and find "Sbatch Script Breakdown" | The embedded code block shows the script without any `module load parallel` line |
-| 4.2 | Find the "Key features" bullet list under the embedded code block | The bullets are: `#SBATCH directives configure Slurm allocation`, `-j $SLURM_CPUS_ON_NODE uses all allocated cores (128)`, `--joblog parallel_job.log tracks task completion`, `--resume-failed skips completed tasks on resubmission`, `--delay 0.2 reduces Slurm controller load`, `< task_list.txt reads tasks from file`. There is no bullet about `module load parallel`. The list has no orphaned blank lines between bullets |
+| 4.2 | Find the "Key features" bullet list under the embedded code block | The bullets are: `#SBATCH directives configure Slurm allocation`, `-j $SLURM_CPUS_ON_NODE uses all allocated cores (128)`, `--joblog parallel_job.log tracks task completion`, `--resume-failed skips completed tasks on resubmission`, `--delay 0.2 staggers task startup to reduce I/O contention (200ms between spawns)`, `< task_list.txt reads tasks from file`. There is no bullet about `module load parallel`. The list has no orphaned blank lines between bullets |
 | 4.3 | Search the entire README for "module load" | The phrase does not appear anywhere. The README references GNU Parallel as available without module loading |
 
 ---

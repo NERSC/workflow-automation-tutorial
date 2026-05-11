@@ -386,7 +386,7 @@ All phases follow the same review loop:
 - Execute permissions must be set via `git update-index --chmod=+x`
 - Module load commands need clear documentation
 - Use `$SLURM_CPUS_ON_NODE` for automatic core detection
-- Add `--delay 0.2` for Slurm controller load reduction
+- Add `--delay 0.2` to stagger task startup (reduces I/O contention)
 - Avoid `>>` append when `>` write is intended (prevents duplication on re-runs)
 
 **Python Scripts:**
