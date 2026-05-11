@@ -276,14 +276,11 @@ Create simplified installation guides for tools that don't require complex infra
 
 ## Installation
 
-GNU Parallel is available via module on Perlmutter:
+GNU Parallel is pre-installed on Perlmutter — no module load or user installation required. It is available directly in `$PATH`:
 
 ```bash
-module load parallel
 parallel --version
 ```
-
-No additional installation needed.
 
 ## Verification
 

@@ -57,8 +57,8 @@ parallel -j 8 echo "Job {}" ::: {1..100}
 # Or use -j 0 to use all available cores
 parallel -j 0 echo "Job {}" ::: {1..100}
 
-# For SLURM-allocated nodes, match SLURM_CPUS_PER_TASK
-parallel -j $SLURM_CPUS_PER_TASK command {} ::: input1 input2 input3
+# For SLURM-allocated nodes, use all cores on the node
+parallel -j $SLURM_CPUS_ON_NODE command {} ::: input1 input2 input3
 ```
 
 ### Problem: Out of memory or "Cannot fork" error

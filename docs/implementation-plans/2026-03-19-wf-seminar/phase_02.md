@@ -5,7 +5,7 @@
 **Architecture:** Three progressive examples showing GNU Parallel capabilities: simple parameter sweep → multiple parameter combinations → Slurm integration on Perlmutter
 
 **Tech Stack:**
-- GNU Parallel (available via `module load parallel` on Perlmutter)
+- GNU Parallel (pre-installed on Perlmutter, no module load needed)
 - Bash shell scripting
 - Slurm batch system (`$SLURM_CPUS_ON_NODE` integration)
 
@@ -187,7 +187,7 @@ See `../resources/nersc-best-practices.md` for detailed anti-patterns including:
 #SBATCH --constraint=cpu
 #SBATCH --qos=regular
 
-module load parallel
+# GNU Parallel is pre-installed on Perlmutter (no module load needed)
 seq 1 1000 | parallel -j $SLURM_CPUS_ON_NODE './process_task.sh {}'
 ```
 
@@ -323,9 +323,7 @@ This is the simplest use case. Next examples add:
 # Example 1: Simple Parameter Sweep with GNU Parallel
 # Demonstrates basic parallelization on a single node
 
-# Load GNU Parallel (on Perlmutter)
-# Uncomment if running on compute node:
-# module load parallel
+# GNU Parallel is available by default on Perlmutter (no module load needed)
 
 # Make process_task.sh executable
 chmod +x process_task.sh
@@ -532,9 +530,7 @@ parallel python train_model.py \
 # Example 2: Multiple Parameter Combinations with GNU Parallel
 # Demonstrates Cartesian product parameter exploration
 
-# Load GNU Parallel (on Perlmutter)
-# Uncomment if running on compute node:
-# module load parallel
+# GNU Parallel is available by default on Perlmutter (no module load needed)
 
 # Make process_combination.sh executable
 chmod +x process_combination.sh
@@ -744,7 +740,7 @@ sbatch submit_parallel_job.sh  # Reruns automatically
 #SBATCH --time=00:30:00
 #SBATCH --output=slurm-%j.out
 
-module load parallel
+# GNU Parallel is pre-installed on Perlmutter (no module load needed)
 
 echo "Job started on $SLURM_JOB_NUM_NODES node with $SLURM_CPUS_ON_NODE cores"
 echo "Running $(wc -l < task_list.txt) tasks with GNU Parallel..."
@@ -758,7 +754,6 @@ parallel \
 
 **Key features:**
 - `#SBATCH` directives configure Slurm allocation
-- `module load parallel` loads GNU Parallel
 - `-j $SLURM_CPUS_ON_NODE` uses all allocated cores (128)
 - `--joblog parallel_job.log` tracks task completion
 - `--resume-failed` skips completed tasks on resubmission
@@ -838,8 +833,7 @@ sbatch submit_parallel_job.sh
 # Slurm Integration Example for GNU Parallel on Perlmutter
 # Demonstrates: batch submission, automatic core detection, fault tolerance
 
-# Load GNU Parallel module
-module load parallel
+# GNU Parallel is pre-installed on Perlmutter (no module load needed)
 
 # Make sure process script is executable
 chmod +x process_task.sh
