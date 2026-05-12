@@ -23,6 +23,7 @@ echo ""
 
 echo "=== 2. Find Jobs by Parameter Value ==="
 echo "signac find filters jobs by parameter values and prints matching job IDs."
+echo "(Note: signac will first echo an informational message about the filter interpretation)"
 echo ""
 echo '$ signac find temperature 300'
 signac find temperature 300
