@@ -28,6 +28,15 @@ Developed for computational materials science, AiiDA has powered thousands of re
 - Multi-person teams need shared computation history
 - Audit trails required for validation
 
+## Prerequisites
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+
 ## Core Concepts
 
 ### Provenance Graph

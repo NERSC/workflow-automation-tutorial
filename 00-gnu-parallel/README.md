@@ -34,6 +34,15 @@ GNU Parallel is superior to job arrays on HPC systems because:
 - Provenance recording and preservation
 - Tasks requiring more than single-node resources
 
+## Prerequisites
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+
 ## Core Concepts
 
 ### Parameter Substitution

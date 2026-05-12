@@ -35,6 +35,15 @@ Merlin was developed at Lawrence Livermore National Laboratory (LLNL) specifical
 - Multi-allocation patterns (different batches, same workflow)
 - Fallback: local Redis in dedicated allocation
 
+## Prerequisites
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+
 ## When to Use Merlin
 
 ✅ **Good for:**

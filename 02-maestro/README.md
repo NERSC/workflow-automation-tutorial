@@ -38,6 +38,15 @@ Maestro was developed at Lawrence Livermore National Laboratory (LLNL) specifica
 - Supports Perlmutter-specific options (accounts, partitions, QOS)
 - Can run on login nodes or submit to scheduler
 
+## Prerequisites
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+
 ## When to Use Maestro
 
 ✅ **Good for:**

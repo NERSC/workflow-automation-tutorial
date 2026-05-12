@@ -21,6 +21,15 @@ signac provides parameter space organization and filesystem-based state manageme
 - Real-time coordination across allocations (use Merlin)
 - Full provenance tracking (use AiiDA)
 
+## Prerequisites
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+
 ## Examples
 
 This directory contains three examples demonstrating signac's progression:

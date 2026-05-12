@@ -3,7 +3,7 @@
 """Initialize signac project with 2D parameter space (temperature x pressure)."""
 import signac
 
-project = signac.init_project("signac-demo")
+project = signac.init_project(".")
 
 # Define 2D parameter space: temperature x pressure
 temps = [300, 400, 500]
