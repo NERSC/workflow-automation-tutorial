@@ -20,6 +20,4 @@ Prerequisites:
 
 Training accounts for Perlmutter will be provided to registered participants.
 
-Register at [REGISTRATION_URL]
-
-Slides and example code: [REPOSITORY_URL]
+Register at https://forms.gle/j5kZHoDtSKmJcjkF8
