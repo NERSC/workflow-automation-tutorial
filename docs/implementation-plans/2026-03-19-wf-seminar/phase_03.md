@@ -71,7 +71,7 @@ Demonstrate 2D parameter space (temperature × pressure) with automatic director
 ```python
 import signac
 
-project = signac.init_project("signac-demo")
+project = signac.init_project(".")
 
 # Define 2D parameter space: temperature × pressure
 temps = [300, 400, 500]
@@ -96,7 +96,7 @@ project = signac.get_project()
 print(f"Project contains {len(project)} jobs:")
 for job in project:
     print(f"Job {job.id[:8]}: temp={job.sp.temperature}, pressure={job.sp.pressure}")
-    print(f"  -> Directory: {job.workspace()}")
+    print(f"  -> Directory: {job.path}")
 ```
 
 **README.md** - Explains signac state point concept, unique hash-based directories, how this improves on GNU Parallel's manual parameter tracking.
