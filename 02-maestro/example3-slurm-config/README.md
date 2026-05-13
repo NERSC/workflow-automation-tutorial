@@ -75,11 +75,12 @@ run:
 **Maestro converts to Slurm directives:**
 ```bash
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=64
 #SBATCH --time=00:10:00
 #SBATCH --qos=debug
 #SBATCH --constraint=cpu
 ```
+
+Task counts are handled via `srun -n 64` (from `procs: 64`), not SBATCH directives.
 
 ## $(LAUNCHER) Token
 
