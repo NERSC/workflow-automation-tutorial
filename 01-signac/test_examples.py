@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.11
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Comprehensive test of all signac examples.
 
@@ -7,11 +7,11 @@ This script verifies that all example scripts:
 2. Can be imported without import errors (with mocked dependencies)
 3. Follow the expected structure and patterns
 """
-import os
 import sys
-import tempfile
-import shutil
 from pathlib import Path
+
+# Compute base directory relative to this script
+SIGNAC_DIR = Path(__file__).resolve().parent
 
 # Test execution
 TEST_RESULTS = {
@@ -50,7 +50,7 @@ def check_file_exists(filepath):
 
 def test_example1():
     """Test example1-parameter-space structure and syntax."""
-    example_dir = Path('/global/u1/w/warndt/workflow_tutorial_research/01-signac/example1-parameter-space')
+    example_dir = SIGNAC_DIR / 'example1-parameter-space'
 
     print("\n=== EXAMPLE 1: Parameter Space Definition ===")
 
@@ -72,7 +72,7 @@ def test_example1():
 
 def test_example2():
     """Test example2-job-submission structure and syntax."""
-    example_dir = Path('/global/u1/w/warndt/workflow_tutorial_research/01-signac/example2-job-submission')
+    example_dir = SIGNAC_DIR / 'example2-job-submission'
 
     print("\n=== EXAMPLE 2: Slurm Job Submission ===")
 
@@ -94,7 +94,7 @@ def test_example2():
 
 def test_example3():
     """Test example3-aggregation structure and syntax."""
-    example_dir = Path('/global/u1/w/warndt/workflow_tutorial_research/01-signac/example3-aggregation')
+    example_dir = SIGNAC_DIR / 'example3-aggregation'
 
     print("\n=== EXAMPLE 3: Result Aggregation ===")
 
@@ -118,7 +118,7 @@ def test_main_readme():
     """Test main signac README.md."""
     print("\n=== MAIN SIGNAC README ===")
 
-    readme = Path('/global/u1/w/warndt/workflow_tutorial_research/01-signac/README.md')
+    readme = SIGNAC_DIR / 'README.md'
     ok, msg = check_file_exists(readme)
     TEST_RESULTS['structure_checks'].append(("01-signac/README.md", ok, msg))
     print(f"  README.md: {msg}")
@@ -164,7 +164,7 @@ def print_summary():
 
 
 if __name__ == '__main__':
-    print("Verifying Phase 3 signac examples...\n")
+    print("Verifying signac examples...\n")
 
     test_main_readme()
     test_example1()
