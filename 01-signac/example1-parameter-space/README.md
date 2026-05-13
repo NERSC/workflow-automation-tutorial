@@ -50,12 +50,52 @@ workspace/
    ```
    Shows auto-generated hash-based directory names
 
+4. Inspect with signac CLI tools:
+   ```bash
+   bash inspect_workspace.sh
+   ```
+   Walks through `signac schema`, `signac find`, and `signac job` to show how CLI tools navigate the hash-based workspace
+
 ## What Happens Under the Hood
 
 1. `init_project.py` calls `signac.init_project()` to create project infrastructure
 2. For each parameter combination, `project.open_job({"temperature": ..., "pressure": ...})` returns a job object
 3. `job.init()` creates the corresponding workspace directory
 4. `explore_workspace.py` demonstrates querying: `signac.get_project()` loads the project and iteration over jobs works automatically
+
+## Inside the Workspace
+
+When you run `init_project.py`, signac creates this structure:
+
+```
+.signac/
+    config               # project metadata
+workspace/
+    <32-char-hash>/
+        signac_statepoint.json   # {"temperature": 300, "pressure": 1.0}
+    <32-char-hash>/
+        signac_statepoint.json   # {"temperature": 300, "pressure": 10.0}
+    ...                          # one directory per parameter combination
+```
+
+Each hash is computed from the statepoint parameters. The hash is opaque by design -- you don't need to remember it because signac's CLI tools handle the lookup.
+
+**Key CLI commands:**
+
+```bash
+# Show all parameter keys and value ranges
+signac schema
+
+# Find jobs matching a parameter value
+signac find temperature 300
+
+# Get the job ID for an exact parameter set
+signac job '{"temperature": 300, "pressure": 1.0}'
+```
+
+**Browsing with `signac view`:** If you prefer a human-readable directory hierarchy, `signac view` creates a symlinked tree organized by parameter values (e.g., `view/temperature/300/pressure/1.0/job -> workspace/<hash>`). Run `signac view` and explore the `view/` directory.
+
+The `inspect_workspace.sh` script demonstrates these commands against the workspace you created in step 1.
 
 ## Next Steps
 
