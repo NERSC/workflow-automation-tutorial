@@ -23,18 +23,43 @@ setup (local) → compute (Slurm job) → postprocess (local)
 **System details for Maestro:**
 - **Host:** `perlmutter`
 - **Scheduler:** Slurm
-- **Partitions:** `regular` (default), `debug` (fast scheduling), `shared` (fractional nodes)
+- **Partitions:** `regular_milan_ss11` (default), `debug` (fast scheduling), `shared` (fractional nodes)
 - **Account:** Your NERSC repository (e.g., `m1234`)
-- **QOS:** `regular` (default), `debug` (2h limit, faster queue)
+- **QOS:** `regular` (default), `debug` (30 min limit, faster queue)
+- **Constraint:** `cpu` or `gpu` (mandatory on Perlmutter)
 
 **Maestro batch block:**
 ```yaml
 batch:
   type: slurm
   host: perlmutter
-  bank: m1234             # Replace with your account
-  queue: regular          # or 'debug' for testing
+  bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
+  queue: regular_milan_ss11
+  qos: debug
 ```
+
+The `qos` field is a native Maestro batch parameter — the Slurm adapter generates `#SBATCH --qos=debug` automatically.
+
+### Constraint Workaround
+
+Perlmutter **requires** `--constraint=cpu` (or `--constraint=gpu`) on every job submission. Omitting it produces:
+
+```
+Job request does not match any supported policy
+```
+
+Maestro's Slurm adapter has no native `constraint` field. The workaround is to embed the `#SBATCH` directive directly in the compute step's `cmd` block:
+
+```yaml
+- name: compute
+  description: Run parallel computation (submits to Slurm)
+  run:
+    cmd: |
+      #SBATCH --constraint=cpu
+      echo "Starting computation..."
+```
+
+This works because Maestro inserts a blank line between its generated `#SBATCH` header and the cmd content. Slurm continues parsing `#SBATCH` directives through blank lines (it only stops at the first non-comment, non-whitespace line), so the embedded directive is picked up along with the auto-generated ones.
 
 ## Resource Specification
 
@@ -52,6 +77,8 @@ run:
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=64
 #SBATCH --time=00:10:00
+#SBATCH --qos=debug
+#SBATCH --constraint=cpu
 ```
 
 ## $(LAUNCHER) Token
@@ -77,7 +104,7 @@ Maestro provides `$(LAUNCHER)` to abstract scheduler-specific launch commands:
 
 ```yaml
 batch:
-  bank: m1234  # CHANGE THIS to your account (e.g., m4408)
+  bank: ntrain4  # CHANGE THIS to your account (e.g., m1234)
 ```
 
 **Submit workflow:**
@@ -149,10 +176,10 @@ postprocess     | FINISHED   | 2s       | 2s
 
 ## Exercises
 
-1. Change partition to `debug` and walltime to `00:05:00` - observe faster scheduling
+1. Change `qos` to `regular` and walltime to `00:30:00` - compare scheduling behavior
 2. Increase `nodes: 2` - verify Maestro generates correct SBATCH directives
-3. Add `--constraint=cpu` to batch block for CPU-only nodes
-4. Add a GPU step with `--gpus=1` in batch directives (requires custom SBATCH)
+3. Remove `#SBATCH --constraint=cpu` from the compute cmd and run `maestro run --dry --autoyes workflow.yaml` - examine the generated Slurm script to understand why the constraint is required
+4. Change `--constraint=cpu` to `--constraint=gpu` and add `--gpus=1` - observe what changes in the generated script
 5. Remove `$(LAUNCHER)` and hardcode `srun` - compare generated scripts
 
 ## Perlmutter Best Practices
@@ -165,7 +192,7 @@ postprocess     | FINISHED   | 2s       | 2s
 
 **❌ DON'T:**
 - Hardcode scheduler commands (use `$(LAUNCHER)`)
-- Submit to `debug` partition for long-running jobs (2h limit)
+- Submit to `debug` partition for long-running jobs (30 min limit)
 - Request more resources than needed (wastes allocation)
 - Run compute workloads on login nodes (use Slurm)
 
@@ -185,3 +212,10 @@ postprocess     | FINISHED   | 2s       | 2s
 - Maestro creates timestamped directories: `ls -lt | grep workflow_`
 - Each step has subdirectory: `ls workflow_20260319-160000/`
 - Check both `.out` and `.err` files for messages
+
+**"Job request does not match any supported policy":**
+- This error means Slurm rejected the job because it is missing a required parameter
+- On Perlmutter, `--constraint=cpu` (or `--constraint=gpu`) is **mandatory** for all jobs
+- **Fix:** Ensure `#SBATCH --constraint=cpu` is embedded in the compute step's `cmd` block (see [Constraint Workaround](#constraint-workaround) above)
+- Verify the directive appears in the generated script: `cat workflow_*/compute/compute.slurm.sh | grep constraint`
+- Also check that `qos` is set correctly in the `batch` block (debug QOS has a 30-minute walltime limit)
