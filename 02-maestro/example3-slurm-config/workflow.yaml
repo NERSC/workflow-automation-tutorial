@@ -9,8 +9,9 @@ env:
 batch:
   type: slurm
   host: perlmutter
-  bank: m4408              # CHANGE THIS to your NERSC account (e.g., m1234)
-  queue: regular           # Use 'debug' for faster testing (2h limit)
+  bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
+  queue: regular_milan_ss11
+  qos: debug
 
 study:
   - name: setup
@@ -18,20 +19,21 @@ study:
     run:
       cmd: |
         echo "Preparing input for computation with N_SAMPLES=$(N_SAMPLES)"
-        echo "$(N_SAMPLES)" > $(OUTPUT_PATH)/input.txt
-        echo "Setup complete at $(OUTPUT_PATH)/input.txt"
+        echo "$(N_SAMPLES)" > $(WORKSPACE)/input.txt
+        echo "Setup complete at $(WORKSPACE)/input.txt"
 
   - name: compute
     description: Run parallel computation (submits to Slurm)
     run:
       cmd: |
+        #SBATCH --constraint=cpu
         echo "Starting computation with $(N_SAMPLES) samples"
         echo "Running on `hostname` with `nproc` cores"
         $(LAUNCHER) python $(SPECROOT)/scripts/compute.py \
           --input $(setup.workspace)/input.txt \
-          --output $(OUTPUT_PATH)/result.txt \
+          --output $(WORKSPACE)/result.txt \
           --procs $(PROCS)
-        echo "Computation complete, results at $(OUTPUT_PATH)/result.txt"
+        echo "Computation complete, results at $(WORKSPACE)/result.txt"
       depends: [setup]
       nodes: 1
       procs: 64              # Request 64 cores (half of a Perlmutter CPU node)
@@ -44,8 +46,8 @@ study:
         echo "Analyzing results from computation"
         RESULT_VALUE=`cat $(compute.workspace)/result.txt | grep "Result:" | awk '{print $2}'`
         echo "Computation result: $RESULT_VALUE"
-        echo "Analysis complete" > $(OUTPUT_PATH)/summary.txt
-        echo "  Input: $(N_SAMPLES) samples" >> $(OUTPUT_PATH)/summary.txt
-        echo "  Result: $RESULT_VALUE" >> $(OUTPUT_PATH)/summary.txt
-        echo "Summary written to $(OUTPUT_PATH)/summary.txt"
+        echo "Analysis complete" > $(WORKSPACE)/summary.txt
+        echo "  Input: $(N_SAMPLES) samples" >> $(WORKSPACE)/summary.txt
+        echo "  Result: $RESULT_VALUE" >> $(WORKSPACE)/summary.txt
+        echo "Summary written to $(WORKSPACE)/summary.txt"
       depends: [compute]
