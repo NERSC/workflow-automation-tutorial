@@ -4,8 +4,7 @@
 
 This script verifies that all example scripts:
 1. Have correct Python syntax
-2. Can be imported without import errors (with mocked dependencies)
-3. Follow the expected structure and patterns
+2. Follow the expected structure (files exist with content)
 """
 import sys
 from pathlib import Path
@@ -17,8 +16,6 @@ SIGNAC_DIR = Path(__file__).resolve().parent
 TEST_RESULTS = {
     'syntax_checks': [],
     'structure_checks': [],
-    'import_checks': [],
-    'execution_checks': []
 }
 
 
@@ -32,20 +29,12 @@ def check_file_syntax(filepath):
         return False, str(e)
 
 
-def check_readme_exists(example_dir):
-    """Check if README.md exists in example directory."""
-    readme = example_dir / 'README.md'
-    if readme.exists():
-        return True, f"README found ({readme.stat().st_size} bytes)"
-    return False, "README not found"
-
-
 def check_file_exists(filepath):
     """Check if a file exists and has content."""
     p = Path(filepath)
     if p.exists() and p.stat().st_size > 0:
         return True, f"File exists ({p.stat().st_size} bytes)"
-    return False, f"File missing or empty"
+    return False, "File missing or empty"
 
 
 def test_example1():
