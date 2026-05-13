@@ -185,7 +185,7 @@ postprocess     | FINISHED   | 2s       | 2s
 ## Perlmutter Best Practices
 
 **✅ DO:**
-- Use `regular` partition for production, `debug` for testing
+- Use `regular_milan_ss11` partition for production, `debug` for testing
 - Specify walltime accurately (avoid killing long jobs or wasting allocation)
 - Use `$(LAUNCHER)` instead of hardcoded `srun`
 - Check account balance before submitting large sweeps
@@ -201,7 +201,7 @@ postprocess     | FINISHED   | 2s       | 2s
 **Job stuck in PENDING:**
 - Check queue: `squeue -u $USER`
 - Verify account: `sacctmgr show assoc user=$USER`
-- Check partition limits: `sinfo -p regular`
+- Check partition limits: `sinfo -p regular_milan_ss11`
 
 **Job fails immediately:**
 - View error log: `cat workflow_*/compute/compute.err`
