@@ -23,7 +23,7 @@ setup (local) → compute (Slurm job) → postprocess (local)
 **System details for Maestro:**
 - **Host:** `perlmutter`
 - **Scheduler:** Slurm
-- **Partitions:** `regular_milan_ss11` (default), `debug` (fast scheduling), `shared` (fractional nodes)
+- **Partitions:** Auto-selected by Slurm from `--constraint` (leave `queue` empty)
 - **Account:** Your NERSC repository (e.g., `m1234`)
 - **QOS:** `regular` (default), `debug` (30 min limit, faster queue)
 - **Constraint:** `cpu` or `gpu` (mandatory on Perlmutter)
@@ -34,9 +34,11 @@ batch:
   type: slurm
   host: perlmutter
   bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
-  queue: regular_milan_ss11
+  queue: ""
   qos: debug
 ```
+
+The `queue` field is left empty so Slurm auto-selects the correct partition from the `--constraint` directive. Explicitly naming a partition alongside `qos: debug` can cause a `"does not match any supported policy"` error on Perlmutter.
 
 The `qos` field is a native Maestro batch parameter — the Slurm adapter generates `#SBATCH --qos=debug` automatically.
 
@@ -186,14 +188,14 @@ postprocess     | FINISHED   | 2s       | 2s
 ## Perlmutter Best Practices
 
 **✅ DO:**
-- Use `regular_milan_ss11` partition for production, `debug` for testing
+- Leave `queue` empty and let Slurm auto-select the partition from `--constraint`
 - Specify walltime accurately (avoid killing long jobs or wasting allocation)
 - Use `$(LAUNCHER)` instead of hardcoded `srun`
 - Check account balance before submitting large sweeps
 
 **❌ DON'T:**
 - Hardcode scheduler commands (use `$(LAUNCHER)`)
-- Submit to `debug` partition for long-running jobs (30 min limit)
+- Use `debug` QOS for long-running jobs (30 min limit)
 - Request more resources than needed (wastes allocation)
 - Run compute workloads on login nodes (use Slurm)
 
@@ -202,7 +204,7 @@ postprocess     | FINISHED   | 2s       | 2s
 **Job stuck in PENDING:**
 - Check queue: `squeue -u $USER`
 - Verify account: `sacctmgr show assoc user=$USER`
-- Check partition limits: `sinfo -p regular_milan_ss11`
+- Check partition limits: `sinfo -o "%P %l %a %f"`
 
 **Job fails immediately:**
 - View error log: `cat workflow_*/compute/compute.err`
