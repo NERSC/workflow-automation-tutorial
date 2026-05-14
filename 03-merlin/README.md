@@ -37,12 +37,107 @@ Merlin was developed at Lawrence Livermore National Laboratory (LLNL) specifical
 
 ## Prerequisites
 
+### If you completed earlier sections
+
+Activate the environment and verify Merlin is available:
+
 ```bash
 module load python
 conda activate wf-seminar
+merlin --version
 ```
 
-If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+If you see `merlin 1.13.0`, skip ahead to [Redis setup](#redis-setup).
+
+### First time? Set up the environment
+
+Follow the [setup instructions in the top-level README](../README.md#setup-instructions), then return here and activate:
+
+```bash
+module load python
+conda activate wf-seminar
+merlin --version
+```
+
+If `merlin --version` prints `merlin 1.13.0`, you're ready to continue.
+
+### Redis setup
+
+Merlin uses Redis as a message broker to coordinate tasks between workers. You'll start a local `redis-server` on the login node for these tutorial examples.
+
+**Start Redis:**
+
+```bash
+redis-server --daemonize yes --loglevel warning
+```
+
+This starts Redis as a background process on port 6379. Verify it's running:
+
+```bash
+redis-cli ping
+```
+
+Expected output: `PONG`
+
+### Merlin configuration
+
+Merlin needs a config file (`~/.merlin/app.yaml`) that tells it where to find Redis. Generate the default config:
+
+```bash
+merlin config create
+```
+
+This creates `~/.merlin/app.yaml` with RabbitMQ defaults. Replace the file contents with this localhost Redis configuration:
+
+```bash
+cat > ~/.merlin/app.yaml << 'EOF'
+broker:
+    name: redis
+    server: localhost
+    port: 6379
+    db_num: 0
+
+results_backend:
+    name: redis
+    server: localhost
+    port: 6379
+    db_num: 0
+    encryption_key: ~/.merlin/encrypt_data_key
+
+celery:
+    override: {}
+EOF
+```
+
+**Verify the connection:**
+
+```bash
+merlin info
+```
+
+Look for these lines in the output:
+
+```
+broker server connection: OK
+results server connection: OK
+```
+
+**Troubleshooting:** If `merlin info` shows `broker server connection: ERROR` or a `Connection refused` error, check two things:
+
+1. **Redis not running?** Run `redis-cli ping`. If it doesn't return `PONG`, restart Redis with `redis-server --daemonize yes --loglevel warning`.
+2. **Wrong config?** Verify `~/.merlin/app.yaml` matches the content above. If you skipped the `cat > ~/.merlin/app.yaml` step or still have the RabbitMQ defaults, `merlin info` will fail because it can't connect to a RabbitMQ server that doesn't exist.
+
+### Cleanup
+
+When you're done with the Merlin tutorial, stop the Redis server:
+
+```bash
+redis-cli shutdown
+```
+
+Login nodes are shared resources — don't leave Redis running when you're not using it.
+
+> **Production deployments:** For persistent Redis beyond this tutorial, see the [Redis setup guide](../resources/installation-guides/merlin-redis-setup.md).
 
 ## When to Use Merlin
 
