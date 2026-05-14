@@ -18,6 +18,7 @@ dependencies:
   # Development and testing utilities
   - pip
   - git
+  - setuptools<82  # pkg_resources removed in setuptools 82; merlin requires it
 
   # Redis server binary (Merlin broker for tutorial examples)
   # Note: redis is from defaults channel; conda-forge provides "redis-server" instead
