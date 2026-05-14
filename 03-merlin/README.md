@@ -359,9 +359,7 @@ Use Maestro for moderate workflows in single allocations. Graduate to Merlin whe
 
 ## Quick Start
 
-**Prerequisites:**
-- Redis broker running (see installation guide)
-- Merlin configured (`~/.merlin/app.yaml`)
+Complete the [Prerequisites](#prerequisites) section above before running these commands.
 
 **Basic workflow:**
 ```bash
