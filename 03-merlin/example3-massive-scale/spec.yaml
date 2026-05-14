@@ -14,8 +14,10 @@ batch:
 
 merlin:
   resources:
-    - name: hparam_search
-      args: --concurrency 32 -O fair
+    workers:
+      hparam_workers:
+        args: --concurrency 32 -O fair
+        steps: [all]
   samples:
     generate:
       cmd: python $(SPECROOT)/scripts/generate_samples.py $(MERLIN_INFO)/samples.npy $(N_SAMPLES)

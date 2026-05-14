@@ -18,8 +18,10 @@ global.parameters:
 
 merlin:
   resources:
-    - name: simulations
-      args: --concurrency 4 --prefetch-multiplier 1 -O fair
+    workers:
+      sim_workers:
+        args: --concurrency 4 --prefetch-multiplier 1 -O fair
+        steps: [all]
 
 study:
   - name: generate

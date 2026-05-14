@@ -203,8 +203,10 @@ study:
 # Merlin-specific additions
 merlin:
   resources:
-    - name: simulations
-      args: --concurrency 32 --prefetch-multiplier 1 -O fair
+    workers:
+      simulations:
+        args: --concurrency 32 --prefetch-multiplier 1 -O fair
+        steps: [all]
   samples:
     generate:
       cmd: python generate_samples.py $(MERLIN_INFO)/samples.npy

@@ -13,8 +13,10 @@ batch:
 
 merlin:
   resources:
-    - name: flaky_queue
-      args: --concurrency 2 -O fair
+    workers:
+      fault_workers:
+        args: --concurrency 2 -O fair
+        steps: [all]
 
 study:
   - name: flaky_task
