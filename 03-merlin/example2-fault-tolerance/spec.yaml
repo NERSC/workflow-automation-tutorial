@@ -9,8 +9,7 @@ env:
 batch:
   type: slurm
   host: perlmutter
-  bank: m4408  # Change to your account
-  queue: debug
+  bank: ntrain4  # Change to your account
 
 merlin:
   resources:
