@@ -69,7 +69,7 @@ cat workflow_20260319-143022/visualize/plot.txt
 1. **Declarative dependencies:** `depends: [step-name]` ensures execution order
 2. **Automatic ordering:** Maestro determines which steps can run in parallel (none here)
 3. **Token usage:** `$(SPECROOT)` references workflow directory, `$(OUTPUT_PATH)` writes outputs
-4. **Filesystem passing:** Each step reads from previous step's `$(OUTPUT_PATH)`
+4. **Filesystem passing:** Each step reads from previous step's `$(step_name.workspace)`
 
 ## Expected Output
 

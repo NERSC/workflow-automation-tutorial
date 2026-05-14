@@ -18,14 +18,21 @@ Hyperparameter search with 1000 randomly sampled combinations (learning_rates, b
 
 ## Running
 
-```bash
-# Generate samples
-merlin run spec.yaml
+All `merlin` commands must be run from the `03-merlin/` directory so Merlin finds the repo's `app.yaml` config automatically.
 
-# Start multiple workers for parallel execution
-merlin run-workers spec.yaml --worker-name worker1 &
-merlin run-workers spec.yaml --worker-name worker2 &
-merlin run-workers spec.yaml --worker-name worker3 &
+```bash
+# Terminal 1: Submit workflow to queue
+cd 03-merlin/
+merlin run example3-massive-scale/spec.yaml
+
+# Terminal 2: Start multiple workers (in batch allocation)
+salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
+module load python
+conda activate wf-seminar
+cd 03-merlin/
+merlin run-workers example3-massive-scale/spec.yaml --worker-name worker1 &
+merlin run-workers example3-massive-scale/spec.yaml --worker-name worker2 &
+merlin run-workers example3-massive-scale/spec.yaml --worker-name worker3 &
 ```
 
 With 3 workers at concurrency 32 each, ~96 tasks execute in parallel.

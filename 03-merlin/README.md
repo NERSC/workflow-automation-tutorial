@@ -81,37 +81,12 @@ Expected output: `PONG`
 
 ### Merlin configuration
 
-Merlin needs a config file (`~/.merlin/app.yaml`) that tells it where to find Redis. Generate the default config:
+Merlin needs a config file (`app.yaml`) that tells it where to find Redis. This repo includes one at `03-merlin/app.yaml` configured for localhost Redis. Merlin discovers it automatically when you run commands from the `03-merlin/` directory — no manual config file creation needed.
+
+**Verify the connection** (run from `03-merlin/`):
 
 ```bash
-merlin config create
-```
-
-This creates `~/.merlin/app.yaml` with RabbitMQ defaults. Replace the file contents with this localhost Redis configuration:
-
-```bash
-cat > ~/.merlin/app.yaml << 'EOF'
-broker:
-    name: redis
-    server: localhost
-    port: 6379
-    db_num: 0
-
-results_backend:
-    name: redis
-    server: localhost
-    port: 6379
-    db_num: 0
-    encryption_key: ~/.merlin/encrypt_data_key
-
-celery:
-    override: {}
-EOF
-```
-
-**Verify the connection:**
-
-```bash
+cd 03-merlin/
 merlin info
 ```
 
@@ -125,7 +100,7 @@ results server connection: OK
 **Troubleshooting:** If `merlin info` shows `broker server connection: ERROR` or a `Connection refused` error, check two things:
 
 1. **Redis not running?** Run `redis-cli ping`. If it doesn't return `PONG`, restart Redis with `redis-server --daemonize yes --loglevel warning`.
-2. **Wrong config?** Verify `~/.merlin/app.yaml` matches the content above. If you skipped the `cat > ~/.merlin/app.yaml` step or still have the RabbitMQ defaults, `merlin info` will fail because it can't connect to a RabbitMQ server that doesn't exist.
+2. **Wrong directory?** `merlin info` must be run from `03-merlin/` (or a subdirectory that has its own `app.yaml`). Running from a different directory means Merlin won't find the repo config and will fall back to `~/.merlin/app.yaml`, which may not exist or may have wrong settings.
 
 ### Cleanup
 
@@ -361,16 +336,18 @@ Use Maestro for moderate workflows in single allocations. Graduate to Merlin whe
 
 Complete the [Prerequisites](#prerequisites) section above before running these commands.
 
-**Basic workflow:**
+**Basic workflow** (run from `03-merlin/`):
 ```bash
+cd 03-merlin/
+
 # Submit workflow to queue
-merlin run spec.yaml
+merlin run example1-distributed/spec.yaml
 
 # Start workers (in batch allocation)
-merlin run-workers spec.yaml
+merlin run-workers example1-distributed/spec.yaml
 
 # Check status
-merlin status spec.yaml
+merlin status example1-distributed/spec.yaml
 merlin query-workers
 ```
 

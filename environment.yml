@@ -20,7 +20,8 @@ dependencies:
   - git
 
   # Redis server binary (Merlin broker for tutorial examples)
-  - redis-server
+  # Note: redis is from defaults channel; conda-forge provides "redis-server" instead
+  - redis
 
   # Install remaining packages via pip (not available in conda-forge)
   - pip:
@@ -40,7 +41,7 @@ dependencies:
 
 # Notes:
 # 1. This environment assumes Python module is loaded on Perlmutter: module load python
-# 2. redis-server is included for Merlin tutorial examples (local broker on login node).
+# 2. redis is included for Merlin tutorial examples (local broker on login node).
 #    For production Redis, RabbitMQ, or PostgreSQL services, deploy separately
 #    (NERSC SPIN recommended). See resources/installation-guides/merlin-redis-setup.md
 # 3. Some packages are installed via pip because they're not available in conda-forge

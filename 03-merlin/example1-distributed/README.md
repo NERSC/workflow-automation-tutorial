@@ -26,23 +26,28 @@ Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin R
 
 ## Running on Perlmutter
 
+All `merlin` commands must be run from the `03-merlin/` directory so Merlin finds the repo's `app.yaml` config automatically.
+
 **Terminal 1: Submit workflow to queue**
 ```bash
-cd 03-merlin/example1-distributed
-merlin run spec.yaml
+cd 03-merlin/
+merlin run example1-distributed/spec.yaml
 # Workflow parsed, tasks sent to Redis queue
 ```
 
 **Terminal 2: Start workers (in batch allocation)**
 ```bash
 salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
-merlin run-workers spec.yaml
+module load python
+conda activate wf-seminar
+cd 03-merlin/
+merlin run-workers example1-distributed/spec.yaml
 # Workers consume tasks from queue
 ```
 
 **Monitor status:**
 ```bash
-merlin status spec.yaml
+merlin status example1-distributed/spec.yaml
 ```
 
 **Expected output structure:**

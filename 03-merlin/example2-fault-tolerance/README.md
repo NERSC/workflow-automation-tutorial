@@ -21,20 +21,26 @@ Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin R
 
 ## Running
 
+All `merlin` commands must be run from the `03-merlin/` directory so Merlin finds the repo's `app.yaml` config automatically.
+
 ```bash
 # Terminal 1: Submit workflow to queue
-merlin run spec.yaml
+cd 03-merlin/
+merlin run example2-fault-tolerance/spec.yaml
 
 # Terminal 2: Start workers (in batch allocation)
 salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
-merlin run-workers spec.yaml
+module load python
+conda activate wf-seminar
+cd 03-merlin/
+merlin run-workers example2-fault-tolerance/spec.yaml
 ```
 
 Tasks will fail initially, then retry until success or max_retries exceeded.
 
 **Monitor progress:**
 ```bash
-merlin status spec.yaml
+merlin status example2-fault-tolerance/spec.yaml
 ```
 
 ## Expected Output

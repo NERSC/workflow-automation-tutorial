@@ -1,6 +1,6 @@
 # HPC Workflow Management Tools Seminar
 
-Last verified: 2026-05-13
+Last verified: 2026-05-14
 
 ## Tech Stack
 - Language: Python 3.10, Bash
@@ -25,6 +25,7 @@ Last verified: 2026-05-13
 - All examples must run on Perlmutter without modification after env setup
 - Slurm account `ntrain4` used in job scripts (attendees change to their own)
 - Training event reservation: attendees pass `-A ntrain4 --reservation=<name>` directly as CLI flags to `sbatch`
+- Merlin commands must be run from `03-merlin/` so `./app.yaml` is auto-discovered (Merlin checks `./app.yaml` before `~/.merlin/app.yaml`)
 
 ## Invariants
 - Progressive capability story: each tool adds exactly one major capability over the previous

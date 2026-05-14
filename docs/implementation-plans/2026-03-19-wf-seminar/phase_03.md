@@ -134,12 +134,7 @@ class SimulationProject(FlowProject):
 def simulated(job):
     return job.isfile("results.txt")
 
-@SimulationProject.operation
-@SimulationProject.directives(
-    np=1,
-    walltime=0.5,
-    executable="python simulate.py"
-)
+@SimulationProject.operation(directives={"np": 1, "walltime": 0.5})
 def run_simulation(job):
     # Simulation runs in job directory with parameters from job.sp
     pass
