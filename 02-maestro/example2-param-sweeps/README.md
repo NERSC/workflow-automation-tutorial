@@ -57,20 +57,21 @@ maestro run workflow.yaml
 
 **Expected directory structure:**
 ```
-workflow_20260319-150000/
-├── run_simulation_SIZE.10/
-│   └── output.txt
-├── run_simulation_SIZE.20/
-│   └── output.txt
-├── run_simulation_SIZE.30/
-│   └── output.txt
+param-sweep_20260319-150000/
+├── run_simulation/
+│   ├── SIZE.10/
+│   │   └── output.txt
+│   ├── SIZE.20/
+│   │   └── output.txt
+│   └── SIZE.30/
+│       └── output.txt
 └── aggregate_results/
     └── summary.txt
 ```
 
 **View aggregated results:**
 ```bash
-cat workflow_20260319-150000/aggregate_results/summary.txt
+cat param-sweep_20260319-150000/aggregate_results/summary.txt
 ```
 
 ## Key Concepts Demonstrated
@@ -88,7 +89,7 @@ $ maestro run workflow.yaml
 [TIMESTAMP] INFO: Launching study workflow...
 [TIMESTAMP] INFO: Study workflow launched successfully.
 
-$ maestro status workflow_20260319-150000
+$ maestro status param-sweep_20260319-150000
 Step Name                    | State     | Run Time | Elapsed Time
 -----------------------------|-----------|----------|-------------
 run_simulation_SIZE.10       | FINISHED  | 1s       | 1s
@@ -128,7 +129,3 @@ global.parameters:
 ```
 
 Maestro adds workflow orchestration to parameter organization.
-
-## Known Limitations
-
-**Workspace path construction:** The aggregate_results step uses `$(SPECROOT)/../../$(WORKSPACE)` to construct the path to parameter-specific workspaces. This relative path construction may be fragile depending on Maestro's working directory behavior. In production workflows, consider using absolute paths or environment variables for more robust path handling.

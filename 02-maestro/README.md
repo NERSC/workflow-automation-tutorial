@@ -40,12 +40,29 @@ Maestro was developed at Lawrence Livermore National Laboratory (LLNL) specifica
 
 ## Prerequisites
 
+### If you completed earlier sections
+
+Activate the environment and verify Maestro is available:
+
 ```bash
 module load python
 conda activate wf-seminar
+maestro --version
 ```
 
-If you haven't created the environment yet, see the [top-level README](../README.md) for full setup instructions.
+If you see version output, skip ahead to [When to Use Maestro](#when-to-use-maestro).
+
+### First time? Set up the environment
+
+Follow the [setup instructions in the top-level README](../README.md#setup-instructions), then return here and activate:
+
+```bash
+module load python
+conda activate wf-seminar
+maestro --version
+```
+
+If `maestro --version` prints a version number, you're ready to proceed.
 
 ## When to Use Maestro
 
@@ -140,16 +157,17 @@ Optional sections:
 Maestro provides built-in tokens for portable path references:
 
 - `$(SPECROOT)` - Directory containing the YAML file
-- `$(OUTPUT_PATH)` - Step output directory (timestamp-based)
-- `$(WORKSPACE)` - Parameter-specific workspace (in sweeps)
+- `$(WORKSPACE)` - Current step's workspace directory (where outputs should be written)
+- `$(OUTPUT_PATH)` - Study root directory (timestamp-based, parent of all step workspaces)
 - `$(LAUNCHER)` - Scheduler launch command (e.g., `srun` on Slurm)
+- `$(step_name.workspace)` - Another step's workspace directory (for reading upstream outputs)
 - Custom tokens from `env.variables`
 
 Example:
 ```yaml
 cmd: |
   cd $(SPECROOT)/data
-  $(LAUNCHER) python compute.py > $(OUTPUT_PATH)/results.txt
+  $(LAUNCHER) python compute.py > $(WORKSPACE)/results.txt
 ```
 
 ### Parameter Sweeps
@@ -244,9 +262,6 @@ Use signac for parameter organization, Maestro for workflow orchestration when y
 ## Quick Start
 
 ```bash
-# Install (already in requirements.txt)
-pip install maestrowf==1.1.11
-
 # Run a workflow
 maestro run workflow.yaml
 
