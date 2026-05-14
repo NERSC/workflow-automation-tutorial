@@ -36,3 +36,27 @@ merlin run-workers example3-massive-scale/spec.yaml --worker-name worker3 &
 ```
 
 With 3 workers at concurrency 32 each, ~96 tasks execute in parallel.
+
+## Expected Output
+
+Upon successful completion, Merlin creates one workspace directory per task under a timestamped study root:
+
+```
+massive_scale_<timestamp>/
+├── train/
+│   ├── 00000001/
+│   │   └── output/
+│   │       └── metrics.txt
+│   ├── 00000002/
+│   │   └── output/
+│   │       └── metrics.txt
+│   ...
+│   └── 00001000/
+│       └── output/
+│           └── metrics.txt
+└── aggregate/
+    └── output/
+        └── summary.txt
+```
+
+Each `metrics.txt` contains the simulated loss for that task's hyperparameter combination. The `summary.txt` reports the total count of completed training tasks.
