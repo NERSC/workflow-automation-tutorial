@@ -59,6 +59,20 @@ This shows:
 - Number of jobs to be submitted
 - Job parameters for each submission
 
+### Actual Submission on Perlmutter
+
+signac-flow forwards extra flags directly to `sbatch` via `--` on the submit command:
+
+```bash
+# Submit with account and reservation (training session)
+python project.py submit -- -A ntrain4 --constraint=cpu --reservation=<reservation_name>
+
+# Submit with account only (outside training reservation)
+python project.py submit -- -A <your_account> --constraint=cpu
+```
+
+Everything after `--` is appended verbatim to the generated `sbatch` command. The `--constraint=cpu`, `-A`, and optionally `--reservation` flags must all be provided via the `--` passthrough.
+
 ### The Submission Process
 
 When you run `python project.py submit`:
