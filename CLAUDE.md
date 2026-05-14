@@ -1,6 +1,6 @@
 # HPC Workflow Management Tools Seminar
 
-Last verified: 2026-05-08
+Last verified: 2026-05-13
 
 ## Tech Stack
 - Language: Python 3.10, Bash
@@ -30,7 +30,7 @@ Last verified: 2026-05-08
 - Progressive capability story: each tool adds exactly one major capability over the previous
 - GNU Parallel (parallelism) -> signac (parameter organization) -> Maestro (DAG deps) -> Merlin (distributed scale) -> AiiDA (provenance)
 - No example should require domain-specific scientific knowledge
-- Merlin requires external services (Redis/RabbitMQ) for distributed mode
+- Merlin tutorial uses a local `redis-server` on the login node (bundled in conda env); production deployments use external Redis/RabbitMQ (NERSC SPIN)
 - AiiDA training mode uses SQLite via `verdi presto` (no external services); production mode requires PostgreSQL + RabbitMQ (documented in `resources/aiida-production-deployment.md`)
 - All Python scripts must work with Python 3.10+
 
