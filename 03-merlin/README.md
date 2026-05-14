@@ -217,7 +217,7 @@ env:
 
 batch:
   type: slurm
-  bank: m4408
+  bank: ntrain4
 
 study:
   - name: step1
