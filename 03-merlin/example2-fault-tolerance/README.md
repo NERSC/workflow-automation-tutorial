@@ -10,9 +10,9 @@
 
 ## Prerequisites
 
-- Redis broker running (see `resources/installation-guides/merlin-redis-setup.md`)
-- `~/.merlin/app.yaml` configured with Redis connection
-- Merlin v1.13.0+ installed
+Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin README before starting this example. You should have Merlin installed, Redis running on the login node, and `merlin info` showing both connections as `OK`.
+
+> **Note:** The Redis server you started on the login node is reachable from compute nodes on Perlmutter, so workers in your `salloc` allocation will connect to it without extra configuration.
 
 ## Workflow
 
@@ -26,7 +26,7 @@
 merlin run spec.yaml
 
 # Terminal 2: Start workers (in batch allocation)
-salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=m4408
+salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
 merlin run-workers spec.yaml
 ```
 
