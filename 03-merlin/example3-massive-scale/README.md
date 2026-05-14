@@ -8,6 +8,10 @@
 
 **Concepts:** Massive scale, programmatic sampling, performance at scale
 
+## Prerequisites
+
+Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin README before starting this example. You should have Merlin installed, Redis running, and `merlin info` showing both connections as `OK`.
+
 ## Workflow
 
 Hyperparameter search with 1000 randomly sampled combinations (learning_rates, batch_sizes, epochs).
