@@ -27,18 +27,14 @@ python project.py submit
 
 The `FlowProject` class defines your workflow in code:
 
-- **@SimulationProject.operation**: Decorates a function as an operation (work unit)
-- **@SimulationProject.directives**: Specifies HPC resource requirements:
+- **@SimulationProject.operation(directives={...})**: Decorates a function as an operation (work unit) with HPC resource requirements:
   - `np=1`: 1 process per job
   - `walltime=0.5`: 30 minutes (0.5 hours)
-  - `executable="python simulate.py"`: What to run
 - **@SimulationProject.label**: Defines job completion criteria (marks as "simulated" when results.txt exists)
 
-### simulate.py - Simulation Script
+### simulate.py - Standalone Parameter Access Demo
 
-Simple placeholder that demonstrates:
-- Accessing job parameters via `signac.get_job()`
-- Job isolation (runs independently in each job's workspace)
+Not called by `project.py`. Demonstrates how to access job parameters from a standalone script using `signac.get_job()`, useful for debugging or running individual jobs outside the flow framework.
 
 ## Running This Example
 
@@ -70,7 +66,7 @@ When you run `python project.py submit`:
 1. Flow discovers all jobs in the workspace (from example1)
 2. For each job not yet marked as "simulated":
    - Creates a unique Slurm submission script in the job directory
-   - Extracts job parameters (e.g., temperature, pressure) into the environment
+   - Passes the job context to the operation function (parameters available via `job.sp`)
 3. Submits all scripts to Slurm
 
 ### Why This Matters
