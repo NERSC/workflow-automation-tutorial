@@ -63,9 +63,26 @@ If `merlin --version` prints `merlin 1.13.0`, you're ready to continue.
 
 ### Redis setup
 
-Merlin uses Redis as a message broker to coordinate tasks between workers. You'll start a local `redis-server` on the login node for these tutorial examples.
+Merlin uses Redis as a message broker to coordinate tasks between workers. For this tutorial, you'll start a local `redis-server` on the compute node where you run `merlin run-workers`.
 
-**Start Redis:**
+**Why compute node, not login node?** Redis binds to `localhost` (127.0.0.1) by default. A Redis process started on a login node is not reachable from compute nodes — workers on a compute node connect to `localhost` on *that* node, not the login node's. The result is `Connection refused` (errno 104). Running Redis, `merlin run`, and `merlin run-workers` all on the same compute node ensures they share the same `localhost`.
+
+**Get a compute node allocation:**
+
+```bash
+salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
+```
+
+Replace `ntrain4` with your account. If a training reservation is active, add `--reservation=<name>`.
+
+**Inside the allocation, activate your environment:**
+
+```bash
+module load python
+conda activate wf-seminar
+```
+
+**Start Redis on this compute node:**
 
 ```bash
 redis-server --daemonize yes --loglevel warning
@@ -83,7 +100,7 @@ Expected output: `PONG`
 
 Merlin needs a config file (`app.yaml`) that tells it where to find Redis. This repo includes one at `03-merlin/app.yaml` configured for localhost Redis. Merlin discovers it automatically when you run commands from the `03-merlin/` directory — no manual config file creation needed.
 
-**Verify the connection** (run from `03-merlin/`):
+**Verify the connection** (run from `03-merlin/` inside the allocation):
 
 ```bash
 cd 03-merlin/
@@ -110,7 +127,7 @@ When you're done with the Merlin tutorial, stop the Redis server:
 redis-cli shutdown
 ```
 
-Login nodes are shared resources — don't leave Redis running when you're not using it.
+If you end your allocation early, stop Redis first to avoid leaving orphaned processes.
 
 > **Production deployments:** For persistent Redis beyond this tutorial, see the [Redis setup guide](../resources/installation-guides/merlin-redis-setup.md).
 
