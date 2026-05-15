@@ -31,7 +31,7 @@ Last verified: 2026-05-14
 - Progressive capability story: each tool adds exactly one major capability over the previous
 - GNU Parallel (parallelism) -> signac (parameter organization) -> Maestro (DAG deps) -> Merlin (distributed scale) -> AiiDA (provenance)
 - No example should require domain-specific scientific knowledge
-- Merlin tutorial uses a local `redis-server` on the login node (bundled in conda env); production deployments use external Redis/RabbitMQ (NERSC SPIN)
+- Merlin tutorial uses a local `redis-server` on the compute node (inside an `salloc` allocation); Redis, `merlin run`, and `merlin run-workers` must all run on the same node (Redis binds to `localhost`); production deployments use external Redis/RabbitMQ (NERSC SPIN)
 - AiiDA training mode uses SQLite via `verdi presto` (no external services); production mode requires PostgreSQL + RabbitMQ (documented in `resources/aiida-production-deployment.md`)
 - All Python scripts must work with Python 3.10+
 
