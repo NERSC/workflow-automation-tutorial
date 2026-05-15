@@ -271,7 +271,7 @@ merlin run spec.yaml
 # Parses DAG, enqueues tasks to Redis
 ```
 
-**2. Start workers (separate allocation):**
+**2. Start workers (in allocation):**
 ```bash
 merlin run-workers spec.yaml
 # Workers connect to Redis, consume tasks

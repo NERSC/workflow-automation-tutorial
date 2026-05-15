@@ -74,4 +74,4 @@ example1-distributed_<timestamp>/
 1. Start workers in multiple allocations - observe load distribution
 2. Kill workers mid-execution, restart - verify tasks resume
 3. Increase PARAM values to 20 - observe scaling
-4. Query Redis directly: `redis-cli -h <host> -a <password> LLEN simulations`
+4. Query Redis directly: `redis-cli LLEN simulations`
