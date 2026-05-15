@@ -20,46 +20,44 @@ generate → [process_PARAM.1, process_PARAM.2, ..., process_PARAM.5] → aggreg
 
 ## Prerequisites
 
-Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin README before starting this example. You should have Merlin installed, Redis running on the login node, and `merlin info` showing both connections as `OK`.
-
-> **Note:** The Redis server you started on the login node is reachable from compute nodes on Perlmutter, so workers in your `salloc` allocation will connect to it without extra configuration.
+Complete the [Prerequisites section](../README.md#prerequisites) in the Merlin README before starting this example. You should have a compute node allocation via `salloc`, Redis running on that node, and `merlin info` showing both connections as `OK`.
 
 ## Running on Perlmutter
 
-All `merlin` commands must be run from the `03-merlin/` directory so Merlin finds the repo's `app.yaml` config automatically.
+All `merlin` commands must be run from the `03-merlin/` directory so Merlin finds the repo's `app.yaml` config automatically. All commands run inside the same `salloc` allocation where Redis is already running (see [Prerequisites](#prerequisites)).
 
-**Terminal 1: Submit workflow to queue**
+**Submit the workflow tasks to the Redis queue:**
 ```bash
 cd 03-merlin/
 merlin run example1-distributed/spec.yaml
-# Workflow parsed, tasks sent to Redis queue
 ```
 
-**Terminal 2: Start workers (in batch allocation)**
+**Start workers to consume tasks (blocks until all tasks complete):**
 ```bash
-salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
-module load python
-conda activate wf-seminar
-cd 03-merlin/
 merlin run-workers example1-distributed/spec.yaml
-# Workers consume tasks from queue
 ```
 
-**Monitor status:**
+**Check status after workers finish:**
 ```bash
 merlin status example1-distributed/spec.yaml
 ```
 
-**Expected output structure:**
+**Expected output structure** (under `$PSCRATCH/wf-seminar-merlin/`):
 ```
-example1_distributed_<timestamp>/
+example1-distributed_<timestamp>/
 ├── generate/
 │   └── output.txt
-├── process_PARAM.1/
-│   └── result.txt
-├── process_PARAM.2/
-│   └── result.txt
-...
+├── process/
+│   ├── PARAM.1/
+│   │   └── result.txt
+│   ├── PARAM.2/
+│   │   └── result.txt
+│   ├── PARAM.3/
+│   │   └── result.txt
+│   ├── PARAM.4/
+│   │   └── result.txt
+│   └── PARAM.5/
+│       └── result.txt
 └── aggregate/
     └── summary.txt
 ```
