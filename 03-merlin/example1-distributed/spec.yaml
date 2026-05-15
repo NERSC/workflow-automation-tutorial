@@ -4,7 +4,7 @@ description:
 
 env:
   variables:
-    OUTPUT_PATH: ./output
+    OUTPUT_PATH: $PSCRATCH/wf-seminar-merlin
 
 batch:
   type: slurm
@@ -28,10 +28,9 @@ study:
     description: Generate input data
     run:
       cmd: |
-        mkdir -p $(OUTPUT_PATH)
-        echo "Generated at $(date)" > $(OUTPUT_PATH)/output.txt
+        echo "Generated at $(date)" > $(WORKSPACE)/output.txt
         for i in {1..5}; do
-          echo "Input data for PARAM $i" >> $(OUTPUT_PATH)/output.txt
+          echo "Input data for PARAM $i" >> $(WORKSPACE)/output.txt
         done
         echo "Generation complete"
 
@@ -42,7 +41,7 @@ study:
         python $(SPECROOT)/scripts/process_task.py \
           --param $(PARAM) \
           --input $(generate.workspace)/output.txt \
-          --output $(OUTPUT_PATH)/result.txt
+          --output $(WORKSPACE)/result.txt
         echo "Processed PARAM=$(PARAM)"
       depends: [generate]
       task_queue: simulations
@@ -51,16 +50,11 @@ study:
     description: Aggregate results from all parameter values
     run:
       cmd: |
-        echo "Aggregating results from all PARAM values" > $(OUTPUT_PATH)/summary.txt
-        # Note: This find pattern assumes all process_PARAM.* directories exist in sibling
-        # example1_distributed_* directories at same level as spec.yaml. This limits the
-        # workflow to a single run per parent directory. For repeated runs, either use
-        # different parent directories or implement a results database (see Merlin's
-        # results backend for persistent tracking across multiple workflow runs).
+        echo "Aggregating results from all PARAM values" > $(WORKSPACE)/summary.txt
         for p in 1 2 3 4 5; do
-          result_file=$(find $(SPECROOT)/../example1_distributed_*/process_PARAM.$p -name result.txt 2>/dev/null | head -1)
+          result_file=$(process.workspace)/PARAM.$p/result.txt
           if [ -f "$result_file" ]; then
-            cat "$result_file" >> $(OUTPUT_PATH)/summary.txt
+            cat "$result_file" >> $(WORKSPACE)/summary.txt
           fi
         done
         echo "Aggregation complete"
