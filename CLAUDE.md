@@ -21,7 +21,7 @@ Last verified: 2026-05-16
 - Sections are numbered 00-04 in progressive complexity order
 - Each section has 3 examples: `example1-*`, `example2-*`, `example3-*`
 - Each section has a README.md with: motivation, concepts, when-to-use, examples list
-- Each section has a `cleanup.sh` that removes runtime artifacts to restore a freshly-cloned state
+- Sections 00-03 each have a `cleanup.sh` that removes runtime artifacts to restore a freshly-cloned state
 - Examples use placeholder computations (sleep, echo, basic math) not real science
 - All examples must run on Perlmutter without modification after env setup
 - Slurm account `ntrain4` used in job scripts (attendees change to their own)
