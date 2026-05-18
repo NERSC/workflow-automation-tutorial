@@ -31,18 +31,20 @@ Tasks will fail initially, then retry until success or max_retries exceeded.
 
 **Monitor progress:**
 ```bash
-merlin status example2-fault-tolerance/spec.yaml
+merlin status $(ls -td $PSCRATCH/wf-seminar-merlin/fault-tolerance-demo_* | head -1)
 ```
 
 ## Expected Output
 
-Upon successful completion:
+Upon successful completion (under `$PSCRATCH/wf-seminar-merlin/fault-tolerance-demo_<timestamp>/`):
 ```
-output/
-├── attempt.log           # Shows final attempt number (1-4)
-├── checkpoint.txt        # Final checkpoint value (5)
-├── failed_once           # Marker file indicating restart occurred
-└── recovered             # Marker file indicating completion
+fault-tolerance-demo_<timestamp>/
+├── flaky_task/
+│   └── attempt.log       # Shows final attempt number (1-4)
+└── checkpoint_task/
+    ├── checkpoint.txt    # Final checkpoint value (5)
+    ├── failed_once       # Marker file indicating restart occurred
+    └── recovered         # Marker file indicating completion
 ```
 
 ## Key Concepts Demonstrated

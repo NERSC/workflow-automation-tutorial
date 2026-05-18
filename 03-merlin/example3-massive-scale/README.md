@@ -30,26 +30,27 @@ merlin run-workers example3-massive-scale/spec.yaml --worker-name worker3 &
 
 With 3 workers at concurrency 32 each, ~96 tasks execute in parallel.
 
+**Monitor progress:**
+```bash
+merlin status $(ls -td $PSCRATCH/wf-seminar-merlin/massive-scale_* | head -1)
+```
+
 ## Expected Output
 
-Upon successful completion, Merlin creates one workspace directory per task under a timestamped study root:
+Upon successful completion (under `$PSCRATCH/wf-seminar-merlin/massive-scale_<timestamp>/`), Merlin creates one workspace directory per task:
 
 ```
-massive_scale_<timestamp>/
+massive-scale_<timestamp>/
 ├── train/
 │   ├── 00000001/
-│   │   └── output/
-│   │       └── metrics.txt
+│   │   └── metrics.txt
 │   ├── 00000002/
-│   │   └── output/
-│   │       └── metrics.txt
+│   │   └── metrics.txt
 │   ...
 │   └── 00001000/
-│       └── output/
-│           └── metrics.txt
+│       └── metrics.txt
 └── aggregate/
-    └── output/
-        └── summary.txt
+    └── summary.txt
 ```
 
 Each `metrics.txt` contains the simulated loss for that task's hyperparameter combination. The `summary.txt` reports the total count of completed training tasks.

@@ -7,6 +7,8 @@
 #   output/fault-tolerance-demo_<timestamp>/   (Merlin study workspace for example 2)
 #   output/massive-scale_<timestamp>/          (Merlin study workspace for example 3)
 #   $PSCRATCH/wf-seminar-merlin/example1-distributed_<timestamp>/  (scratch workspace)
+#   $PSCRATCH/wf-seminar-merlin/fault-tolerance-demo_<timestamp>/  (scratch workspace)
+#   $PSCRATCH/wf-seminar-merlin/massive-scale_<timestamp>/         (scratch workspace)
 #   **/__pycache__/                            (Python bytecode caches)
 #
 # The $PSCRATCH block only runs when $PSCRATCH is set and non-empty.
@@ -21,9 +23,11 @@ rm -rf "$SCRIPT_DIR/output/example1-distributed_"*
 rm -rf "$SCRIPT_DIR/output/fault-tolerance-demo_"*
 rm -rf "$SCRIPT_DIR/output/massive-scale_"*
 
-# Remove example1 scratch workspace on Perlmutter (OUTPUT_PATH in example1-distributed/spec.yaml)
+# Remove scratch workspaces on Perlmutter (OUTPUT_PATH in examples 1, 2, and 3 spec.yaml)
 if [ -n "${PSCRATCH:-}" ]; then
     rm -rf "$PSCRATCH/wf-seminar-merlin/example1-distributed_"*
+    rm -rf "$PSCRATCH/wf-seminar-merlin/fault-tolerance-demo_"*
+    rm -rf "$PSCRATCH/wf-seminar-merlin/massive-scale_"*
 fi
 
 # Python bytecode caches

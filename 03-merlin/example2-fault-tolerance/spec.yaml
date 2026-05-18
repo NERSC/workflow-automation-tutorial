@@ -4,7 +4,7 @@ description:
 
 env:
   variables:
-    OUTPUT_PATH: ./output
+    OUTPUT_PATH: $PSCRATCH/wf-seminar-merlin
 
 batch:
   type: slurm
@@ -23,7 +23,7 @@ study:
     description: Task that fails randomly, retries automatically
     run:
       cmd: |
-        bash $(SPECROOT)/scripts/flaky_task.sh $(OUTPUT_PATH)/attempt.log $(MERLIN_RETRY)
+        bash $(SPECROOT)/scripts/flaky_task.sh $(WORKSPACE)/attempt.log $(MERLIN_RETRY)
       retry_delay: 5
       max_retries: 3
       task_queue: flaky_queue
@@ -32,37 +32,36 @@ study:
     description: Task with restart capability
     run:
       cmd: |
-        mkdir -p $(OUTPUT_PATH)
-        if [ -f $(OUTPUT_PATH)/checkpoint.txt ]; then
+        if [ -f $(WORKSPACE)/checkpoint.txt ]; then
           echo "Resuming from checkpoint"
-          start=$(cat $(OUTPUT_PATH)/checkpoint.txt)
+          start=$(cat $(WORKSPACE)/checkpoint.txt)
         else
           start=1
         fi
         for i in $(seq $start 5); do
           echo "Processing step $i"
-          echo $i > $(OUTPUT_PATH)/checkpoint.txt
+          echo $i > $(WORKSPACE)/checkpoint.txt
           sleep 1
-          if [ $i -eq 3 ] && [ ! -f $(OUTPUT_PATH)/recovered ]; then
+          if [ $i -eq 3 ] && [ ! -f $(WORKSPACE)/recovered ]; then
             echo "Simulated failure at step 3"
-            touch $(OUTPUT_PATH)/failed_once
+            touch $(WORKSPACE)/failed_once
             exit $(MERLIN_RESTART)
           fi
         done
         echo "Completed all steps"
-        touch $(OUTPUT_PATH)/recovered
+        touch $(WORKSPACE)/recovered
       restart: |
         echo "Restarting from checkpoint..."
-        if [ -f $(OUTPUT_PATH)/checkpoint.txt ]; then
-          start=$(cat $(OUTPUT_PATH)/checkpoint.txt)
+        if [ -f $(WORKSPACE)/checkpoint.txt ]; then
+          start=$(cat $(WORKSPACE)/checkpoint.txt)
         else
           start=1
         fi
         for i in $(seq $start 5); do
           echo "Processing step $i (restart)"
-          echo $i > $(OUTPUT_PATH)/checkpoint.txt
+          echo $i > $(WORKSPACE)/checkpoint.txt
           sleep 1
         done
         echo "Completed all steps on restart"
-        touch $(OUTPUT_PATH)/recovered
+        touch $(WORKSPACE)/recovered
       depends: [flaky_task]
