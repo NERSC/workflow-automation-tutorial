@@ -31,7 +31,7 @@ study:
       cmd: |
         echo "Training with lr=$(lr), batch_size=$(batch_size), epochs=$(epochs)"
         # Simulate training
-        python -c "import time, random; time.sleep(random.uniform(0.1, 0.5)); print('Loss:', random.random())" > $(WORKSPACE)/metrics.txt
+        python -c "import time, random; time.sleep(random.uniform(0.1, 0.5)); print('Loss:', random.random())" > ./metrics.txt
       task_queue: hparam_search
 
   - name: aggregate

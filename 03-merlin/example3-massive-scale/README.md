@@ -37,18 +37,21 @@ merlin status $(ls -td $PSCRATCH/wf-seminar-merlin/massive-scale_* | head -1)
 
 ## Expected Output
 
-Upon successful completion (under `$PSCRATCH/wf-seminar-merlin/massive-scale_<timestamp>/`), Merlin creates one workspace directory per task:
+Upon successful completion (under `$PSCRATCH/wf-seminar-merlin/massive-scale_<timestamp>/`), Merlin creates one workspace directory per task in a chunked 3-level hierarchy to avoid large flat directories on Lustre:
 
 ```
 massive-scale_<timestamp>/
 ├── train/
-│   ├── 00000001/
-│   │   └── metrics.txt
-│   ├── 00000002/
-│   │   └── metrics.txt
+│   ├── 00/
+│   │   ├── 00/
+│   │   │   ├── 00/
+│   │   │   │   ├── metrics.txt
+│   │   │   │   └── MERLIN_FINISHED
+│   │   │   ├── 01/
+│   │   │   │   ├── metrics.txt
+│   │   │   │   └── MERLIN_FINISHED
+│   │   │   ...
 │   ...
-│   └── 00001000/
-│       └── metrics.txt
 └── aggregate/
     └── summary.txt
 ```
