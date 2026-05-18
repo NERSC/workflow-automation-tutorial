@@ -183,7 +183,7 @@ Coordinator → Redis Queue ← Workers (distributed)
 
 **Workers consume tasks from queues:**
 ```bash
-merlin run-workers spec.yaml --worker-name perlmutter_workers
+merlin run-workers spec.yaml
 ```
 
 **Worker characteristics:**

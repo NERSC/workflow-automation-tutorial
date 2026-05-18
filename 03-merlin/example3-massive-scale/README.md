@@ -23,12 +23,12 @@ All `merlin` commands must be run from the `03-merlin/` directory so Merlin find
 ```bash
 cd 03-merlin/
 merlin run example3-massive-scale/spec.yaml
-merlin run-workers example3-massive-scale/spec.yaml --worker-name worker1 &
-merlin run-workers example3-massive-scale/spec.yaml --worker-name worker2 &
-merlin run-workers example3-massive-scale/spec.yaml --worker-name worker3 &
+merlin run-workers example3-massive-scale/spec.yaml
 ```
 
-With 3 workers at concurrency 32 each, ~96 tasks execute in parallel.
+The worker runs with concurrency 32 (configured in the spec), executing up to 32 tasks in parallel on the node.
+
+> **Multi-node scaling:** In a real deployment, you would start `merlin run-workers` in multiple separate Slurm allocations — each allocation connects to the same Redis queue and pulls tasks independently. Worker concurrency within each allocation is controlled by the `args` field in the spec's `merlin.resources.workers` block.
 
 **Monitor progress:**
 ```bash
