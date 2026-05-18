@@ -39,7 +39,7 @@ merlin run-workers example1-distributed/spec.yaml
 
 **Check status after workers finish:**
 ```bash
-merlin status example1-distributed/spec.yaml --vars "OUTPUT_PATH=$PSCRATCH/wf-seminar-merlin"
+merlin status $(ls -td $PSCRATCH/wf-seminar-merlin/example1-distributed_* | head -1)
 ```
 
 **Expected output structure** (under `$PSCRATCH/wf-seminar-merlin/`):
@@ -73,10 +73,10 @@ example1-distributed_<timestamp>/
 
 **Issue: `merlin status` fails with "not a valid directory path"**
 
-When using environment variables like `$PSCRATCH` in `OUTPUT_PATH`, Merlin's `status` subcommand expands the variable but incorrectly strips the leading `/`, causing the path to be relative to the spec directory. Workaround: explicitly pass the expanded value via `--vars`:
+When using environment variables like `$PSCRATCH` in `OUTPUT_PATH`, Merlin's `status` subcommand strips the leading `/` and treats the path as relative to the spec directory. The `--vars` flag is not supported by `merlin status` (only by `merlin run`). Workaround: pass the workspace path directly, using a glob to find the most recent run:
 
 ```bash
-merlin status example1-distributed/spec.yaml --vars "OUTPUT_PATH=$PSCRATCH/wf-seminar-merlin"
+merlin status $(ls -td $PSCRATCH/wf-seminar-merlin/example1-distributed_* | head -1)
 ```
 
 This is a known Merlin limitation with environment variable expansion in the status subcommand.
