@@ -13,9 +13,8 @@ def main():
     batch_size = np.random.choice([16, 32, 64, 128, 256], n_samples)
     epochs = np.random.randint(10, 100, n_samples)
 
-    # Save as structured array
-    samples = np.rec.fromarrays([lr, batch_size, epochs],
-                                names='lr,batch_size,epochs')
+    # Save as 2D array (n_samples, n_features); column names come from spec column_labels
+    samples = np.column_stack([lr, batch_size, epochs])
     np.save(output_file, samples)
 
     print(f"Generated {n_samples} hyperparameter combinations")
