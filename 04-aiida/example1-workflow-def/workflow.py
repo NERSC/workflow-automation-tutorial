@@ -39,8 +39,6 @@ def simple_workflow(param):
     comp = wg.tasks.new(compute, name='compute', data=prep.outputs.result)
     anal = wg.tasks.new(analyze, name='analyze', result=comp.outputs.result)
 
-    # Return final result
-    wg.add_task(anal)
     return wg
 
 if __name__ == '__main__':

@@ -5,10 +5,10 @@ with AiiDA's provenance system.
 """
 
 from aiida.orm import Dict
-from aiida.engine import calcfunction
+from aiida_workgraph import task
 
 
-@calcfunction
+@task.calcfunction
 def wrapped_external_code(code_path, input_file, parameters):
     """
     Example of wrapping an external code execution.

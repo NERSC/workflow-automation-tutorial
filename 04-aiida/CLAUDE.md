@@ -23,6 +23,7 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 
 ## Key Files
 - `README.md` - Section overview, concepts, tiered infrastructure requirements
+- `cleanup.sh` - Removes runtime artifacts (*.dot.pdf, *.dot.png, *.aiida, __pycache__/) to restore freshly-cloned state
 - `example1-workflow-def/workflow.py` - WorkGraph workflow with standalone execution via load_profile() + run_get_node()
 - `example2-provenance/query_provenance.py` - QueryBuilder usage for provenance queries with load_profile()
 - `example3-data-graph/README.md` - Graph visualization walkthrough + production upgrade path
