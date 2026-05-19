@@ -7,8 +7,8 @@
 ## What This Demonstrates
 
 - Define computation steps with `@task.calcfunction` decorators
-- Wire steps into a workflow with `@task.graph_builder`
-- Run a workflow synchronously with `run_get_node()` (no daemon needed)
+- Wire steps into a workflow with `WorkGraph()` and `wg.tasks.new()`
+- Run a workflow synchronously with `WorkGraph.run()` (no daemon needed)
 - Inspect provenance with `verdi` CLI commands
 
 ## The Problem
@@ -76,9 +76,9 @@ verdi node graph generate 7
 
 1. **`@task.calcfunction` decorator:** Wraps a plain Python function so that every call creates provenance nodes — recording inputs, outputs, and the function that ran. No changes needed to your computation logic.
 
-2. **`@task.graph_builder` decorator:** Defines a workflow by wiring together multiple `@task.calcfunction` steps into a directed graph. AiiDA tracks the connections between steps automatically.
+2. **`WorkGraph()` + `wg.tasks.new()`:** Builds a workflow by creating a `WorkGraph` object and wiring together multiple `@task.calcfunction` steps using `tasks.new()`. AiiDA tracks the connections between steps automatically.
 
-3. **`load_profile()` + `run_get_node()`:** `load_profile()` connects the script to your AiiDA database (SQLite via `verdi presto`). `run_get_node()` executes the workflow synchronously — no daemon or message broker needed.
+3. **`load_profile()` + `WorkGraph.run()`:** `load_profile()` connects the script to your AiiDA database (SQLite via `verdi presto`). `wg.run()` executes the workflow synchronously — no daemon or message broker needed.
 
 4. **PK (Primary Key):** Every node in AiiDA's provenance database gets an integer PK. Use it with `verdi process show <PK>` to inspect any computation.
 

@@ -56,18 +56,23 @@ AiiDA stores workflows as a directed acyclic graph (DAG) with two types:
 ### WorkGraph (Modern Workflow Definition)
 
 ```python
-from aiida_workgraph import task
+from aiida_workgraph import task, WorkGraph
 
-@task.graph_builder
-def my_workflow(param1, param2):
-    # Clean Pythonic workflow definition
-    result1 = calculation_task(param1)
-    result2 = analysis_task(result1, param2)
-    return result2
+@task.calcfunction
+def my_calculation(param1):
+    return param1 * 2
+
+def my_workflow(param1):
+    wg = WorkGraph('my_workflow')
+    wg.tasks.new(my_calculation, name='calc', param1=param1)
+    return wg
+
+wg = my_workflow(param1=42)
+wg.run()
 ```
 
 **Advantages over legacy WorkChain:**
-- Pythonic syntax with decorators
+- Pythonic syntax with `WorkGraph` and `tasks.new()`
 - Interactive GUI for monitoring
 - Easier to learn and debug
 

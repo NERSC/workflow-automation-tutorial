@@ -19,12 +19,12 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 ## Key Decisions
 - WorkGraph over WorkChain: WorkGraph is the modern, Pythonic API; WorkChain is legacy
 - SQLite default for training: `verdi presto` provides zero-setup AiiDA with full provenance tracking. PostgreSQL + RabbitMQ documented as production upgrade path.
-- Synchronous execution: Examples use `run()`/`run_get_node()` for synchronous, in-process execution. No daemon needed. `submit()` explained in example 3 as a "going further" topic.
+- Synchronous execution: Examples use `run()`/`WorkGraph.run()` for synchronous, in-process execution. No daemon needed. `submit()` explained in example 3 as a "going further" topic.
 
 ## Key Files
 - `README.md` - Section overview, concepts, tiered infrastructure requirements
 - `cleanup.sh` - Removes runtime artifacts (*.dot.pdf, *.dot.png, *.aiida, __pycache__/) to restore freshly-cloned state
-- `example1-workflow-def/workflow.py` - WorkGraph workflow with standalone execution via load_profile() + run_get_node()
+- `example1-workflow-def/workflow.py` - WorkGraph workflow with standalone execution via load_profile() + WorkGraph.run()
 - `example2-provenance/query_provenance.py` - QueryBuilder usage for provenance queries with load_profile()
 - `example3-data-graph/README.md` - Graph visualization walkthrough + production upgrade path
 

@@ -108,11 +108,14 @@ The training examples use `run()` for synchronous execution. Production AiiDA de
 **Code difference:**
 
 ```python
-from aiida.engine import run_get_node, submit
+from aiida_workgraph import WorkGraph
+from aiida.engine import submit
 
 # Training mode (what examples 1-2 use)
-result, node = run_get_node(workflow, param=Int(42))
-# Blocks until done, returns results directly
+wg = WorkGraph('my_workflow')
+# ... add tasks ...
+wg.run()
+# Blocks until done, results in wg.process
 
 # Production mode
 node = submit(workflow, param=Int(42))

@@ -21,16 +21,15 @@ def analyze(result):
     final = result.value + 100
     return orm.Dict({'final_result': final, 'status': 'complete'})
 
-@task.graph_builder
-def simple_workflow(param):
+def build_workflow(param):
     """
-    Simple 3-step workflow with automatic provenance.
+    Build a 3-step workflow with automatic provenance.
 
     Args:
         param: Input parameter (Int)
 
     Returns:
-        Analysis results (Dict)
+        WorkGraph ready to run
     """
     wg = WorkGraph('simple_workflow')
 
@@ -53,15 +52,15 @@ if __name__ == '__main__':
                         help='Input parameter value')
     args = parser.parse_args()
 
-    from aiida.engine import run_get_node
-
     print(f"Running workflow with param={args.param}...")
 
-    # Run workflow synchronously — no daemon or RabbitMQ needed
-    result, node = run_get_node(simple_workflow, param=orm.Int(args.param))
+    # Build and run workflow synchronously — no daemon or RabbitMQ needed
+    wg = build_workflow(param=orm.Int(args.param))
+    wg.run()
 
-    print(f"\nWorkflow completed! PK: {node.pk}")
+    pk = wg.process.pk
+    print(f"\nWorkflow completed! PK: {pk}")
     print(f"\nExplore the provenance:")
     print(f"  verdi process list -a                  # List all workflows")
-    print(f"  verdi process show {node.pk}           # Inspect this workflow")
-    print(f"  verdi node graph generate {node.pk}    # Visualize provenance graph")
+    print(f"  verdi process show {pk}           # Inspect this workflow")
+    print(f"  verdi node graph generate {pk}    # Visualize provenance graph")
