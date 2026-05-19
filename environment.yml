@@ -23,6 +23,7 @@ dependencies:
   # Redis server binary (Merlin broker for tutorial examples)
   # Note: redis is from defaults channel; conda-forge provides "redis-server" instead
   - redis
+  - graphviz  # Binary suite required by verdi node graph generate (dot executable)
 
   # Install remaining packages via pip (not available in conda-forge)
   - pip:
@@ -35,6 +36,7 @@ dependencies:
       # AiiDA
       - aiida-core==2.8.0
       - aiida-workgraph==0.3.16
+      - node-graph==0.0.12  # Pinned: node-graph>=0.1.0 renamed NodeSocket→TaskSocket, breaking aiida-workgraph==0.3.16
       # signac-flow (complements conda signac package)
       - signac-flow==0.28.0
       # PostgreSQL adapter (AiiDA production mode only)

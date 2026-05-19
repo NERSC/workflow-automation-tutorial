@@ -24,6 +24,7 @@ redis>=6.0,<7.0
 # aiida-core - Provenance tracking framework
 aiida-core==2.8.0
 aiida-workgraph==0.3.16  # Modern workflow definition (used in Section 4)
+node-graph==0.0.12  # Pinned: node-graph>=0.1.0 renamed NodeSocket→TaskSocket, breaking aiida-workgraph==0.3.16
 
 # AiiDA dependencies
 psycopg2-binary>=2.8.6  # PostgreSQL adapter
