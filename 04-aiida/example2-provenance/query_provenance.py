@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 """Query provenance graph examples."""
 
+from datetime import datetime, timedelta
+
 from aiida import orm
 from aiida.orm import QueryBuilder, WorkflowNode, CalcFunctionNode, Int
 
 def query_recent_workflows():
     """Find recent workflows."""
     qb = QueryBuilder()
-    qb.append(WorkflowNode, filters={'ctime': {'>': '-7d'}})
+    qb.append(WorkflowNode, filters={'ctime': {'>': datetime.now() - timedelta(days=7)}})
     count = qb.count()
     print(f"Found {count} workflows in last 7 days")
 
@@ -33,7 +35,7 @@ def query_by_input_value(target_value):
         print(f"  Try running: python ../example1-workflow-def/workflow.py --param {target_value}")
         return
 
-    for node, in qb.iterall():
+    for _, node in qb.iterall():
         print(f"  PK {node.pk}: {node.process_label}")
 
 def trace_provenance(pk):
