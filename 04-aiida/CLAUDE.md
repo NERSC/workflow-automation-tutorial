@@ -1,6 +1,6 @@
 # AiiDA Section (04-aiida)
 
-Last verified: 2026-05-01
+Last verified: 2026-05-19
 
 ## Purpose
 Teaches comprehensive provenance tracking as the final capability step beyond Merlin's distributed coordination. Demonstrates why automatic data lineage matters for reproducible, publication-grade computational research.
@@ -11,7 +11,7 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 - **Expects**: AiiDA profile configured with `verdi presto` (SQLite default). No PostgreSQL, RabbitMQ, or daemon required for training. Production deployment is documented separately.
 
 ## Dependencies
-- **Uses**: aiida-core 2.8.0, aiida-workgraph 0.3.16, SQLite (training default via `verdi presto`)
+- **Uses**: aiida-core 2.8.0, aiida-workgraph 0.3.16, node-graph 0.0.12 (pinned), graphviz (conda binary for `verdi node graph generate`), SQLite (training default via `verdi presto`)
 - **Production uses**: PostgreSQL, RabbitMQ (documented in resources/aiida-production-deployment.md)
 - **Used by**: Root README references this as Section 4; resources/ comparison matrix includes AiiDA
 - **Boundary**: Does not import from other sections. Logically builds on Merlin (Section 3) but has no code dependency.
