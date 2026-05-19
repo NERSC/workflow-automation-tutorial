@@ -19,7 +19,7 @@ You've built workflows (example 1) and queried provenance (example 2). Now you n
 
 - AiiDA profile configured with `verdi presto`
 - **Examples 1 and 2 must be run first** (creates the provenance data to visualize)
-- `graphviz` installed for graph rendering (`module load graphviz` on Perlmutter, or `conda install graphviz`)
+- `graphviz` installed for graph rendering (included in the `wf-seminar` conda environment; if missing, install manually: `conda install graphviz -c conda-forge`)
 
 ---
 

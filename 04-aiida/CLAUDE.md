@@ -33,3 +33,4 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 - SQLite does not support `has_key` or `contains` QueryBuilder operators (not used in current examples)
 - Production deployment (PostgreSQL + RabbitMQ + daemon) documented in `resources/aiida-production-deployment.md`
 - `verdi process list -a` may show "last state change: not reported" on SQLite profiles (cosmetic only)
+- `node-graph` must be pinned to `==0.0.12` in both `environment.yml` and `requirements.txt`; `aiida-workgraph==0.3.16` is incompatible with `node-graph>=0.1.0` (API rename: `NodeSocket` → `TaskSocket`)
