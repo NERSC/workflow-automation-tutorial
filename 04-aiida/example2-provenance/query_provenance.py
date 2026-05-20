@@ -25,8 +25,8 @@ def query_recent_workflows():
 def query_by_input_value(target_value):
     """Find calculations with specific input value."""
     qb = QueryBuilder()
-    qb.append(Int, filters={'value': target_value}, tag='input')
-    qb.append(CalcFunctionNode, with_incoming='input')
+    qb.append(Int, filters={'attributes.value': target_value}, tag='input')
+    qb.append(CalcFunctionNode, with_incoming='input', project='*')
 
     count = qb.count()
     print(f"\nCalculations with input {target_value}:")
@@ -35,7 +35,7 @@ def query_by_input_value(target_value):
         print(f"  Try running: python ../example1-workflow-def/workflow.py --param {target_value}")
         return
 
-    for _, node in qb.iterall():
+    for node, in qb.iterall():
         print(f"  PK {node.pk}: {node.process_label}")
 
 def trace_provenance(pk):
