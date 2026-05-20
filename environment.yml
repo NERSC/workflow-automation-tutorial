@@ -35,8 +35,9 @@ dependencies:
       - celery>=5.0,<6.0
       # AiiDA
       - aiida-core==2.8.0
-      - aiida-workgraph==0.3.16
-      - node-graph==0.0.12  # Pinned: node-graph>=0.1.0 renamed NodeSocket→TaskSocket, breaking aiida-workgraph==0.3.16
+      - aiida-workgraph==0.5.0
+      - aiida-pythonjob==0.1.8  # Pinned: 0.2.0+ imports get_stack_size removed in aiida-core 2.8.0
+      - node-graph==0.1.27  # Pinned: must match aiida-workgraph==0.5.0 requirement
       # signac-flow (complements conda signac package)
       - signac-flow==0.28.0
       # PostgreSQL adapter (AiiDA production mode only)

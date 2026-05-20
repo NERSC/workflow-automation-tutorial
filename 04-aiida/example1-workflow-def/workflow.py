@@ -34,9 +34,9 @@ def build_workflow(param):
     wg = WorkGraph('simple_workflow')
 
     # Define workflow steps
-    prep = wg.tasks.new(prepare_data, name='prepare', param=param)
-    comp = wg.tasks.new(compute, name='compute', data=prep.outputs.result)
-    anal = wg.tasks.new(analyze, name='analyze', result=comp.outputs.result)
+    prep = wg.add_task(prepare_data, name='prepare', param=param)
+    comp = wg.add_task(compute, name='compute', data=prep.outputs.result)
+    wg.add_task(analyze, name='analyze', result=comp.outputs.result)
 
     return wg
 

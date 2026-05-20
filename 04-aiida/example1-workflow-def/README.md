@@ -7,7 +7,7 @@
 ## What This Demonstrates
 
 - Define computation steps with `@task.calcfunction` decorators
-- Wire steps into a workflow with `WorkGraph()` and `wg.tasks.new()`
+- Wire steps into a workflow with `WorkGraph()` and `wg.add_task()`
 - Run a workflow synchronously with `WorkGraph.run()` (no daemon needed)
 - Inspect provenance with `verdi` CLI commands
 
@@ -76,7 +76,7 @@ verdi node graph generate 7
 
 1. **`@task.calcfunction` decorator:** Wraps a plain Python function so that every call creates provenance nodes — recording inputs, outputs, and the function that ran. No changes needed to your computation logic.
 
-2. **`WorkGraph()` + `wg.tasks.new()`:** Builds a workflow by creating a `WorkGraph` object and wiring together multiple `@task.calcfunction` steps using `tasks.new()`. AiiDA tracks the connections between steps automatically.
+2. **`WorkGraph()` + `wg.add_task()`:** Builds a workflow by creating a `WorkGraph` object and wiring together multiple `@task.calcfunction` steps using `add_task()`. AiiDA tracks the connections between steps automatically.
 
 3. **`load_profile()` + `WorkGraph.run()`:** `load_profile()` connects the script to your AiiDA database (SQLite via `verdi presto`). `wg.run()` executes the workflow synchronously — no daemon or message broker needed.
 

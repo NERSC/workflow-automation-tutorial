@@ -64,7 +64,7 @@ def my_calculation(param1):
 
 def my_workflow(param1):
     wg = WorkGraph('my_workflow')
-    wg.tasks.new(my_calculation, name='calc', param1=param1)
+    wg.add_task(my_calculation, name='calc', param1=param1)
     return wg
 
 wg = my_workflow(param1=42)
@@ -72,7 +72,7 @@ wg.run()
 ```
 
 **Advantages over legacy WorkChain:**
-- Pythonic syntax with `WorkGraph` and `tasks.new()`
+- Pythonic syntax with `WorkGraph` and `add_task()`
 - Interactive GUI for monitoring
 - Easier to learn and debug
 

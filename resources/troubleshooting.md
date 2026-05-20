@@ -659,7 +659,7 @@ Install AiiDA into the seminar environment:
 
 ```bash
 module load python
-pip install aiida-core==2.8.0 aiida-workgraph==0.3.16
+pip install aiida-core==2.8.0 aiida-workgraph==0.5.0 aiida-pythonjob==0.1.8 node-graph==0.1.27
 
 # Initialize AiiDA (training: SQLite, no infrastructure needed)
 verdi presto
