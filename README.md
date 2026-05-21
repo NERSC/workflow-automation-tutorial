@@ -124,14 +124,5 @@ For production deployments beyond this seminar, see `resources/installation-guid
 ## Notes
 
 - **Tool versions:** All dependency versions in `environment.yml` are tested on Perlmutter. Check for updates but prioritize known-working versions for seminar stability.
-- **Production deployment:** Merlin and AiiDA production use cases require external services (Redis/RabbitMQ, PostgreSQL). See `resources/installation-guides/` for NERSC SPIN deployment options.
-- **Time flexibility:** If sections run long, priority is GNU Parallel, Maestro, Merlin (core progression). AiiDA can be shortened to overview + pointers if time constrained.
+- **Simplified setup:** Merlin and AiiDA examples use lightweight local backends (Redis on the compute node, SQLite) for ease of setup. Production use cases require external services — see `resources/installation-guides/` for details.
 - **Example simplicity:** All examples use placeholder computations (sleep, echo, basic Python scripts) to focus on workflow concepts rather than domain science. Attendees adapt patterns to real research codes.
-
-## License
-
-MIT License. See LICENSE file for details.
-
-## Contact
-
-For questions about this seminar, contact the NERSC User Services team or submit an issue in this repository.
