@@ -114,15 +114,12 @@ For questions during the seminar, consult the instructor or the `resources/troub
 
 ## Infrastructure Requirements
 
-**Merlin and AiiDA require database services:**
-- **Merlin:** Redis for task queuing
-- **AiiDA:** PostgreSQL + RabbitMQ for provenance storage
+All examples run on Perlmutter login nodes or inside simple Slurm allocations (`salloc`). No external services are required:
 
-Two deployment options:
-1. **NERSC SPIN** (recommended): Deploy as persistent services on SPIN platform
-2. **Dedicated allocation**: Run databases in persistent allocation using workflow QOS
+- **Merlin:** Runs a local `redis-server` on the compute node within the allocation
+- **AiiDA:** Uses SQLite via `verdi presto` (no PostgreSQL or RabbitMQ needed)
 
-See `resources/installation-guides/` for deployment instructions.
+For production deployments beyond this seminar, see `resources/installation-guides/`.
 
 ## Excluded Tools
 
@@ -138,7 +135,7 @@ GNU Parallel is repeated as a universal foundation (too fundamental to skip).
 ## Notes
 
 - **Tool versions:** All dependency versions in `environment.yml` are tested on Perlmutter. Check for updates but prioritize known-working versions for seminar stability.
-- **SPIN access:** Not all attendees may have SPIN access. Examples document SPIN deployment but provide fallback approaches (local databases in allocation with workflow QOS).
+- **Production deployment:** Merlin and AiiDA production use cases require external services (Redis/RabbitMQ, PostgreSQL). See `resources/installation-guides/` for NERSC SPIN deployment options.
 - **Time flexibility:** If sections run long, priority is GNU Parallel, Maestro, Merlin (core progression). AiiDA can be shortened to overview + pointers if time constrained.
 - **Example simplicity:** All examples use placeholder computations (sleep, echo, basic Python scripts) to focus on workflow concepts rather than domain science. Attendees adapt patterns to real research codes.
 
