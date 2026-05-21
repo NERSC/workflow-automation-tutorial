@@ -121,17 +121,6 @@ All examples run on Perlmutter login nodes or inside simple Slurm allocations (`
 
 For production deployments beyond this seminar, see `resources/installation-guides/`.
 
-## Excluded Tools
-
-This seminar intentionally avoids tools covered in previous NERSC trainings:
-- Balsam
-- FireWorks
-- Parsl
-- HyperShell
-- Snakemake
-
-GNU Parallel is repeated as a universal foundation (too fundamental to skip).
-
 ## Notes
 
 - **Tool versions:** All dependency versions in `environment.yml` are tested on Perlmutter. Check for updates but prioritize known-working versions for seminar stability.
