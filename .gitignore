@@ -62,6 +62,9 @@ htmlcov/
 coverage.xml
 *.cover
 
+# Presentation materials (not distributed)
+docs/presentation/
+
 # Distribution / packaging
 dist/
 build/
