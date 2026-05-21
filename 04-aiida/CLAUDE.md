@@ -34,4 +34,4 @@ Teaches comprehensive provenance tracking as the final capability step beyond Me
 - Production deployment (PostgreSQL + RabbitMQ + daemon) documented in `resources/aiida-production-deployment.md`
 - `verdi process list -a` may show "last state change: not reported" on SQLite profiles (cosmetic only)
 - `aiida-pythonjob==0.1.8` must be pinned: 0.2.0+ imports `get_stack_size` which was removed in aiida-core 2.8.0
-- `node-graph==0.1.27` must be pinned in both `environment.yml` and `requirements.txt`; must match `aiida-workgraph==0.5.0` requirement exactly
+- `node-graph==0.1.27` must be pinned in `environment.yml`; must match `aiida-workgraph==0.5.0` requirement exactly

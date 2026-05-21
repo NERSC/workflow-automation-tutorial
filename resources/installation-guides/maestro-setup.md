@@ -2,7 +2,7 @@
 
 ## Installation
 
-Install via pip (included in requirements.txt):
+Install via conda environment (included in environment.yml):
 
 ```bash
 module load python

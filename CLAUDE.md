@@ -6,7 +6,7 @@ Last verified: 2026-05-19
 - Language: Python 3.10, Bash
 - Platform: NERSC Perlmutter (Slurm)
 - Tools taught: GNU Parallel, signac, Maestro, Merlin, AiiDA
-- Environment: conda (environment.yml) or pip (requirements.txt)
+- Environment: conda (environment.yml)
 
 ## Project Structure
 - `00-gnu-parallel/` - Section 0: Baseline parallelization (30 min)
@@ -38,5 +38,5 @@ Last verified: 2026-05-19
 
 ## Boundaries
 - Safe to edit: example scripts, READMEs, resources
-- Never touch: `requirements.txt` or `environment.yml` version pins without testing on Perlmutter
+- Never touch: `environment.yml` version pins without testing on Perlmutter
 - Do not add real scientific codes; examples stay pedagogical

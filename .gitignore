@@ -65,6 +65,12 @@ coverage.xml
 # Presentation materials (not distributed)
 docs/presentation/
 
+# pip requirements (conda is the only supported install path)
+requirements.txt
+
+# Implementation plans (internal development notes)
+docs/implementation-plans/
+
 # Distribution / packaging
 dist/
 build/

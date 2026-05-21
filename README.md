@@ -34,7 +34,6 @@ workflow_tutorial_research/
 ├── resources/               # Comparison matrices, decision trees, guides
 │   └── installation-guides/ # Tool-specific Perlmutter setup
 ├── README.md                # This file
-├── requirements.txt         # Python dependencies
 ├── environment.yml          # Conda environment specification
 └── .gitignore              # Excluded artifacts
 ```
@@ -69,16 +68,6 @@ python -c "import signac; print(f'signac {signac.__version__}')"
 python -c "import maestrowf; print('maestro-wf installed')"
 python -c "import merlin; print(f'merlin {merlin.__version__}')"
 python -c "import aiida; print(f'aiida-core {aiida.__version__}')"
-```
-
-**Alternative: pip installation**
-
-```bash
-# If conda unavailable, use pip with virtual environment
-module load python
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
 ```
 
 ### Verification
@@ -148,7 +137,7 @@ GNU Parallel is repeated as a universal foundation (too fundamental to skip).
 
 ## Notes
 
-- **Tool versions:** All dependency versions in `requirements.txt` and `environment.yml` are tested on Perlmutter. Check for updates but prioritize known-working versions for seminar stability.
+- **Tool versions:** All dependency versions in `environment.yml` are tested on Perlmutter. Check for updates but prioritize known-working versions for seminar stability.
 - **SPIN access:** Not all attendees may have SPIN access. Examples document SPIN deployment but provide fallback approaches (local databases in allocation with workflow QOS).
 - **Time flexibility:** If sections run long, priority is GNU Parallel, Maestro, Merlin (core progression). AiiDA can be shortened to overview + pointers if time constrained.
 - **Example simplicity:** All examples use placeholder computations (sleep, echo, basic Python scripts) to focus on workflow concepts rather than domain science. Attendees adapt patterns to real research codes.
