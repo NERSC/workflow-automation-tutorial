@@ -21,7 +21,7 @@ This document provides curated links to official documentation, tutorials, commu
 - [GitHub: GNU Parallel Issues](https://git.savannah.gnu.org/git/parallel.git/) - Official source repository
 
 ### Example Repositories
-- [GNU Parallel Examples Repository](https://git.savannah.gnu.org/git/parallel.git/tree/examples) - Official examples
+- [GNU Parallel Source Repository](https://git.savannah.gnu.org/cgit/parallel.git/tree/) - Official source tree
 - [NERSC Parallel Processing Guide](https://docs.nersc.gov/jobs/workflow/) - HPC-specific guidance
 
 ---
@@ -29,30 +29,25 @@ This document provides curated links to official documentation, tutorials, commu
 ## signac
 
 ### Official Documentation
-- [signac Official Documentation](https://docs.signac.io/) - Complete user guide and API reference
-- [signac Project Configuration](https://docs.signac.io/en/latest/configuration.html) - Setting up projects
-- [signac-flow Workflow Guide](https://docs.signac.io/projects/flow/en/latest/) - Defining and executing workflows
-- [signac API Reference](https://docs.signac.io/en/latest/module.html) - Detailed API documentation
+- [signac Official Documentation](https://signac.readthedocs.io/en/latest/) - Complete user guide and API reference
+- [signac Project Configuration](https://signac.readthedocs.io/en/latest/configuration.html) - Setting up projects
+- [signac-flow Workflow Guide](https://signac.readthedocs.io/projects/flow/en/latest/) - Defining and executing workflows
+- [signac API Reference](https://signac.readthedocs.io/projects/core/en/latest/api.html) - Detailed API documentation
 
 ### Tutorials and Getting Started
-- [signac Quick Start](https://docs.signac.io/en/latest/quickstart.html) - Five-minute introduction
-- [signac Data Model Tutorial](https://docs.signac.io/en/latest/tutorial.html) - Understanding the data model
-- [signac-flow Job Submission](https://docs.signac.io/projects/flow/en/latest/submission.html) - HPC job submission
-- [Parameter Space Design](https://docs.signac.io/en/latest/signac-identify.html) - Organizing complex parameter studies
+- [signac Quick Start](https://signac.readthedocs.io/en/latest/quickstart.html) - Five-minute introduction
+- [signac Data Model Tutorial](https://signac.readthedocs.io/en/latest/tutorial.html) - Understanding the data model
+- [signac-flow Supported Environments](https://signac.readthedocs.io/projects/flow/en/latest/supported_environments.html) - HPC cluster submission
+- [signac Jobs and State Points](https://signac.readthedocs.io/en/latest/jobs.html) - Organizing parameter studies
 
 ### Community and Support
-- [signac Discourse Community](https://discourse.signac.io/) - Main community forum
-- [signac GitHub Discussions](https://github.com/glotzerlab/signac/discussions) - GitHub community space
+- [signac GitHub Discussions](https://github.com/glotzerlab/signac/discussions) - Community forum and Q&A
 - [signac Issues and Bug Reports](https://github.com/glotzerlab/signac/issues) - Project issue tracker
-- [signac Slack Community](https://signac-project.slack.com/) - Real-time chat (join via website)
 
 ### Example Repositories
 - [signac Examples Repository](https://github.com/glotzerlab/signac-examples) - Official example workflows
-- [signac Tutorials Repository](https://github.com/glotzerlab/signac-tutorials) - Step-by-step learning projects
-- [NERSC signac Integration](https://docs.nersc.gov/programming/high-level-languages/python/#signac) - HPC-specific guidance
 
 ### Academic and Research
-- [signac Paper: Toward Reproducible Workflows](https://doi.org/10.1016/j.cpc.2021.107901) - Published research on reproducibility
 - [Parameter Study Management with signac](https://arxiv.org/abs/1907.10905) - Research paper on design patterns
 
 ---
@@ -61,29 +56,26 @@ This document provides curated links to official documentation, tutorials, commu
 
 ### Official Documentation
 - [Maestro Official Documentation](https://maestrowf.readthedocs.io/) - Complete user guide
-- [Maestro Specification Reference](https://maestrowf.readthedocs.io/en/latest/spec_reference.html) - YAML specification details
-- [Maestro Workflow Definition](https://maestrowf.readthedocs.io/en/latest/maestro_spec.html) - How to define workflows
-- [Maestro Study Management](https://maestrowf.readthedocs.io/en/latest/study_management.html) - Managing study execution
+- [Maestro Parameter Specification](https://maestrowf.readthedocs.io/en/latest/Maestro/parameter_specification.html) - YAML specification details
+- [Maestro Workflow Overview](https://maestrowf.readthedocs.io/en/latest/Maestro/index.html) - How to define workflows
+- [Maestro Monitoring](https://maestrowf.readthedocs.io/en/latest/Maestro/monitoring.html) - Monitoring study execution
 
 ### Tutorials and Getting Started
-- [Maestro Quick Start Guide](https://maestrowf.readthedocs.io/en/latest/getting_started.html) - Five-minute introduction
-- [Maestro Basic Examples](https://maestrowf.readthedocs.io/en/latest/examples.html) - Simple to complex examples
-- [Maestro Environment Configuration](https://maestrowf.readthedocs.io/en/latest/environments.html) - Setting up HPC environments
-- [Batch Block Configuration](https://maestrowf.readthedocs.io/en/latest/batch_scheduling.html) - Job submission patterns
+- [Maestro Installation](https://maestrowf.readthedocs.io/en/latest/Maestro/install.html) - Installation guide
+- [Maestro Tutorials](https://maestrowf.readthedocs.io/en/latest/Maestro/tutorials.html) - Step-by-step tutorials
+- [Maestro How-To Guides](https://maestrowf.readthedocs.io/en/latest/Maestro/how_to_guides/index.html) - Practical guides for HPC environments
+- [Maestro CLI Reference](https://maestrowf.readthedocs.io/en/latest/Maestro/cli.html) - Command-line interface
 
 ### Community and Support
 - [Maestro GitHub Repository](https://github.com/LLNL/maestrowf) - Main project repository
 - [Maestro GitHub Issues](https://github.com/LLNL/maestrowf/issues) - Bug reports and feature requests
 - [Maestro GitHub Discussions](https://github.com/LLNL/maestrowf/discussions) - Community discussions
-- [LLNL Software Community](https://computing.llnl.gov/projects/maestro) - LLNL project information
 
 ### Example Repositories
-- [Maestro Examples Directory](https://github.com/LLNL/maestrowf/tree/develop/examples) - Official examples
-- [Maestro Study Templates](https://github.com/LLNL/maestrowf/tree/develop/maestrowf/samples) - Pre-built templates
-- [NERSC Maestro Integration](https://docs.nersc.gov/jobs/workflow/) - NERSC-specific guidance
+- [Maestro Sample Studies](https://github.com/LLNL/maestrowf/tree/develop/samples) - Pre-built study templates
+- [NERSC Workflow Tools](https://docs.nersc.gov/jobs/workflow/) - NERSC-specific guidance
 
 ### Academic and Research
-- [Maestro: Workflow Orchestration](https://computing.llnl.gov/projects/maestro/overview) - Project overview and citations
 - [Workflow Management for Parameter Studies](https://arxiv.org/abs/1702.00060) - Related research on study management
 
 ---
@@ -92,21 +84,18 @@ This document provides curated links to official documentation, tutorials, commu
 
 ### Official Documentation
 - [Merlin Official Documentation](https://merlin.readthedocs.io/) - Complete user guide and API reference
-- [Merlin Specification Guide](https://merlin.readthedocs.io/en/latest/user_guide/specification.html) - YAML specification
-- [Merlin Workflow Execution](https://merlin.readthedocs.io/en/latest/user_guide/running_workflows.html) - Running and monitoring workflows
-- [Merlin CLI Reference](https://merlin.readthedocs.io/en/latest/user_guide/command_line.html) - Command-line interface
+- [Merlin Specification Guide](https://merlin.readthedocs.io/en/latest/user_guide/specification/) - YAML specification
+- [Merlin Workflow Execution](https://merlin.readthedocs.io/en/latest/user_guide/running_studies/) - Running and monitoring workflows
+- [Merlin CLI Reference](https://merlin.readthedocs.io/en/latest/user_guide/command_line/) - Command-line interface
 
 ### Tutorials and Getting Started
-- [Merlin Quick Start](https://merlin.readthedocs.io/en/latest/getting_started.html) - Getting started in minutes
-- [Merlin Basic Tutorial](https://merlin.readthedocs.io/en/latest/tutorials.html) - Step-by-step tutorials
-- [Merlin Parameter Study Design](https://merlin.readthedocs.io/en/latest/user_guide/parameters.html) - Defining parameter spaces
-- [Merlin Results Processing](https://merlin.readthedocs.io/en/latest/user_guide/post_processing.html) - Analyzing workflow results
+- [Merlin Installation](https://merlin.readthedocs.io/en/latest/user_guide/installation/) - Getting started
+- [Merlin Variables and Parameters](https://merlin.readthedocs.io/en/latest/user_guide/variables/) - Defining parameter spaces
 
 ### Infrastructure and Advanced Topics
-- [Merlin Parallel Execution](https://merlin.readthedocs.io/en/latest/user_guide/celery.html) - Celery worker configuration
-- [Merlin Database Setup](https://merlin.readthedocs.io/en/latest/user_guide/database.html) - Database configuration (Redis/PostgreSQL)
-- [Merlin Server Monitoring](https://merlin.readthedocs.io/en/latest/user_guide/monitoring.html) - Workflow monitoring tools
-- [Merlin on HPC Systems](https://merlin.readthedocs.io/en/latest/user_guide/systems.html) - HPC-specific configuration
+- [Merlin Celery Workers](https://merlin.readthedocs.io/en/latest/user_guide/celery/) - Celery worker configuration
+- [Merlin Configuration](https://merlin.readthedocs.io/en/latest/user_guide/configuration/) - Broker and server configuration
+- [Merlin Monitoring](https://merlin.readthedocs.io/en/latest/user_guide/monitoring/) - Workflow monitoring tools
 
 ### Community and Support
 - [Merlin GitHub Repository](https://github.com/LLNL/merlin) - Main project repository
@@ -115,12 +104,10 @@ This document provides curated links to official documentation, tutorials, commu
 - [LLNL Computing Center](https://computing.llnl.gov/) - LLNL project information
 
 ### Example Repositories
-- [Merlin Examples Directory](https://github.com/LLNL/merlin/tree/develop/examples) - Official workflow examples
-- [Merlin Demo Workflows](https://github.com/LLNL/merlin/tree/develop/demos) - Demonstration projects
-- [Merlin Integration Examples](https://github.com/LLNL/merlin/tree/develop/tests) - Integration and testing examples
+- [Merlin Test Suite](https://github.com/LLNL/merlin/tree/develop/tests) - Integration and testing examples
 
 ### Academic and Research
-- [Merlin Paper: Large-Scale Workflow Management](https://computing.llnl.gov/projects/merlin/overview) - Project overview
+- [Merlin Project at LLNL](https://computing.llnl.gov/projects/merlin) - Project overview
 - [Distributed Workflow Management](https://arxiv.org/abs/1810.01851) - Research on distributed workflows
 
 ---
@@ -128,34 +115,30 @@ This document provides curated links to official documentation, tutorials, commu
 ## AiiDA
 
 ### Official Documentation
-- [AiiDA Official Documentation](https://aiida.readthedocs.io/) - Comprehensive user guide
-- [AiiDA Installation Guide](https://aiida.readthedocs.io/en/latest/install/index.html) - Installation and setup
-- [AiiDA Workflows](https://aiida.readthedocs.io/en/latest/topics/workflows/index.html) - Workflow definition and execution
-- [AiiDA Database](https://aiida.readthedocs.io/en/latest/topics/database/index.html) - Database architecture and usage
+- [AiiDA Official Documentation](https://aiida.readthedocs.io/projects/aiida-core/en/stable/) - Comprehensive user guide
+- [AiiDA Installation Guide](https://aiida.readthedocs.io/projects/aiida-core/en/stable/installation/index.html) - Installation and setup
+- [AiiDA Workflows](https://aiida.readthedocs.io/projects/aiida-core/en/stable/topics/workflows/index.html) - Workflow definition and execution
+- [AiiDA Topics](https://aiida.readthedocs.io/projects/aiida-core/en/stable/topics/index.html) - Database, data types, and architecture
 
 ### Tutorials and Getting Started
-- [AiiDA Quick Start](https://aiida.readthedocs.io/en/latest/intro/get_started.html) - Getting started guide
-- [AiiDA Workflow Tutorial](https://aiida.readthedocs.io/en/latest/tutorials/index.html) - Comprehensive tutorials
-- [AiiDA Provenance and Lineage](https://aiida.readthedocs.io/en/latest/topics/provenance/index.html) - Understanding provenance tracking
-- [AiiDA Data Model](https://aiida.readthedocs.io/en/latest/topics/data_types/index.html) - Data model and structures
+- [AiiDA Quick Start](https://aiida.readthedocs.io/projects/aiida-core/en/stable/intro/get_started.html) - Getting started guide
+- [AiiDA Tutorials](https://aiida.readthedocs.io/projects/aiida-core/en/stable/tutorials/index.html) - Comprehensive tutorials
+- [AiiDA Provenance and Lineage](https://aiida.readthedocs.io/projects/aiida-core/en/stable/topics/provenance/index.html) - Understanding provenance tracking
 
 ### Infrastructure and Advanced Topics
-- [AiiDA Computer Configuration](https://aiida.readthedocs.io/en/latest/topics/computers/index.html) - Setting up remote computers
-- [AiiDA Code Management](https://aiida.readthedocs.io/en/latest/topics/codes/index.html) - Registering and managing codes
-- [AiiDA Job Submission](https://aiida.readthedocs.io/en/latest/topics/scheduler/index.html) - Job scheduler integration
-- [AiiDA SSH/SFTP Transport](https://aiida.readthedocs.io/en/latest/topics/transport/index.html) - Remote execution
+- [AiiDA How-To Guides](https://aiida.readthedocs.io/projects/aiida-core/en/stable/howto/index.html) - Computers, codes, schedulers, and transport
+- [AiiDA Plugins Reference](https://aiida.readthedocs.io/projects/aiida-core/en/stable/reference/core_plugins.html) - Core plugin reference
+- [AiiDA API Reference](https://aiida.readthedocs.io/projects/aiida-core/en/stable/reference/index.html) - Full API documentation
 
 ### Community and Support
-- [AiiDA Community Forum](https://discourse.aiida.net/) - Official community forum
+- [AiiDA Community Forum](https://aiida.discourse.group/) - Official community forum
 - [AiiDA GitHub Repository](https://github.com/aiidateam/aiida-core) - Main project repository
 - [AiiDA GitHub Discussions](https://github.com/aiidateam/aiida-core/discussions) - Community discussions
 - [AiiDA Slack Community](https://aiida.slack.com/) - Real-time chat (register on website)
 
 ### Example Repositories
-- [AiiDA Examples Repository](https://github.com/aiidateam/aiida-examples) - Official examples
-- [AiiDA Plugins Registry](https://aiida.readthedocs.io/en/latest/plugins/index.html) - Available plugins and extensions
 - [AiiDA Quantum ESPRESSO Plugin](https://github.com/aiidateam/aiida-quantumespresso) - Popular example plugin
-- [AiiDA SIESTA Plugin](https://github.com/aiidateam/aiida-siesta) - Another example plugin
+- [AiiDA Plugin Registry](https://aiidateam.github.io/aiida-registry/) - Community plugin directory
 
 ### Academic and Research
 - [AiiDA Paper: Automated Interactive Infrastructure](https://doi.org/10.1038/s41524-020-00472-7) - Main AiiDA paper
@@ -169,12 +152,10 @@ This document provides curated links to official documentation, tutorials, commu
 
 ### Workflow Management Concepts
 - [Workflow Management Systems Survey](https://arxiv.org/abs/2210.02840) - Comprehensive survey of workflow systems
-- [Parallel Computing Patterns](https://www.apress.com/us/book/9781430243664) - Common patterns in parallel workflows
-- [Reproducible Research in Computational Science](https://science.sciencemag.org/content/334/6060/1226) - Best practices for reproducibility
 
 ### HPC and NERSC-Specific Resources
 - [NERSC User Portal](https://www.nersc.gov/) - Main NERSC information
-- [NERSC Perlmutter Documentation](https://docs.nersc.gov/systems/perlmutter/) - Perlmutter-specific guidance
+- [NERSC Perlmutter Documentation](https://docs.nersc.gov/systems/perlmutter/architecture/) - Perlmutter architecture and specs
 - [NERSC Job Scheduling Guide](https://docs.nersc.gov/jobs/) - Slurm and job submission
 - [NERSC Workflow Tools](https://docs.nersc.gov/jobs/workflow/) - NERSC's workflow documentation
 - [NERSC Profiling and Performance](https://docs.nersc.gov/tools/performance/) - Performance optimization
@@ -209,16 +190,13 @@ This document provides curated links to official documentation, tutorials, commu
 
 ### Conference Proceedings
 - [ECP Annual Meetings](https://www.exascaleproject.org/) - Exascale Computing Project
-- [SC Conference Series](https://sc23.supercomputing.org/) - International HPC conference
-- [PEARC Conference](https://www.pearc21.pearc.acm.org/) - Practice & Experience in Advanced Research Computing
 
 ### Journals and Publications
 - [ACM Transactions on Mathematical Software](https://toms.acm.org/) - HPC software papers
-- [The International Journal of High Performance Computing Applications](https://journals.sagepub.com/home/hpc) - HPC research
+- [International Journal of High Performance Computing Applications](https://journals.sagepub.com/home/hpc) - HPC research
 - [Nature Computational Science](https://www.nature.com/natcomputsci/) - Computational science research
 
 ### Newsletters and Blogs
-- [NERSC News](https://www.nersc.gov/news-and-publications/newsletters/) - NERSC updates
 - [Lawrence Livermore Lab Computing](https://computing.llnl.gov/) - LLNL research and tools
 - [HPC User Forum](https://www.hpcuserforum.com/) - Community updates
 
@@ -251,4 +229,4 @@ Found an outdated link? Discover a new resource? Have feedback about these mater
 - Open an issue on the GitHub repository for broken links or suggestions
 - Contact the seminar organizers for significant content updates
 
-Last updated: March 2026
+Last updated: May 2026

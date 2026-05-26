@@ -690,7 +690,7 @@ verdi presto --use-postgres
 ## 5. Resources
 
 **NERSC Documentation:**
-- [Perlmutter User Guide](https://docs.nersc.gov/systems/perlmutter/)
+- [Perlmutter Architecture](https://docs.nersc.gov/systems/perlmutter/architecture/)
 - [File Systems](https://docs.nersc.gov/filesystems/)
 - [Running Jobs](https://docs.nersc.gov/jobs/)
 - [Workflow Tools at NERSC](https://docs.nersc.gov/jobs/workflow/)
@@ -698,4 +698,3 @@ verdi presto --use-postgres
 
 **Workflow Tools:**
 - [GNU Parallel at NERSC](https://docs.nersc.gov/jobs/workflow/gnuparallel/)
-- [Best Practices for Many-Task Workflows](https://docs.nersc.gov/jobs/workflow/best-practices/)

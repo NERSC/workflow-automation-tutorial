@@ -20,4 +20,4 @@ Expected: 2.3.0
 ## See Also
 
 - Section 1 examples: `01-signac/`
-- Official docs: https://docs.signac.io/
+- Official docs: https://signac.readthedocs.io/en/latest/

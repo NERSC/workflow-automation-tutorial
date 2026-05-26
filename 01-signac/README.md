@@ -42,5 +42,5 @@ This directory contains three examples demonstrating signac's progression:
 
 ## Further Reading
 
-- [signac official documentation](https://signac.io/)
-- [signac-flow for HPC](https://signac.io/signac-flow/)
+- [signac official documentation](https://signac.readthedocs.io/en/latest/)
+- [signac-flow for HPC](https://signac.readthedocs.io/projects/flow/en/latest/)

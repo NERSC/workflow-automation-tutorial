@@ -1073,7 +1073,7 @@ If you encounter issues not covered here:
 
 1. Check official documentation:
    - GNU Parallel: https://www.gnu.org/software/parallel/
-   - signac: https://docs.signac.io/
+   - signac: https://signac.readthedocs.io/en/latest/
    - Maestro: https://maestrowf.readthedocs.io/
    - Merlin: https://merlin.readthedocs.io/
    - AiiDA: https://aiida.readthedocs.io/
@@ -1088,6 +1088,6 @@ If you encounter issues not covered here:
    - Phone: 1-510-486-8600
 
 4. Review NERSC documentation:
-   - Perlmutter Guide: https://docs.nersc.gov/systems/perlmutter/
+   - Perlmutter Guide: https://docs.nersc.gov/systems/perlmutter/architecture/
    - File Systems: https://docs.nersc.gov/filesystems/
    - Job Scheduling: https://docs.nersc.gov/jobs/
