@@ -11,8 +11,8 @@ study:
     description: Generate input data for simulation
     run:
       cmd: |
-        bash $(SPECROOT)/scripts/prepare.sh $(OUTPUT_PATH)/input.dat
-        echo "Prepared input data at $(OUTPUT_PATH)/input.dat"
+        bash $(SPECROOT)/scripts/prepare.sh $(WORKSPACE)/input.dat
+        echo "Prepared input data at $(WORKSPACE)/input.dat"
 
   - name: simulate
     description: Run simulation using prepared data
@@ -20,9 +20,9 @@ study:
       cmd: |
         python $(SPECROOT)/scripts/simulate.py \
           $(prepare.workspace)/input.dat \
-          $(OUTPUT_PATH)/results.txt \
+          $(WORKSPACE)/results.txt \
           $(SLEEP_TIME)
-        echo "Simulation complete, results at $(OUTPUT_PATH)/results.txt"
+        echo "Simulation complete, results at $(WORKSPACE)/results.txt"
       depends: [prepare]
 
   - name: analyze
@@ -31,8 +31,8 @@ study:
       cmd: |
         python $(SPECROOT)/scripts/analyze.py \
           $(simulate.workspace)/results.txt \
-          $(OUTPUT_PATH)/summary.txt
-        echo "Analysis complete, summary at $(OUTPUT_PATH)/summary.txt"
+          $(WORKSPACE)/summary.txt
+        echo "Analysis complete, summary at $(WORKSPACE)/summary.txt"
       depends: [simulate]
 
   - name: visualize
@@ -41,6 +41,6 @@ study:
       cmd: |
         python $(SPECROOT)/scripts/visualize.py \
           $(analyze.workspace)/summary.txt \
-          $(OUTPUT_PATH)/plot.txt
-        echo "Visualization complete, plot at $(OUTPUT_PATH)/plot.txt"
+          $(WORKSPACE)/plot.txt
+        echo "Visualization complete, plot at $(WORKSPACE)/plot.txt"
       depends: [analyze]
