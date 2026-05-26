@@ -8,7 +8,7 @@ without requiring actual simulations to complete.
 import signac
 import numpy as np
 
-project = signac.get_project()
+project = signac.get_project("../example1-parameter-space")
 
 np.random.seed(42)
 

@@ -4,7 +4,7 @@
 import signac
 import numpy as np
 
-project = signac.get_project()
+project = signac.get_project("../example1-parameter-space")
 
 # Query jobs by parameter: find all jobs with temperature >= 400
 high_temp_jobs = project.find_jobs({"temperature": {"$gte": 400}})
