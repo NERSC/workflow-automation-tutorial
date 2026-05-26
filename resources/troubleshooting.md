@@ -1011,10 +1011,10 @@ Use correct SLURM parameters for your project:
 sacctmgr show user $USER format=Account
 
 # Use in workflow configuration
-# GNU Parallel / Maestro / Merlin / AiiDA all need:
+# GNU Parallel / Maestro / Merlin / AiiDA all need (on Perlmutter):
 #SBATCH --account=m1234   # Your valid account
-#SBATCH --partition=regular  # or gpu, debug
-#SBATCH --qos=normal  # or batch, interactive
+#SBATCH --constraint=cpu  # or gpu (mandatory on Perlmutter)
+#SBATCH --qos=regular     # or debug for quick testing
 
 # Example for Maestro:
 # Add to batch block: account: m1234

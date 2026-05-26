@@ -25,7 +25,7 @@ setup (local) → compute (Slurm job) → postprocess (local)
 - **Scheduler:** Slurm
 - **Partitions:** Auto-selected by Slurm from `--constraint` (leave `queue` empty)
 - **Account:** Your NERSC repository (e.g., `m1234`)
-- **QOS:** `regular` (default), `debug` (30 min limit for testing, max 4 nodes)
+- **QOS:** `regular` (default), `debug` (30 min limit for testing, max 4 nodes, max 5 concurrent per user)
 - **Constraint:** `cpu` or `gpu` (mandatory on Perlmutter)
 
 **Maestro batch block:**
@@ -179,7 +179,7 @@ postprocess     | FINISHED   | 2s       | 2s
 
 ## Exercises
 
-1. Change `qos` to `regular` and walltime to `00:30:00` - compare scheduling behavior
+1. Change `qos` to `debug` and walltime to `00:10:00` — observe the 30-minute walltime and 4-node limits of debug QOS, then switch back to `regular`
 2. Increase `nodes: 2` - verify Maestro generates correct SBATCH directives
 3. Remove `#SBATCH --constraint=cpu` from the compute cmd and run `maestro run --dry --autoyes workflow.yaml` - examine the generated Slurm script to understand why the constraint is required
 4. Change `--constraint=cpu` to `--constraint=gpu` and add `--gpus=1` - observe what changes in the generated script

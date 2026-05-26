@@ -468,7 +468,6 @@ parallel -j 128 --delay 0.2 'srun -n1 ./task.sh {}' ::: inputs
 #!/bin/bash
 #SBATCH --job-name=signac-study
 #SBATCH --account=<your_account>
-#SBATCH --partition=cpu
 #SBATCH --constraint=cpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -516,7 +515,6 @@ signac run
 ```yaml
 batch:
   type: slurm
-  partition: cpu
   constraint: cpu
   account: "<your_account>"
   qos: regular
@@ -563,7 +561,6 @@ $SCRATCH/maestro-logs/study_<timestamp>/
 #!/bin/bash
 #SBATCH --job-name=merlin-workers
 #SBATCH --account=<your_account>
-#SBATCH --partition=cpu
 #SBATCH --constraint=cpu
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=128
@@ -626,7 +623,6 @@ verdi computer configure core.ssh perlmutter  # or edit ~/.ssh/config
 #!/bin/bash
 #SBATCH --job-name={aiida_job_name}
 #SBATCH --account=<your_account>
-#SBATCH --partition=cpu
 #SBATCH --constraint=cpu
 #SBATCH --nodes={num_cores_physical}
 #SBATCH --ntasks={num_cores_physical}
@@ -642,7 +638,6 @@ verdi computer configure core.ssh perlmutter  # or edit ~/.ssh/config
 #!/bin/bash
 #SBATCH --job-name=aiida-daemon
 #SBATCH --account=<your_account>
-#SBATCH --partition=cpu
 #SBATCH --constraint=cpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
