@@ -2,10 +2,6 @@ description:
   name: param-sweep
   description: Parameter sweep with workflow dependencies and result aggregation
 
-env:
-  variables:
-    OUTPUT_DIR: $(WORKSPACE)
-
 global.parameters:
   SIZE:
     values: [10, 20, 30]
@@ -18,7 +14,7 @@ study:
       cmd: |
         python $(SPECROOT)/scripts/run_simulation.py \
           --size $(SIZE) \
-          --output $(OUTPUT_PATH)/output.txt
+          --output $(WORKSPACE)/output.txt
         echo "Completed simulation for SIZE=$(SIZE)"
 
   - name: aggregate_results
@@ -26,11 +22,8 @@ study:
     run:
       cmd: |
         python $(SPECROOT)/scripts/aggregate_results.py \
-          --workspace $(SPECROOT)/../../$(WORKSPACE) \
-          --pattern "run_simulation_SIZE.*/output.txt" \
-          --output $(OUTPUT_PATH)/summary.txt
-        echo "Aggregation complete, summary at $(OUTPUT_PATH)/summary.txt"
+          --workspace $(OUTPUT_PATH) \
+          --pattern "run_simulation/SIZE.*/output.txt" \
+          --output $(WORKSPACE)/summary.txt
+        echo "Aggregation complete, summary at $(WORKSPACE)/summary.txt"
       depends: [run_simulation_*]
-      # NOTE: The workspace path "$(SPECROOT)/../../$(WORKSPACE)" is fragile and depends on the
-      # specific directory structure. This navigates up from the workflow spec directory to access
-      # the workspace. In production, consider using absolute paths or environment variables.

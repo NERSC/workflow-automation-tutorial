@@ -202,7 +202,7 @@ batch:
   type: slurm
   host: perlmutter
   bank: account_name
-  queue: regular
+  queue: ""
 
 study:
   - name: compute
