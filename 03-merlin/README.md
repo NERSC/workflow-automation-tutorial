@@ -65,7 +65,7 @@ If `merlin --version` prints `merlin 1.13.0`, you're ready to continue.
 
 Merlin uses Redis as a message broker to coordinate tasks between workers. For this tutorial, you'll start a local `redis-server` on the compute node where you run `merlin run-workers`.
 
-**Why compute node, not login node?** Redis binds to `localhost` (127.0.0.1) by default. A Redis process started on a login node is not reachable from compute nodes — workers on a compute node connect to `localhost` on *that* node, not the login node's. The result is `Connection refused` (errno 104). Running Redis, `merlin run`, and `merlin run-workers` all on the same compute node ensures they share the same `localhost`.
+**Do not run Redis on a login node.** Login nodes are shared — another participant's Redis may already be bound to port 6379, and yours will fail with `Address already in use`. Even if you succeed, workers on compute nodes connect to `localhost` on *their* node, not the login node's, so you'll get `Connection refused` (errno 104). Redis, `merlin run`, and `merlin run-workers` must all run on the same compute node.
 
 **Get a compute node allocation:**
 
@@ -74,6 +74,14 @@ salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
 ```
 
 Replace `ntrain4` with your account. If a training reservation is active, add `--reservation=<name>`.
+
+**Reservation full?** If the training reservation has no nodes available, you can get an allocation outside the reservation using the `interactive` QOS (up to 4 nodes, 4 hours):
+
+```bash
+salloc --nodes=1 --qos=interactive --time=00:30:00 --constraint=cpu --account=ntrain4
+```
+
+Each `salloc` gives you an exclusive compute node, so your Redis instance won't collide with other participants.
 
 **Inside the allocation, activate your environment:**
 
@@ -88,7 +96,9 @@ conda activate wf-seminar
 redis-server --daemonize yes --loglevel warning
 ```
 
-This starts Redis as a background process on port 6379. Verify it's running:
+If you see `Could not create server TCP listening socket *:6379: bind: Address already in use`, another Redis is already running on this node. This should not happen if you have your own `salloc` allocation — check that you are on a compute node (`hostname` should show something like `nid...`), not a login node.
+
+Verify Redis is running:
 
 ```bash
 redis-cli ping
