@@ -139,6 +139,16 @@ redis-cli shutdown
 
 If you end your allocation early, stop Redis first to avoid leaving orphaned processes.
 
+**Important:** If you run Merlin examples multiple times (e.g., repeating the tutorial or testing different configurations), **Celery worker processes from previous `merlin run-workers` invocations may still be running** and can interfere with new runs. You may see errors like "srun: Job step creation still disabled, retrying" or tasks that never start.
+
+**Before starting a new Merlin example, kill any stale workers:**
+
+```bash
+pkill -f "celery -A merlin worker"
+```
+
+This terminates all lingering Celery worker processes. Then verify Redis is still running and re-run your workflow.
+
 > **Production deployments:** For persistent Redis beyond this tutorial, see the [Redis setup guide](../resources/installation-guides/merlin-redis-setup.md).
 
 ## When to Use Merlin
