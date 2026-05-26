@@ -25,7 +25,7 @@ setup (local) → compute (Slurm job) → postprocess (local)
 - **Scheduler:** Slurm
 - **Partitions:** Auto-selected by Slurm from `--constraint` (leave `queue` empty)
 - **Account:** Your NERSC repository (e.g., `m1234`)
-- **QOS:** `regular` (default), `debug` (30 min limit, faster queue)
+- **QOS:** `regular` (default), `debug` (30 min limit for testing, max 4 nodes)
 - **Constraint:** `cpu` or `gpu` (mandatory on Perlmutter)
 
 **Maestro batch block:**
@@ -35,12 +35,12 @@ batch:
   host: perlmutter
   bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
   queue: ""
-  qos: debug
+  qos: regular
 ```
 
-The `queue` field is left empty so Slurm auto-selects the correct partition from the `--constraint` directive. Explicitly naming a partition alongside `qos: debug` can cause a `"does not match any supported policy"` error on Perlmutter.
+The `queue` field is left empty so Slurm auto-selects the correct partition from the `--constraint` directive. Explicitly naming a partition alongside `qos: regular` can cause a `"does not match any supported policy"` error on Perlmutter.
 
-The `qos` field is a native Maestro batch parameter — the Slurm adapter generates `#SBATCH --qos=debug` automatically.
+The `qos` field is a native Maestro batch parameter — the Slurm adapter generates `#SBATCH --qos=regular` automatically.
 
 ### Constraint Workaround
 
@@ -78,7 +78,7 @@ run:
 ```bash
 #SBATCH --nodes=1
 #SBATCH --time=00:10:00
-#SBATCH --qos=debug
+#SBATCH --qos=regular
 #SBATCH --constraint=cpu
 ```
 
@@ -195,7 +195,6 @@ postprocess     | FINISHED   | 2s       | 2s
 
 **❌ DON'T:**
 - Hardcode scheduler commands (use `$(LAUNCHER)`)
-- Use `debug` QOS for long-running jobs (30 min limit)
 - Request more resources than needed (wastes allocation)
 - Run compute workloads on login nodes (use Slurm)
 

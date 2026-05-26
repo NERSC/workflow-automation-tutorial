@@ -70,7 +70,7 @@ Merlin uses Redis as a message broker to coordinate tasks between workers. For t
 **Get a compute node allocation:**
 
 ```bash
-salloc --nodes=1 --qos=debug --time=00:30:00 --constraint=cpu --account=ntrain4
+salloc --nodes=1 --qos=regular --time=00:30:00 --constraint=cpu --account=ntrain4
 ```
 
 Replace `ntrain4` with your account. If a training reservation is active, add `--reservation=<name>`.

@@ -11,7 +11,7 @@ batch:
   host: perlmutter
   bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
   queue: ""
-  qos: debug
+  qos: regular
 
 study:
   - name: setup

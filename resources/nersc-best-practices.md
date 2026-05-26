@@ -112,11 +112,13 @@ Omitting `--constraint` allows Slurm to choose, which may cause inconsistent per
 
 ```bash
 #SBATCH --qos=regular      # Standard production jobs
-#SBATCH --qos=debug        # Short test jobs (max 30 min, max 4 nodes)
+#SBATCH --qos=debug        # Short test jobs (max 30 min, max 4 nodes, max 5 concurrent per user)
 #SBATCH --qos=shared       # Shared node access (<= 128 cores on CPU)
 ```
 
 **For workflow coordinators:** Use `--qos=workflow` (see section 1.3 below)
+
+**Note:** When submitting many jobs in a parameter sweep, use `--qos=regular` instead of debug due to the 5-job concurrency limit per user.
 
 #### Set Reasonable Time Limits
 
@@ -517,8 +519,8 @@ batch:
   partition: cpu
   constraint: cpu
   account: "<your_account>"
-  queue: regular
-  # Alternative: queue: debug for testing (max 30 min)
+  qos: regular
+  # Note: Use regular QOS for parameter sweeps (avoid debug's 5-job limit)
   time: 240  # minutes (4 hours)
   nodes: 4
 
@@ -533,8 +535,8 @@ study:
 ```
 
 **QOS selection:**
-- `regular`: Standard production jobs (default)
-- `debug`: Quick testing (max 30 min, max 4 nodes)
+- `regular`: Standard production jobs (default); recommended for multi-job workflows
+- `debug`: Quick testing only (max 30 min, max 4 nodes, max 5 concurrent per user)
 - `shared`: Multi-user node (<= 128 cores), if applicable
 
 **$SCRATCH usage:**
