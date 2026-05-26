@@ -131,23 +131,29 @@ results server connection: OK
 
 ### Cleanup
 
-When you're done with the Merlin tutorial, stop the Redis server:
+When you're done with the Merlin tutorial, stop workers and then shut down Redis in the correct order.
+
+**Important:** If you run Merlin examples multiple times (e.g., repeating the tutorial or testing different configurations), **Celery worker processes from previous `merlin run-workers` invocations may still be running** and can interfere with new runs. Stopping Redis first disconnects workers from the broker, causing them to hang. Always stop workers before shutting down Redis.
+
+**First, gracefully stop workers:**
 
 ```bash
-redis-cli shutdown
+merlin stop-workers
 ```
 
-If you end your allocation early, stop Redis first to avoid leaving orphaned processes.
-
-**Important:** If you run Merlin examples multiple times (e.g., repeating the tutorial or testing different configurations), **Celery worker processes from previous `merlin run-workers` invocations may still be running** and can interfere with new runs. You may see errors like "srun: Job step creation still disabled, retrying" or tasks that never start.
-
-**Before starting a new Merlin example, kill any stale workers:**
+Merlin's `stop-workers` command gracefully terminates workers via the Celery control plane. If this doesn't work (e.g., Redis is already down), use `pkill` as a fallback:
 
 ```bash
 pkill -f "celery -A merlin worker"
 ```
 
-This terminates all lingering Celery worker processes. Then verify Redis is still running and re-run your workflow.
+**Then, stop the Redis server:**
+
+```bash
+redis-cli shutdown
+```
+
+If you see errors like "srun: Job step creation still disabled, retrying" when starting a new Merlin example, stale workers may still be holding job steps. Run the commands above to clean them up, then re-run your workflow.
 
 > **Production deployments:** For persistent Redis beyond this tutorial, see the [Redis setup guide](../resources/installation-guides/merlin-redis-setup.md).
 
