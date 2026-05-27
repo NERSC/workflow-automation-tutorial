@@ -54,7 +54,7 @@ Workflow completed! PK: 7
 Explore the provenance:
   verdi process list -a                  # List all workflows
   verdi process show 7                   # Inspect this workflow
-  verdi node graph generate 7            # Visualize provenance graph
+  verdi node graph generate 7 --output-format png  # Visualize provenance graph
 ```
 
 (PK numbers will vary based on your profile state.)
@@ -68,8 +68,8 @@ verdi process list -a
 # Inspect the workflow details
 verdi process show 7
 
-# Generate a visual provenance graph (creates PDF)
-verdi node graph generate 7
+# Generate a visual provenance graph (creates PNG, viewable in JupyterLab)
+verdi node graph generate 7 --output-format png
 ```
 
 ## Key Concepts
@@ -88,7 +88,7 @@ verdi node graph generate 7
 
 2. **Trace a result:** Pick a PK from `verdi process list -a` and run `verdi process show <PK>`. Can you identify the input value and all intermediate results?
 
-3. **Visualize the graph:** Run `verdi node graph generate <PK>` to create a PDF showing the provenance graph. How many nodes does a single workflow run create?
+3. **Visualize the graph:** Run `verdi node graph generate <PK> --output-format png` to create a PNG showing the provenance graph. How many nodes does a single workflow run create?
 
 ## Progression
 

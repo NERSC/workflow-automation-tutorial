@@ -63,4 +63,4 @@ if __name__ == '__main__':
     print(f"\nExplore the provenance:")
     print(f"  verdi process list -a                  # List all workflows")
     print(f"  verdi process show {pk}           # Inspect this workflow")
-    print(f"  verdi node graph generate {pk}    # Visualize provenance graph")
+    print(f"  verdi node graph generate {pk} --output-format png  # Visualize provenance graph")

@@ -35,11 +35,11 @@ Generate a visual graph for any workflow you ran in example 1:
 # Get a PK from your previous runs
 verdi process list -a
 
-# Generate a provenance graph (creates a PDF)
-verdi node graph generate <PK>
-
-# Specify output format and filename
+# Generate a provenance graph (creates a PNG, viewable in JupyterLab)
 verdi node graph generate <PK> --output-format png
+
+# Or generate as PDF (vector format, better for publications)
+verdi node graph generate <PK>
 ```
 
 The graph shows every data node (inputs, outputs) and process node (calcfunctions) connected by provenance links.
@@ -53,10 +53,10 @@ For any result, answer "where did this come from?":
 verdi node show <PK>
 
 # Generate ancestor tree — trace all inputs recursively
-verdi node graph generate <PK> --ancestor-depth 999
+verdi node graph generate <PK> --output-format png --ancestor-depth 999
 
 # Generate descendant tree — trace all outputs recursively
-verdi node graph generate <PK> --descendant-depth 999
+verdi node graph generate <PK> --output-format png --descendant-depth 999
 ```
 
 ### Exporting Provenance Archives
@@ -83,11 +83,11 @@ Archives contain the complete provenance graph: inputs, outputs, code versions, 
 
 After generating a graph for a workflow PK:
 ```
-$ verdi node graph generate 7
-Success: Output written to 7.dot.pdf
+$ verdi node graph generate 7 --output-format png
+Success: Output written to 7.dot.png
 ```
 
-The PDF shows a directed graph with boxes for data nodes and ovals for process nodes, connected by arrows showing provenance links.
+The PNG shows a directed graph with boxes for data nodes and ovals for process nodes, connected by arrows showing provenance links.
 
 ---
 

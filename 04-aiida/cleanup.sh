@@ -3,8 +3,8 @@
 #
 # Restores the directory to its freshly-cloned state by removing files
 # generated when the AiiDA examples are run:
-#   **/<PK>.dot.pdf               (provenance graph PDFs from verdi node graph generate)
 #   **/<PK>.dot.png               (provenance graph PNGs from verdi node graph generate --output-format png)
+#   **/<PK>.dot.pdf               (provenance graph PDFs from verdi node graph generate)
 #   **/*.aiida                    (provenance archives from verdi archive create)
 #   **/__pycache__/               (Python bytecode caches)
 #

@@ -163,7 +163,7 @@ python workflow.py --param 42
 python ../example2-provenance/query_provenance.py
 
 # Visualize the graph
-verdi node graph generate <PK>
+verdi node graph generate <PK> --output-format png
 ```
 
 ## Provenance Storage and Querying
