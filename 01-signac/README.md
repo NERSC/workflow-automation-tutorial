@@ -11,7 +11,7 @@ signac provides parameter space organization and filesystem-based state manageme
 ## When to Use signac
 
 ✅ **Good for:**
-- Managing experiments with 2-5 dimensional parameter spaces
+- Managing parameter sweeps of moderate size (hundreds to tens of thousands of jobs)
 - Filesystem-based state tracking (no database needed)
 - Aggregating results across parameter combinations
 - Restart and continuation of parameter sweeps
