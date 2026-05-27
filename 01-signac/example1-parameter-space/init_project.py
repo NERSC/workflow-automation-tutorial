@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Initialize signac project with 2D parameter space (temperature x pressure)."""
 import signac
 

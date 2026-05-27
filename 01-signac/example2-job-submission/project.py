@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """signac-flow project with Slurm integration.
 
 This example demonstrates how signac-flow generates Slurm submission scripts

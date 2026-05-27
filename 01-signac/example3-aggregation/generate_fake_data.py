@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Generate fake results data for demonstration.
 
 This script populates job result files so we can demonstrate aggregation

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Placeholder simulation script.
 
 This script runs in the job's workspace directory. It has access to the job's

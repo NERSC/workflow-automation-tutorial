@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Query completed jobs and aggregate results across parameter space."""
 import signac
 import numpy as np
