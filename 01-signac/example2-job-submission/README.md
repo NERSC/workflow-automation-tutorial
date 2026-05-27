@@ -65,7 +65,7 @@ signac-flow forwards extra flags directly to `sbatch` via `--` on the submit com
 
 ```bash
 # Submit with account and reservation (training session)
-python project.py submit -- -A ntrain4 --constraint=cpu --reservation=<reservation_name>
+python project.py submit -- -A ntrain3 --constraint=cpu --reservation=workflow_training
 
 # Submit with account only (outside training reservation)
 python project.py submit -- -A <your_account> --constraint=cpu

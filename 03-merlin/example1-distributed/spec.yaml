@@ -9,7 +9,7 @@ env:
 batch:
   type: slurm
   host: perlmutter
-  bank: ntrain4  # Change to your account
+  bank: ntrain3  # Change to your account
 
 global.parameters:
   PARAM:

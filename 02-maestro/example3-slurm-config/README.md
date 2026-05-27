@@ -33,7 +33,7 @@ setup (local) → compute (Slurm job) → postprocess (local)
 batch:
   type: slurm
   host: perlmutter
-  bank: ntrain4            # CHANGE THIS to your NERSC account (e.g., m1234)
+  bank: ntrain3            # CHANGE THIS to your NERSC account (e.g., m1234)
   queue: ""
   qos: regular
 ```
@@ -107,7 +107,7 @@ Maestro provides `$(LAUNCHER)` to abstract scheduler-specific launch commands:
 
 ```yaml
 batch:
-  bank: ntrain4  # CHANGE THIS to your account (e.g., m1234)
+  bank: ntrain3  # CHANGE THIS to your account (e.g., m1234)
 ```
 
 **Submit workflow:**

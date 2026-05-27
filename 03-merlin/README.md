@@ -70,15 +70,15 @@ Merlin uses Redis as a message broker to coordinate tasks between workers. For t
 **Get a compute node allocation:**
 
 ```bash
-salloc --nodes=1 --qos=regular --time=00:30:00 --constraint=cpu --account=ntrain4
+salloc --nodes=1 --qos=regular --time=00:30:00 --constraint=cpu --account=ntrain3
 ```
 
-Replace `ntrain4` with your account. If a training reservation is active, add `--reservation=<name>`.
+Replace `ntrain3` with your account. If a training reservation is active, add `--reservation=workflow_training`.
 
 **Reservation full?** If the training reservation has no nodes available, you can get an allocation outside the reservation using the `interactive` QOS (up to 4 nodes, 4 hours):
 
 ```bash
-salloc --nodes=1 --qos=interactive --time=00:30:00 --constraint=cpu --account=ntrain4
+salloc --nodes=1 --qos=interactive --time=00:30:00 --constraint=cpu --account=ntrain3
 ```
 
 Each `salloc` gives you an exclusive compute node, so your Redis instance won't collide with other participants.
@@ -235,7 +235,7 @@ env:
 
 batch:
   type: slurm
-  bank: ntrain4
+  bank: ntrain3
 
 study:
   - name: step1

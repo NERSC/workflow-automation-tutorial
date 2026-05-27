@@ -24,8 +24,8 @@ Last verified: 2026-05-19
 - Sections 00-04 each have a `cleanup.sh` that removes runtime artifacts to restore a freshly-cloned state
 - Examples use placeholder computations (sleep, echo, basic math) not real science
 - All examples must run on Perlmutter without modification after env setup
-- Slurm account `ntrain4` used in job scripts (attendees change to their own)
-- Training event reservation: attendees pass `-A ntrain4 --reservation=<name>` directly as CLI flags to `sbatch`
+- Slurm account `ntrain3` used in job scripts (attendees change to their own)
+- Training event reservation: attendees pass `-A ntrain3 --reservation=workflow_training` directly as CLI flags to `sbatch`
 - Merlin commands must be run from `03-merlin/` so `./app.yaml` is auto-discovered (Merlin checks `./app.yaml` before `~/.merlin/app.yaml`)
 
 ## Invariants

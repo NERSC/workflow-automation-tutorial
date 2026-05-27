@@ -56,7 +56,7 @@ squeue -u $USER
 cat slurm-*.out
 ```
 
-**Training event?** Pass `-A ntrain4 --reservation=<name>` as CLI flags: `sbatch -A ntrain4 --reservation=<name> submit_parallel_job.sh`
+**Training event?** Pass `-A ntrain3 --reservation=workflow_training` as CLI flags: `sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh`
 
 **Expected output in slurm-*.out:**
 
