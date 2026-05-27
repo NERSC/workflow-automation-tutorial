@@ -1,6 +1,6 @@
 # HPC Workflow Management Tools Seminar
 
-A hands-on 3-hour seminar teaching HPC researchers how to select and use workflow management tools for computational research on NERSC's Perlmutter supercomputer.
+A hands-on 4-hour seminar teaching HPC researchers how to select and use workflow management tools for computational research on NERSC's Perlmutter supercomputer.
 
 ## Overview
 
@@ -80,7 +80,7 @@ Each section directory (00-gnu-parallel through 04-aiida) contains a README with
 
 All examples are designed to execute on Perlmutter without modification after setup.
 
-## Seminar Agenda (3 hours)
+## Seminar Agenda (4 hours)
 
 | Time | Section | Tool | Focus |
 |------|---------|------|-------|
