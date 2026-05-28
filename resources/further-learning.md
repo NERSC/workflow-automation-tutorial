@@ -219,14 +219,4 @@ This document provides curated links to official documentation, tutorials, commu
 - Check `resources/installation-guides/` for per-tool setup instructions
 - Review example sections in main documentation (00-gnu-parallel through 03-merlin) for running code
 
----
-
-## Contributing and Feedback
-
-Found an outdated link? Discover a new resource? Have feedback about these materials?
-
-- Check the seminar repository README for contribution guidelines
-- Open an issue on the GitHub repository for broken links or suggestions
-- Contact the seminar organizers for significant content updates
-
 Last updated: May 2026
