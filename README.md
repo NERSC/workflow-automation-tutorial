@@ -40,12 +40,6 @@ workflow_tutorial_research/
 
 ## Setup Instructions
 
-### Prerequisites
-
-Ensure you have:
-- NERSC account with Perlmutter access
-- Basic Slurm allocation for running examples
-
 ### Installation
 
 **On Perlmutter:**
