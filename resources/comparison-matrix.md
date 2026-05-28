@@ -140,18 +140,6 @@ When a tool becomes insufficient, migration paths include:
 
 ---
 
-## Quick Decision Table
-
-| Question | Tool A | Tool B | Tool C | Tool D | Tool E |
-|----------|--------|--------|--------|--------|--------|
-| **"What's simplest to start?"** | GNU Parallel | signac | Maestro | Merlin | AiiDA |
-| **"What scales largest?"** | GNU Parallel | signac | Maestro | **Merlin** | AiiDA |
-| **"What's best for HPC?"** | GNU Parallel | signac | **Maestro** | **Merlin** | AiiDA |
-| **"What has best provenance?"** | GNU Parallel | signac | Maestro | Merlin | **AiiDA** |
-| **"What works best on NERSC?"** | **GNU Parallel** | **signac** | **Maestro** | Merlin | AiiDA |
-
----
-
 ## Detailed Comparison by Dimension
 
 ### Interface Deep Dive
