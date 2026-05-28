@@ -4,7 +4,7 @@
 #SBATCH --constraint=cpu
 #SBATCH --qos=regular
 #SBATCH --time=00:30:00
-#SBATCH --account=<your_account>  # REPLACE with your NERSC account
+#SBATCH --account=ntrain3  # Change to your account
 #SBATCH --output=slurm-%j.out
 
 # Slurm Integration Example for GNU Parallel on Perlmutter
