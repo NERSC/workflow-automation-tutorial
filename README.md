@@ -47,7 +47,7 @@ workflow_tutorial_research/
 ```bash
 # Clone the repository
 cd $SCRATCH
-git clone <repository-url> workflow_tutorial_research
+git clone https://github.com/NERSC/workflow-automation-tutorial.git workflow_tutorial_research
 cd workflow_tutorial_research
 
 # Load Python module
@@ -63,29 +63,6 @@ python -c "import maestrowf; print('maestro-wf installed')"
 python -c "import merlin; print(f'merlin {merlin.__version__}')"
 python -c "import aiida; print(f'aiida-core {aiida.__version__}')"
 ```
-
-### Verification
-
-Each section directory (00-gnu-parallel through 04-aiida) contains a README with:
-- Concept overview
-- When to use this tool
-- Links to official documentation
-- Runnable examples
-
-All examples are designed to execute on Perlmutter without modification after setup.
-
-## Seminar Agenda (4 hours)
-
-| Time | Section | Tool | Focus |
-|------|---------|------|-------|
-| 0:00-0:30 | Section 0 | GNU Parallel | Simple task parallelization baseline |
-| 0:30-0:55 | Section 1 | signac | Parameter space organization |
-| 0:55-1:25 | Section 2 | Maestro | DAG-based workflow specification |
-| 1:25-2:05 | Section 3 | Merlin | Distributed coordination at massive scale |
-| 2:05-2:40 | Section 4 | AiiDA | Comprehensive provenance tracking |
-| 2:40-2:50 | Wrap-up | All | Tool comparison matrix and decision framework |
-
-Each section follows the pattern: **motivation → concepts → demo → hands-on → decision criteria**
 
 ## Resources
 
