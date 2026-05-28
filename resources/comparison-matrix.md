@@ -28,13 +28,13 @@ A comprehensive comparison of five workflow management tools across five critica
 
 ### Dimension 2: Infrastructure Requirements
 
-| Tool | Required Backend | SPIN Deployment | Node Dependencies | Setup Complexity |
-|------|------------------|-----------------|-------------------|-------------------|
-| **GNU Parallel** | None | No special handling | None | None - pre-installed on Perlmutter |
-| **signac** | None (local only) | Standard job submission | Python 3.6+ | Low - pip install sufficient |
-| **Maestro** | None (local only) | Standard job submission | Python 3.6+, optional HPC plugins | Low - pip install, optional features |
-| **Merlin** | Redis server (optional), PostgreSQL (optional for production) | Requires persistent worker processes | Python 3.8+, celery, Redis/RabbitMQ for distributed mode | Medium - separate server infrastructure needed |
-| **AiiDA** | SQLite (training via `verdi presto`) or PostgreSQL + RabbitMQ (production) | Training: none. Production: persistent daemon required | Python 3.8+, multi-node capable | Low (training) / High (production) |
+| Tool | Required Backend | External Services | Node Dependencies | Setup Complexity |
+|------|------------------|-------------------|-------------------|-------------------|
+| **GNU Parallel** | None | None | None | None - pre-installed on Perlmutter |
+| **signac** | None (local only) | None | Python 3.6+ | Low - pip install sufficient |
+| **Maestro** | None (local only) | None | Python 3.6+, optional HPC plugins | Low - pip install, optional features |
+| **Merlin** | Redis server (optional), PostgreSQL (optional for production) | Redis | Python 3.8+, celery, Redis/RabbitMQ for distributed mode | Medium - separate server infrastructure needed |
+| **AiiDA** | SQLite (training via `verdi presto`) or PostgreSQL + RabbitMQ (production) | PostgreSQL, RabbitMQ, daemon | Python 3.8+, multi-node capable | Low (training) / High (production) |
 
 **SPIN Compatibility Notes:**
 - **GNU Parallel:** Runs within allocation, no special SPIN setup needed
