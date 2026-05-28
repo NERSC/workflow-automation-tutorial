@@ -49,7 +49,7 @@ SPIN is NERSC's Kubernetes-based platform for persistent services. It hosts Post
 
 ## Deployment Path 2: Workflow QOS
 
-Run PostgreSQL, RabbitMQ, and the AiiDA daemon in a long-running Slurm job under the `workflow` quality-of-service tier. The `workflow` QOS allows jobs to run for up to 5 days continuously.
+Run PostgreSQL, RabbitMQ, and the AiiDA daemon in a long-running Slurm job under the `workflow` quality-of-service tier. The `workflow` QOS allows jobs to run for up to 90 days continuously.
 
 **Best for:**
 - Single-user campaigns with a defined time window
