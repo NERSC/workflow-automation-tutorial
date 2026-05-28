@@ -11,6 +11,7 @@ batch:
   type: slurm
   host: perlmutter
   bank: ntrain3  # Change to your account
+  reservation: workflow_training
 
 merlin:
   resources:

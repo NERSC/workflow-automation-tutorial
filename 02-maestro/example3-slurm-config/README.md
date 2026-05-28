@@ -36,6 +36,7 @@ batch:
   bank: ntrain3            # CHANGE THIS to your NERSC account (e.g., m1234)
   queue: ""
   qos: regular
+  reservation: workflow_training
 ```
 
 The `queue` field is left empty so Slurm auto-selects the correct partition from the `--constraint` directive. Explicitly naming a partition alongside `qos: regular` can cause a `"does not match any supported policy"` error on Perlmutter.
@@ -108,6 +109,7 @@ Maestro provides `$(LAUNCHER)` to abstract scheduler-specific launch commands:
 ```yaml
 batch:
   bank: ntrain3  # CHANGE THIS to your account (e.g., m1234)
+  reservation: workflow_training
 ```
 
 **Submit workflow:**

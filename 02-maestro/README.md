@@ -201,8 +201,9 @@ Maestro submits jobs to Slurm via the `batch` block:
 batch:
   type: slurm
   host: perlmutter
-  bank: account_name
+  bank: ntrain3
   queue: ""
+  reservation: workflow_training
 
 study:
   - name: compute
