@@ -25,7 +25,7 @@ Production workflows need:
 Combine GNU Parallel with Slurm batch scripts:
 
 ```bash
-sbatch submit_parallel_job.sh
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh
 ```
 
 The batch script uses:
@@ -47,7 +47,7 @@ The batch script uses:
 cd example3-slurm-integration
 
 # Submit the job
-sbatch submit_parallel_job.sh
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh
 
 # Check status
 squeue -u $USER
@@ -55,8 +55,6 @@ squeue -u $USER
 # Check output after completion
 cat slurm-*.out
 ```
-
-**Training event?** Pass `-A ntrain3 --reservation=workflow_training` as CLI flags: `sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh`
 
 **Expected output in slurm-*.out:**
 
@@ -101,7 +99,7 @@ Seq  Host  Starttime  JobRuntime  Send  Receive  Exitval  Signal  Command
 If tasks fail (power outage, node failure, bug), resubmit the SAME script:
 
 ```bash
-sbatch submit_parallel_job.sh  # Reruns automatically
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh  # Reruns automatically
 ```
 
 `--resume-failed` reads `parallel_job.log`, skips successful tasks (Exitval=0), and reruns only failed ones.
@@ -113,7 +111,6 @@ sbatch submit_parallel_job.sh  # Reruns automatically
 #SBATCH --constraint=cpu      # Request CPU nodes (not GPU)
 #SBATCH --qos=regular          # Standard QOS
 #SBATCH --time=00:30:00        # 30-minute limit
-#SBATCH --account=<your_account>
 ```
 
 ## Sbatch Script Breakdown
@@ -164,7 +161,7 @@ GNU Parallel reads this file and executes each line in parallel (up to `-j` limi
 
 **Initial submission:**
 ```bash
-sbatch submit_parallel_job.sh
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh
 ```
 
 **If 10 tasks fail (out of 100):**
@@ -174,7 +171,7 @@ grep -v "^Seq" parallel_job.log | awk '$7 != 0' | wc -l
 # Shows: 10 failed tasks
 
 # Resubmit the SAME script (no changes needed)
-sbatch submit_parallel_job.sh
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh
 # --resume-failed automatically reruns only the 10 failed tasks
 ```
 
@@ -198,7 +195,7 @@ for alpha in 0.1 0.5 0.9; do
 done > task_list.txt
 
 # Submit to Perlmutter
-sbatch submit_parallel_job.sh
+sbatch -A ntrain3 --reservation=workflow_training submit_parallel_job.sh
 
 # All 1000 tasks run across 128 cores
 # If any fail, resubmit to retry only failures
