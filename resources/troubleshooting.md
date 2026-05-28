@@ -1085,7 +1085,6 @@ If you encounter issues not covered here:
 
 3. Contact NERSC User Support:
    - Email: help@nersc.gov
-   - Phone: 1-510-486-8600
 
 4. Review NERSC documentation:
    - Perlmutter Guide: https://docs.nersc.gov/systems/perlmutter/architecture/
